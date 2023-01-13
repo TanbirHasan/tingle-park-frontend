@@ -68,3 +68,7 @@
     transform: translateX(-100%);
     transition: 500ms ease;
 }
+
+.active {
+    color: #FFC800;
+}

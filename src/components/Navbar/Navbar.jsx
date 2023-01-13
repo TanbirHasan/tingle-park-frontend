@@ -70,16 +70,16 @@ const Navbar = () => {
 
 	const menuRoutes = (
 		<>
-			<NavLink>
+			<NavLink to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/shop-detail'}>
 				<li>Shop Detail</li>
 			</NavLink>
-			<NavLink className={'group inline-block relative'}>
+			<NavLink to={'/pages'} className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
 					className="flex items-center lg:justify-center ">
@@ -105,7 +105,7 @@ const Navbar = () => {
 					</ul>
 				</div>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
 		</>
