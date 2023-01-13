@@ -93,6 +93,7 @@ const Navbar = () => {
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
+							
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className=" hover:bg-white py-2 px-4 block ">
 							<li className="text-black">Checkout</li>

@@ -5,6 +5,11 @@ import { AiFillCaretDown } from 'react-icons/ai';
 const TopNavbar = () => {
 	const [openAccountDropdown, setOpenAccountDropdown] = useState(false);
 
+	const activeStyle = {
+		backgroundColor: '#FFC800',
+		color: 'black',
+	};
+
 	return (
 		<div className="bg-[#F5F5F5] px-10 lg:h-[45px]">
 			<div className="flex flex-col-reverse lg:flex-row justify-between items-center lg:h-[45px]">
@@ -37,12 +42,16 @@ const TopNavbar = () => {
 											openAccountDropdown ? 'dropdown-active' : 'dropdown-inactive'
 										} `}>
 										<>
-											<NavLink to={'/login'}
-												className={`hover:bg-[#F5F5F5] p-3 reg`}
-												>
+											<NavLink
+												to={'/login'}
+												style={({ isActive }) => (isActive ? activeStyle : undefined)}
+												className={`hover:bg-[#F5F5F5] p-3 reg`}>
 												<p>Sign In</p>
 											</NavLink>
-											<NavLink to={'/register'} className="hover:bg-[#F5F5F5] p-3">
+											<NavLink
+												style={({ isActive }) => (isActive ? activeStyle : undefined)}
+												to={'/register'}
+												className="hover:bg-[#F5F5F5] p-3">
 												<p>Sign Up</p>
 											</NavLink>
 										</>
