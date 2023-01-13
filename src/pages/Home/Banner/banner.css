@@ -1,0 +1,57 @@
+.carousel-common-style {
+    position: relative;
+    /* height: 450px; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.carousel-common-style::before {
+    content: "";
+
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.90;
+    background-repeat: no-repeat;
+}
+
+.image-1::before {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../../../assets/carousel-1.jpg');
+}
+
+.image-2::before {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../../../assets/carousel-2.jpg');
+}
+
+.image-3::before {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../../../assets/carousel-3.jpg');
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+    border: 2px solid white;
+    background-color: transparent;
+
+    opacity: 1;
+    padding: 7px 7px;
+    border-radius: 0;
+    width: auto;
+    height: 15px;
+    opacity: 1;
+
+
+}
+
+.swiper-pagination-bullet-active {
+    background-color: white !important;
+
+    padding: 7px 20px !important;
+    width: auto;
+}

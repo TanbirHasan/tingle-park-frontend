@@ -1,0 +1,24 @@
+/* The Image container */
+.img-hover-zoom {
+    overflow: hidden;
+}
+
+/* Zoom-n-rotate Container */
+.img-hover-zoom--zoom-n-rotate img {
+    transition: transform .5s ease-in-out;
+}
+
+/* The Transformation */
+.img-hover-zoom--zoom-n-rotate:hover img {
+    transform: scale(2) rotate(10deg);
+}
+
+.offer-text {
+    top: 82px;
+    left: 37%;
+}
+
+.offer-image {
+    filter: brightness(50%);
+    height: 300px;
+}

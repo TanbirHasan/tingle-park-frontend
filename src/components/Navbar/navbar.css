@@ -1,0 +1,70 @@
+/* nav {
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+} */
+
+.links a {
+
+    transition: all 0.5s 0s ease;
+}
+
+.links a:hover {
+    color: #FFC800;
+}
+
+/* .active {
+    color: #FFC800;
+} */
+
+@keyframes opacityTransition {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes transformX {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0px);
+    }
+}
+
+.text-box {
+    animation: opacityTransition 0.5s ease-in;
+}
+
+.mobile-links {
+    list-style: none;
+}
+
+.mobile-menu {
+    animation: transformX 0.5s linear;
+}
+
+.dropdown-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: 500ms ease;
+}
+
+.dropdown-inactive {
+    opacity: 0;
+    visibility: hidden;
+    transition: 500ms ease;
+}
+
+.menu-inactive {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: 500ms ease;
+}
