@@ -130,7 +130,7 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className="bg-[#3D464D] h-[70px]  md:fixed z-50 w-full top-0 text-white flex items-center">
+			<nav className="bg-[#3D464D] h-[70px]   w-full  text-white flex items-center">
 				<div className="w-[90%] mx-auto">
 					<ul className="items-center hidden space-x-8 lg:flex justify-between">
 						<div className="flex items-center gap-5">

@@ -13,8 +13,8 @@ const FeaturedProducts = () => {
 
 	return (
 		<div className="my-20">
-			<div className="flex items-center gap-5">
-				<h1 className="uppercase text-4xl text-[#3D464D] font-bold text-center md:text-left">
+			<div className="flex items-center justify-center lg:justify-start gap-5">
+				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold  lg:text-left">
 					Featured Products
 				</h1>
 				<div className="hidden lg:flex w-fit">
