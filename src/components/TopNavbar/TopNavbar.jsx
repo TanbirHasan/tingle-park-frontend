@@ -29,8 +29,8 @@ const TopNavbar = () => {
 							<div className="relative  flex items-center justify-between p-5  duration-500 cursor-pointer">
 								<div className="flex items-center gap-2">
 									<button className="font-semibold bg-white p-1 px-2 flex items-center">
-										<span>My Account</span>
-										<AiFillCaretDown className='text-sm' />
+										<span className='text-sm'>My Account</span>
+										<AiFillCaretDown className='text-xs' />
 									</button>
 									<ul
 										className={`menu absolute   w-[200px] bg-white z-10 top-[70px] right-[-1px] duration-500 flex flex-col group text-box   ${

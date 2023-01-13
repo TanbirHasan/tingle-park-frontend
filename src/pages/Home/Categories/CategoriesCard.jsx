@@ -5,7 +5,7 @@ const CategoriesCard = ({ category }) => {
 	const { name, productAmount, picture } = category;
 
 	return (
-		<div className="container w-[300px] mx-auto shadow-xl hover:shadow-2xl group hover:bg-[#FFD333] duration-500">
+		<div className="container lg:w-[300px] mx-auto shadow-xl hover:shadow-2xl group hover:bg-[#FFD333] duration-500">
 			<div className="flex flex-col items-center md:flex-row  md:p-0 cursor-pointer group ">
 				<div className='box'>
 					<img
