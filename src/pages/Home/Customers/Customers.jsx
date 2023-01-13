@@ -25,10 +25,13 @@ const Customers = () => {
 						slidesPerView: 2,
 					},
 					640: {
-						slidesPerView: 4,
+						slidesPerView: 3,
 					},
 					
 					768: {
+						slidesPerView: 4,
+					},
+					1000: {
 						slidesPerView: 6,
 					},
 				}}

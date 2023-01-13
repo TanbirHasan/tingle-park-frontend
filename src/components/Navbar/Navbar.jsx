@@ -70,13 +70,13 @@ const Navbar = () => {
 
 	const menuRoutes = (
 		<>
-			<NavLink to={'/'}>
+			<NavLink onClick={()=>setIsMenuOpen(!isMenuOpen)} to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink to={'/'}>
+			<NavLink onClick={()=>setIsMenuOpen(!isMenuOpen)} to={'/'}>
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/shop-detail'}>
+			<NavLink onClick={()=>setIsMenuOpen(!isMenuOpen)} to={'/'}>
 				<li>Shop Detail</li>
 			</NavLink>
 			<NavLink className={'group inline-block relative'}>
@@ -93,14 +93,19 @@ const Navbar = () => {
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
-							
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className=" hover:bg-white py-2 px-4 block ">
+							to={'/'}
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}>
 							<li className="text-black">Checkout</li>
 						</NavLink>
 						<NavLink
+							to={'/'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className="rounded-t  hover:bg-white py-2 px-4 block ">
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}>
 							<li className="text-black">Shopping Cart</li>
 						</NavLink>
 					</ul>

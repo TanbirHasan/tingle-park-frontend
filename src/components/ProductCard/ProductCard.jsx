@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
 							onClick={() => handleCart(product)}
 							size={40}
 							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
-								cartClicked ? 'text-[#FFD333] bg-[#3D464D]' : ''
+								cartClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
 							} `}
 						/>
 						<AiOutlineHeart
