@@ -25,7 +25,7 @@ const TopNavbar = () => {
 
 				<div>
 					<div className="flex items-center gap-5">
-						<div onClick={() => setOpenAccountDropdown(!openAccountDropdown)} className="">
+						<div onClick={() => setOpenAccountDropdown(!openAccountDropdown)}>
 							<div className="relative  flex items-center justify-between p-5  duration-500 cursor-pointer">
 								<div className="flex items-center gap-2">
 									<button className="font-semibold bg-white p-1 px-2 flex items-center hover:bg-[#ECECEC] duration-500">

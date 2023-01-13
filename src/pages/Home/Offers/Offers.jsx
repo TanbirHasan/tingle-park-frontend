@@ -11,7 +11,7 @@ const Offers = () => {
 					<div className="box">
 						<img src={offer1} alt="offer" className="offer-image h-[300px]" />
 					</div>
-					<div className="text-center text-white space-y-2 absolute font-bold top-[30%] left-[38%] md:top-[30%] md:left-[37%]">
+					<div className="text-center text-white space-y-2 absolute font-bold top-[30%] left-[28%] md:top-[30%] md:left-[37%]">
 						<h1 className="text-xl">Save 20% </h1>
 						<div>
 							<h1 className="text-3xl">Special Offer </h1>
@@ -23,7 +23,7 @@ const Offers = () => {
 					<div className="box">
 						<img src={offer2} alt="offer" className="offer-image h-[300px]" />
 					</div>
-					<div className="text-center text-white space-y-2 absolute font-bold top-[83px] left-[28%] md:top-[82px] md:left-[37%]">
+					<div className="text-center text-white space-y-2 absolute font-bold top-[83px] left-[28%] md:top-[30%] md:left-[37%]">
 						<h1 className="text-xl">Save 20% </h1>
 						<div>
 							<h1 className="text-3xl">Special Offer </h1>

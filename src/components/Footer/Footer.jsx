@@ -102,10 +102,10 @@ const Footer = () => {
 							placeholder="Your Email Address"
 							required
 							type="email"
-							className="w-[200px] py-2 px-3"
+							className="lg:w-[150px] py-2 px-3"
 						/>
 						<button type="submit" className="bg-yellow-400 px-3">
-							Subscribe
+							Sign up
 						</button>
 					</form>
 
@@ -130,7 +130,7 @@ const Footer = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col-reverse items-center justify-between pt-5 mt-10  border-t border-gray-500 sm:flex-row">
+			<div className="flex flex-col-reverse items-center lg:justify-between pt-5 mt-10  border-t border-gray-500 lg:flex-row">
 				<p className="text-sm mt-3 text-center md:text-left">© Copyright 2020 Lorem Inc. All rights reserved.</p>
 				<img src={payments} alt="" className='lg:w-[15%] lg:h-[100%] mt-10 px-10 md:mt-0 md:px-0' />
 			</div>
