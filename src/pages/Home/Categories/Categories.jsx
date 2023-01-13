@@ -52,6 +52,7 @@ const Categories = () => {
 
 	return (
 		<div className="my-20">
+			<h2>All categories are here</h2>
 			<div className="flex items-center gap-5">
 				<h1 className="uppercase text-4xl text-[#3D464D] font-bold">Categories</h1>
 				<div className="flex w-fit">
