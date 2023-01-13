@@ -73,13 +73,13 @@ const Navbar = () => {
 			<NavLink to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink to={'/shop'}>
+			<NavLink to={'/'}>
 				<li>Shop</li>
 			</NavLink>
 			<NavLink to={'/shop-detail'}>
 				<li>Shop Detail</li>
 			</NavLink>
-			<NavLink to={'/pages'} className={'group inline-block relative'}>
+			<NavLink className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
 					className="flex items-center lg:justify-center ">
@@ -89,7 +89,7 @@ const Navbar = () => {
 
 				<div className="flex items-center gap-2">
 					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-xl ${
+						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
@@ -166,35 +166,33 @@ const Navbar = () => {
 				</div>
 			</nav>
 
-			<div className=''>
+			<div className="">
 				<div
 					className={`${
 						isMenuOpen ? 'dropdown-active h-screen' : 'menu-inactive h-0'
 					}    mobile-menu bg-[#3D464D] text-white`}>
-				
-							<div className="flex flex-col gap-5 text-2xl">
-								<div onClick={() => setOpenDropdown(!openDropdown)}>
-									<div className="relative bg-[#FFD333] pl-10  justify-between p-5 mt-4 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer flex">
-										<div className="flex items-center gap-2 ">
-											<FaBars />
-											<button className="font-bold">Categories</button>
-											{openDropdown ? (
-												<ul className="menu absolute z-10 space-y-2 w-[150%] mx-auto   top-[70px] left-[-1px]  duration-500 flex flex-col group text-gray-500 text-box bg-white">
-													{menuItemsDropDown}
-												</ul>
-											) : null}
-										</div>
-									</div>
+					<div className="flex flex-col gap-5 text-2xl">
+						<div onClick={() => setOpenDropdown(!openDropdown)}>
+							<div className="relative bg-[#FFD333] pl-10  justify-between p-5 mt-4 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer flex">
+								<div className="flex items-center gap-2 ">
+									<FaBars />
+									<button className="font-bold">Categories</button>
+									{openDropdown ? (
+										<ul className="menu absolute z-10 space-y-2 w-[150%] mx-auto   top-[70px] left-[-1px]  duration-500 flex flex-col group text-gray-500 text-box bg-white">
+											{menuItemsDropDown}
+										</ul>
+									) : null}
 								</div>
+							</div>
+						</div>
 
-								<div className="flex flex-col space-y-10  pl-10 font-bold mobile-links text-2xl">
-									{menuRoutes}
-								</div>
-							</div>
-							<div className="flex pl-10 lg:pl-0 gap-10 justify-start lg:justify-center mt-5 items-center">
-								{menuIcons}
-							</div>
-					
+						<div className="flex flex-col space-y-10  pl-10 font-bold mobile-links ">
+							{menuRoutes}
+						</div>
+					</div>
+					<div className="flex pl-10 lg:pl-0 gap-10 justify-start lg:justify-center mt-5 items-center">
+						{menuIcons}
+					</div>
 				</div>
 			</div>
 		</div>
