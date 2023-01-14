@@ -12,7 +12,7 @@ import offer2 from '../../../assets/offer-2.jpg';
 
 const Banner = () => {
 	return (
-		<div className="my-10 flex flex-col lg:flex-row gap-10 mt-20">
+		<div className="mb-10 lg:mt-10 flex flex-col lg:flex-row gap-10">
 			<div className="lg:w-[65%]">
 				<Swiper
 					spaceBetween={30}

@@ -70,13 +70,13 @@ const Navbar = () => {
 
 	const menuRoutes = (
 		<>
-			<NavLink>
+			<NavLink to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/'}>
 				<li>Shop</li>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/'}>
 				<li>Shop Detail</li>
 			</NavLink>
 			<NavLink className={'group inline-block relative'}>
@@ -89,23 +89,78 @@ const Navbar = () => {
 
 				<div className="flex items-center gap-2">
 					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-xl ${
+						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className=" hover:bg-white py-2 px-4 block ">
+							to={'/'}
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}>
 							<li className="text-black">Checkout</li>
 						</NavLink>
 						<NavLink
+							to={'/'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className="rounded-t  hover:bg-white py-2 px-4 block ">
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}>
 							<li className="text-black">Shopping Cart</li>
 						</NavLink>
 					</ul>
 				</div>
 			</NavLink>
-			<NavLink>
+			<NavLink to={'/contact'}>
+				<li>Contact</li>
+			</NavLink>
+		</>
+	);
+
+	const menuRoutesMobile = (
+		<>
+			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
+				<li>Home</li>
+			</NavLink>
+			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
+				<li>Shop</li>
+			</NavLink>
+			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
+				<li>Shop Detail</li>
+			</NavLink>
+			<NavLink className={'group inline-block relative'}>
+				<div
+					onClick={() => setIsPagesOpen(!isPagesOpen)}
+					className="flex items-center lg:justify-center ">
+					<li>Pages</li>
+					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
+				</div>
+
+				<div className="flex items-center gap-2">
+					<ul
+						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
+							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
+						}  `}>
+						<NavLink
+							to={'/'}
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}>
+							<li className="text-black">Checkout</li>
+						</NavLink>
+						<NavLink
+							to={'/'}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}
+							className={({ isActive }) =>
+								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+							}>
+							<li className="text-black">Shopping Cart</li>
+						</NavLink>
+					</ul>
+				</div>
+			</NavLink>
+			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
 		</>
@@ -130,7 +185,7 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className="bg-[#3D464D] h-[70px]  md:fixed z-50 w-full top-0 text-white flex items-center">
+			<nav className="bg-[#3D464D] h-[70px]   w-full  text-white flex items-center">
 				<div className="w-[90%] mx-auto">
 					<ul className="items-center hidden space-x-8 lg:flex justify-between">
 						<div className="flex items-center gap-5">
@@ -158,43 +213,41 @@ const Navbar = () => {
 
 					<div className={`lg:hidden`} onClick={handleClick}>
 						{isMenuOpen ? (
-							<AiOutlineClose className="text-5xl text-[#FFD333]" />
+							<AiOutlineClose className="text-3xl text-[#FFD333]" />
 						) : (
-							<FaBars className="text-5xl text-[#FFD333]" />
+							<FaBars className="text-3xl text-[#FFD333]" />
 						)}
 					</div>
 				</div>
 			</nav>
 
-			<div className=''>
+			<div className="">
 				<div
 					className={`${
 						isMenuOpen ? 'dropdown-active h-screen' : 'menu-inactive h-0'
 					}    mobile-menu bg-[#3D464D] text-white`}>
-				
-							<div className="flex flex-col gap-5 text-2xl">
-								<div onClick={() => setOpenDropdown(!openDropdown)}>
-									<div className="relative bg-[#FFD333] pl-10  justify-between p-5 mt-4 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer flex">
-										<div className="flex items-center gap-2 ">
-											<FaBars />
-											<button className="font-bold">Categories</button>
-											{openDropdown ? (
-												<ul className="menu absolute z-10 space-y-2 w-[150%] mx-auto   top-[70px] left-[-1px]  duration-500 flex flex-col group text-gray-500 text-box bg-white">
-													{menuItemsDropDown}
-												</ul>
-											) : null}
-										</div>
-									</div>
+					<div className="flex flex-col gap-5 text-2xl">
+						<div className='w-[90%] pl-10' onClick={() => setOpenDropdown(!openDropdown)}>
+							<div className="relative bg-[#FFD333] pl-10  justify-between p-5 mt-4 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer flex">
+								<div className="flex items-center gap-2 ">
+									{/* <FaBars /> */}
+									<button className="font-bold ">Categories</button>
+									{openDropdown ? (
+										<ul className="menu absolute z-10 space-y-2 w-[105%] mx-auto   top-[79px] left-[-8px]  duration-500 flex flex-col group text-gray-500 text-box bg-white">
+											{menuItemsDropDown}
+										</ul>
+									) : null}
 								</div>
+							</div>
+						</div>
 
-								<div className="flex flex-col space-y-10  pl-10 font-bold mobile-links text-2xl">
-									{menuRoutes}
-								</div>
-							</div>
-							<div className="flex pl-10 lg:pl-0 gap-10 justify-start lg:justify-center mt-5 items-center">
-								{menuIcons}
-							</div>
-					
+						<div className="flex flex-col space-y-10  pl-10 font-bold mobile-links ">
+							{menuRoutesMobile}
+						</div>
+					</div>
+					<div className="flex pl-10 lg:pl-0 gap-10 justify-start lg:justify-center mt-5 items-center">
+						{menuIcons}
+					</div>
 				</div>
 			</div>
 		</div>
