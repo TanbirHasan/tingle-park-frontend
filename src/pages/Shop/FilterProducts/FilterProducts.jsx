@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterProducts = () => {
 	return (
-		<div className="mt-20">
+		<div className="mt-10">
 			<div>
 				{/* Filter by price */}
 				<h1 className="uppercase text-xl font-semibold my-4">Filter By Price</h1>

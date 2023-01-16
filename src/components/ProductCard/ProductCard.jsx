@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
 	};
 	return (
 		<div>
-			<div className=" shadow-xl hover:shadow-2xl duration-500 box mx-auto">
+			<div className=" shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
 				<div>
 					<div className="box">
 						<img
