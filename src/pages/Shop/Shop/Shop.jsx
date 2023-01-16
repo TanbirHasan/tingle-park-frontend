@@ -11,6 +11,7 @@ const Shop = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const [sortingDropdown, setSortingDropdown] = useState(false);
+	const [showDropdown, setShowDropdown] = useState(false);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
@@ -23,7 +24,7 @@ const Shop = () => {
 			</div>
 
 			<div className="">
-				<div className="mt-10">
+				<div className="lg:mt-10">
 					<div className="flex justify-between items-center">
 						<div className="flex gap-4">
 							<div className="bg-white p-2">
@@ -33,16 +34,16 @@ const Shop = () => {
 								<FaBars />
 							</div>
 						</div>
-						<div>
+						<div className='flex items-center gap-3'>
 							<div onClick={() => setSortingDropdown(!sortingDropdown)}>
-								<div className="relative  flex items-center justify-between p-5  duration-500 cursor-pointer">
+								<div className="relative  flex items-center justify-between   duration-500 cursor-pointer  ">
 									<div className="flex items-center gap-2">
-										<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500">
+										<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
 											<span className="text-sm">Sorting</span>
 											<AiFillCaretDown className="text-xs ml-2" />
 										</button>
 										<ul
-											className={`menu absolute   w-[10rem] bg-white z-10 top-[55px] right-[19px] duration-500 flex flex-col group text-box border text-[#212529]  ${
+											className={`menu absolute   w-[10rem] bg-white z-10 top-[40px] right-[-1px] duration-500 flex flex-col group text-box border text-[#212529]  ${
 												sortingDropdown ? 'dropdown-active' : 'dropdown-inactive'
 											} `}>
 											<>
@@ -54,6 +55,34 @@ const Shop = () => {
 												</button>
 												<button  className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 													<p className='font-semibold'>Best Rating</p>
+												</button>
+
+												
+											</>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div onClick={() => setShowDropdown(!showDropdown)}>
+								<div className="relative  flex items-center justify-between  duration-500 cursor-pointer">
+									<div className="flex items-center gap-2">
+										<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
+											<span className="text-sm">Showing</span>
+											<AiFillCaretDown className="text-xs ml-2" />
+										</button>
+										<ul
+											className={`menu absolute   w-[10rem] bg-white z-10 top-[40px] right-[-1px] duration-500 flex flex-col group text-box border text-[#212529]  ${
+												showDropdown ? 'dropdown-active' : 'dropdown-inactive'
+											} `}>
+											<>
+												<button  className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<p className='font-semibold'>10</p>
+												</button>
+												<button  className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<p className='font-semibold'>20</p>
+												</button>
+												<button  className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<p className='font-semibold'>30</p>
 												</button>
 
 												
