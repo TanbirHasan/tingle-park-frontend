@@ -1,5 +1,6 @@
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
 import HomePage from '../../pages/Home/HomePage/HomePage';
+import Shop from '../../pages/Shop/Shop/Shop';
 import Main from './../../layout/Main';
 import Login from './../../pages/Login/Login';
 import Register from './../../pages/Register/Register';
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/register',
 				element: <Register />,
+			},
+			{
+				path: '/shop',
+				element: <Shop />,
 			},
 		],
 	},

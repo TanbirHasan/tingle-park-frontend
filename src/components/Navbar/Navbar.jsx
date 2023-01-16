@@ -73,7 +73,7 @@ const Navbar = () => {
 			<NavLink to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink to={'/'}>
+			<NavLink to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
 			<NavLink to={'/'}>
@@ -122,7 +122,7 @@ const Navbar = () => {
 			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
 				<li>Home</li>
 			</NavLink>
-			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
+			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
 			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
