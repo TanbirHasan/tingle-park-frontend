@@ -26,7 +26,7 @@ function App() {
 	};
 
 	return (
-		<div className="App">
+		<div className="App bg-[#F5F5F5]">
 			{visible && (
 				<button
 					className="bounce scroll-button absolute z-50"
