@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { AiFillCaretDown } from 'react-icons/ai';
+import { AiFillCaretDown, AiFillHeart } from 'react-icons/ai';
+import { BsCartFill } from 'react-icons/bs';
 
 const TopNavbar = () => {
 	const [openAccountDropdown, setOpenAccountDropdown] = useState(false);
@@ -8,7 +9,7 @@ const TopNavbar = () => {
 	return (
 		<div className="bg-[#F5F5F5] px-10 lg:h-[45px]">
 			<div className="flex flex-col-reverse lg:flex-row justify-between items-center lg:h-[45px]">
-				<div className="flex  gap-5 text-[#6c757d] mb-5 lg:mb-0">
+				<div className="hidden lg:flex  gap-5 text-[#6c757d] mb-5 lg:mb-0">
 					<Link>
 						<p className="hover:underline">About</p>
 					</Link>
@@ -23,7 +24,7 @@ const TopNavbar = () => {
 					</Link>
 				</div>
 
-				<div>
+				<div className='flex'>
 					<div className="flex items-center gap-5">
 						<div onClick={() => setOpenAccountDropdown(!openAccountDropdown)}>
 							<div className="relative  flex items-center justify-between p-5  duration-500 cursor-pointer">
@@ -59,6 +60,21 @@ const TopNavbar = () => {
 										</>
 									</ul>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div className='flex lg:hidden gap-5'>
+						<div className="flex items-center gap-1">
+							<AiFillHeart className="text-xl text-[#3D464D]" />
+							<div className="w-4 h-4 border border-black rounded-full flex items-center justify-center">
+								<span className="font-bold text-sm">0</span>
+							</div>
+						</div>
+						<div className="flex items-center gap-1">
+							<BsCartFill className="text-xl text-[#3D464D] cursor-pointer" />
+							<div className="w-4 h-4 border border-black rounded-full flex items-center justify-center">
+								{/* <span className="font-bold text-sm">{cartItemCount}</span> */}
+								<span className="font-bold text-sm">0</span>
 							</div>
 						</div>
 					</div>

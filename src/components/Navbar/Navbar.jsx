@@ -185,7 +185,7 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className="bg-[#3D464D] h-[70px]   w-full  text-white flex items-center">
+			<nav className="bg-[#3D464D] h-[70px] relative  w-full  text-white flex items-center">
 				<div className="w-[90%] mx-auto">
 					<ul className="items-center hidden space-x-8 lg:flex justify-between">
 						<div className="flex items-center gap-5">
@@ -211,12 +211,17 @@ const Navbar = () => {
 						<div className="flex gap-10">{menuIcons}</div>
 					</ul>
 
-					<div className={`lg:hidden`} onClick={handleClick}>
-						{isMenuOpen ? (
-							<AiOutlineClose className="text-3xl text-[#FFD333]" />
-						) : (
-							<FaBars className="text-3xl text-[#FFD333]" />
-						)}
+					<div className='flex justify-between items-center lg:hidden'>
+						<div>
+							<h1 className='text-4xl font-extrabold'>LOGO</h1>
+						</div>
+						<div className={`flex justify-end lg:hidden`} onClick={handleClick}>
+							{isMenuOpen ? (
+								<AiOutlineClose className="text-3xl text-[#FFD333]" />
+							) : (
+								<FaBars className="text-3xl text-[#FFD333]" />
+							)}
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -224,29 +229,12 @@ const Navbar = () => {
 			<div className="">
 				<div
 					className={`${
-						isMenuOpen ? 'dropdown-active h-screen' : 'menu-inactive h-0'
+						isMenuOpen ? 'menu-active h-full ' : 'menu-inactive'
 					}    mobile-menu bg-[#3D464D] text-white`}>
 					<div className="flex flex-col gap-5 text-2xl">
-						<div className='w-[90%] pl-10' onClick={() => setOpenDropdown(!openDropdown)}>
-							<div className="relative bg-[#FFD333] pl-10  justify-between p-5 mt-4 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer flex">
-								<div className="flex items-center gap-2 ">
-									{/* <FaBars /> */}
-									<button className="font-bold ">Categories</button>
-									{openDropdown ? (
-										<ul className="menu absolute z-10 space-y-2 w-[105%] mx-auto   top-[79px] left-[-8px]  duration-500 flex flex-col group text-gray-500 text-box bg-white">
-											{menuItemsDropDown}
-										</ul>
-									) : null}
-								</div>
-							</div>
-						</div>
-
-						<div className="flex flex-col space-y-10  pl-10 font-bold mobile-links ">
+						<div className="flex flex-col space-y-10 my-5 pl-10 font-bold mobile-links ">
 							{menuRoutesMobile}
 						</div>
-					</div>
-					<div className="flex pl-10 lg:pl-0 gap-10 justify-start lg:justify-center mt-5 items-center">
-						{menuIcons}
 					</div>
 				</div>
 			</div>
