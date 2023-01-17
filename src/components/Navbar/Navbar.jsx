@@ -31,6 +31,8 @@ const Navbar = () => {
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartItemCount);
 
+	const wishListCount = useSelector((state) => state.wishListReducer.wishItemCount);
+
 	const handleClick = () => setIsMenuOpen(!isMenuOpen);
 
 	const menuItemsDropDown = (
@@ -76,10 +78,10 @@ const Navbar = () => {
 			<NavLink to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/'}>
+			<NavLink to={'/shop-detail'}>
 				<li>Shop Detail</li>
 			</NavLink>
-			<NavLink className={'group inline-block relative'}>
+			<Link className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
 					className="flex items-center lg:justify-center ">
@@ -93,7 +95,7 @@ const Navbar = () => {
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
-							to={'/'}
+							to={'/checkout'}
 							className={({ isActive }) =>
 								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
 							}
@@ -101,7 +103,7 @@ const Navbar = () => {
 							<li className="text-black">Checkout</li>
 						</NavLink>
 						<NavLink
-							to={'/'}
+							to={'/shopping-cart'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
@@ -110,7 +112,7 @@ const Navbar = () => {
 						</NavLink>
 					</ul>
 				</div>
-			</NavLink>
+			</Link>
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
@@ -171,7 +173,7 @@ const Navbar = () => {
 			<div className="flex items-center gap-1">
 				<AiFillHeart className="text-2xl text-[#FFC800]" />
 				<div className="w-5 h-5 border border-white rounded-full flex items-center justify-center">
-					<span className="font-bold">0</span>
+					<span className="font-bold">{wishListCount}</span>
 				</div>
 			</div>
 			<div className="flex items-center gap-1">
@@ -211,9 +213,9 @@ const Navbar = () => {
 						<div className="flex gap-10">{menuIcons}</div>
 					</ul>
 
-					<div className='flex justify-between items-center lg:hidden'>
+					<div className="flex justify-between items-center lg:hidden">
 						<div>
-							<h1 className='text-4xl font-extrabold'>LOGO</h1>
+							<h1 className="text-4xl font-extrabold">LOGO</h1>
 						</div>
 						<div className={`flex justify-end lg:hidden`} onClick={handleClick}>
 							{isMenuOpen ? (

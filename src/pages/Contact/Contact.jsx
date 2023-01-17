@@ -1,14 +1,35 @@
 import React from 'react';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
 	return (
-		<div className="lg:w-[90%] mx-auto my-20 p-4 lg:p-0">
+		<div className="lg:w-[90%] mx-auto my-10 p-4 lg:p-0">
+			<div className="mb-10">
+				<nav className="w-full h-[48px] flex px-4 bg-white ">
+					<ol className="flex  space-x-2 ">
+						<li className="flex items-center space-x-1">
+							<Link className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
+								Home
+							</Link>
+						</li>
+						<li className="flex items-center space-x-1">
+							<span className="dark:text-gray-400">/</span>
+							<Link className="flex items-center px-1 capitalize text-[#6c757d] cursor-default">
+								Contact
+							</Link>
+						</li>
+					</ol>
+				</nav>
+			</div>
+
 			<div className="flex items-center justify-start gap-5">
-				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold text-left">
-					Contact Us
-				</h1>
+				<div className="w-[40%] lg:w-[20%]">
+					<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold text-left">
+						Contact Us
+					</h1>
+				</div>
 				<div className="flex w-[80%] flex-wrap">
 					<span className="w-full  h-1 border border-dashed bg-[#909fa7]"></span>
 				</div>
@@ -63,7 +84,7 @@ const Contact = () => {
 								title="myLocation"
 								className="w-full lg:w-[500px] h-[200px]"
 								style={{ border: 0 }}
-								referrerpolicy="no-referrer-when-downgrade"></iframe>
+								referrerPolicy="no-referrer-when-downgrade"></iframe>
 						</div>
 					</div>
 

@@ -5,12 +5,14 @@ import { FiRefreshCcw } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemsToCart, incrementCart } from '../../features/CartSlice';
+import { addItemsToWishList, incrementWishList } from '../../features/WishListSlice';
 import './productCard.css';
 
 const ProductCard = ({ product }) => {
 	const { id, title, picture } = product;
 
 	const [cartClicked, setCartClicked] = useState(false);
+	const [wishListClicked, setWishListClicked] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -18,6 +20,12 @@ const ProductCard = ({ product }) => {
 		dispatch(incrementCart());
 		setCartClicked(true);
 		dispatch(addItemsToCart(product));
+	};
+
+	const handleWishList = (product) => {
+		dispatch(incrementWishList());
+		setWishListClicked(true);
+		dispatch(addItemsToWishList(product));
 	};
 	return (
 		<div>
@@ -39,8 +47,11 @@ const ProductCard = ({ product }) => {
 							} `}
 						/>
 						<AiOutlineHeart
+							onClick={() => handleWishList(product)}
 							size={40}
-							className="border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 "
+							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
+								wishListClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
+							}`}
 						/>
 						<FiRefreshCcw
 							size={40}
