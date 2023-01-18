@@ -52,12 +52,12 @@ const Categories = () => {
 
 	return (
 		<div className="my-20">
-			<div className="flex items-center justify-center lg:justify-start gap-5">
-				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold text-center lg:text-left">
+			<div className="flex items-center  gap-5">
+				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold lg:text-left">
 					Categories
 				</h1>
-				<div className="hidden lg:flex w-fit">
-					<span className="w-6 h-1 border border-dashed bg-red-500"></span>
+				<div className="flex flex-grow flex-wrap">
+					<span className="w-full  border_style "></span>
 				</div>
 			</div>
 

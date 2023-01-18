@@ -11,15 +11,17 @@ const FeaturedProducts = () => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
+	const productSlices = [...products]	
+	productSlices.pop()
 
 	return (
 		<div className="my-20">
-			<div className="flex items-center justify-center lg:justify-start gap-5">
-				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold  lg:text-left">
+			<div className="flex items-center gap-5">
+				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold  ">
 					Featured Products
 				</h1>
-				<div className="hidden lg:flex w-fit">
-					<span className="w-6 h-1 border border-dashed bg-red-500"></span>
+				<div className="flex flex-grow flex-wrap">
+					<span className="w-full  border_style "></span>
 				</div>
 			</div>
 
@@ -31,7 +33,7 @@ const FeaturedProducts = () => {
 				) : (
 					''
 				)}
-				{products.map((product) => (
+				{productSlices.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}
 			</div>

@@ -5,13 +5,19 @@ const FilterProducts = () => {
 		<div className="mt-10">
 			<div>
 				{/* Filter by price */}
-				<h1 className="uppercase text-xl font-semibold my-4">Filter By Price</h1>
+				<div className="flex items-center gap-2">
+					<h1 className="uppercase text-xl font-semibold my-4">Filter By Price</h1>
+					<div className="flex flex-grow flex-wrap">
+						<span className="w-full  border_style "></span>
+					</div>
+				</div>
+
 				<div className="bg-[#FFFFFF]  p-5 space-y-4">
 					<div className="flex items-center justify-between text-[#6c757d] ">
 						<div className="flex items-center">
 							<input
-                                type="checkbox"
-                                defaultChecked
+								type="checkbox"
+								defaultChecked
 								className=" appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
 							/>
 							<p className="ml-2">All price</p>
@@ -84,7 +90,12 @@ const FilterProducts = () => {
 			</div>
 			<div>
 				{/* Filter by color */}
-				<h1 className="uppercase text-xl font-semibold my-4">Filter By color</h1>
+				<div className="flex items-center gap-2">
+					<h1 className="uppercase text-xl font-semibold my-4">Filter By color</h1>
+					<div className="flex flex-grow flex-wrap">
+						<span className="w-full  border_style "></span>
+					</div>
+				</div>
 				<div className="bg-[#FFFFFF]  p-5 space-y-4">
 					<div className="flex items-center justify-between text-[#6c757d] ">
 						<div className="flex items-center">
@@ -163,7 +174,12 @@ const FilterProducts = () => {
 			</div>
 			<div className="mb-10">
 				{/* Filter by size */}
-				<h1 className="uppercase text-xl font-semibold my-4">Filter By size</h1>
+				<div className="flex items-center gap-2">
+					<h1 className="uppercase text-xl font-semibold my-4">Filter By size</h1>
+					<div className="flex flex-grow flex-wrap">
+						<span className="w-full  border_style "></span>
+					</div>
+				</div>
 				<div className="bg-[#FFFFFF]  p-5 space-y-4">
 					<div className="flex items-center justify-between text-[#6c757d] ">
 						<div className="flex items-center">
