@@ -1,4 +1,5 @@
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
+import Contact from '../../pages/Contact/Contact';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Shop from '../../pages/Shop/Shop/Shop';
 import Main from './../../layout/Main';
@@ -20,16 +21,20 @@ export const router = createBrowserRouter([
 				element: <ProductDetail />,
 			},
 			{
+				path: '/shop',
+				element: <Shop />,
+			},
+			{
+				path: '/contact',
+				element: <Contact />,
+			},
+			{
 				path: '/login',
 				element: <Login />,
 			},
 			{
 				path: '/register',
 				element: <Register />,
-			},
-			{
-				path: '/shop',
-				element: <Shop />,
 			},
 		],
 	},

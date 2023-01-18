@@ -62,11 +62,19 @@
     transition: 500ms ease;
 }
 
+.menu-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: 500ms ease;
+}
+
 .menu-inactive {
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-100%);
+    transform: translateY(0%);
     transition: 500ms ease;
+    height: 0;
 }
 
 .active {
