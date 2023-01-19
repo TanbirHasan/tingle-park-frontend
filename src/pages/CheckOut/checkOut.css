@@ -1,5 +1,6 @@
-tr:hover {
+tbody>tr:hover {
     background-color: #ECECEC;
+
 }
 
 td {

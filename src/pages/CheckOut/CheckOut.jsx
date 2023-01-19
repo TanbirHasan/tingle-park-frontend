@@ -2,6 +2,7 @@ import React from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { removeItemsFromCart } from '../../features/CartSlice';
 import './checkOut.css';
 
@@ -20,10 +21,36 @@ const CheckOut = () => {
 
 	return (
 		<div className="w-[90%] mx-auto">
-			<h1>This is checkout</h1>
+			<div className="mt-10">
+				<nav className="w-full h-[48px] flex px-4 bg-white ">
+					<ol className="flex  space-x-2 ">
+						<li className="flex items-center space-x-1">
+							<Link
+								to={'/'}
+								className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
+								Home
+							</Link>
+						</li>
+						<li className="flex items-center space-x-1">
+							<span className="dark:text-gray-400">/</span>
+							<Link
+								to={'/shop'}
+								className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
+								Shop
+							</Link>
+						</li>
+						<li className="flex items-center space-x-1">
+							<span className="dark:text-gray-400">/</span>
+							<Link className="flex items-center px-1 capitalize text-[#6c757d] cursor-default">
+								Shopping Cart
+							</Link>
+						</li>
+					</ol>
+				</nav>
+			</div>
 
-			<div className="my-40">
-				<div className="overflow-x-auto">
+			<div className="my-10 flex flex-col lg:flex-row gap-10">
+				<div className="overflow-x-auto lg:w-[70%]">
 					<table className="min-w-full  divide-y divide-gray-200 text-sm ">
 						<thead className="bg-gray-800 text-white  h-[80px] mb-20">
 							<tr className="">
@@ -83,7 +110,7 @@ const CheckOut = () => {
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
 											type="button"
-											onClick={()=>handleDelete(item.id)}
+											onClick={() => handleDelete(item.id)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#ff0000] text-white hover:bg-[#C82333] duration-500 ">
 											<RxCross1 className="text-lg font-extrabold" />
 										</button>
@@ -92,6 +119,53 @@ const CheckOut = () => {
 							))}
 						</tbody>
 					</table>
+				</div>
+
+				<div>
+					<div className="flex justify-center lg:justify-start">
+						<input
+							placeholder="Coupon Code"
+							required
+							type="email"
+							className="py-2 px-7 h-[48px] border-0 focus:outline-0 focus:ring-0"
+						/>
+						<button type="button" className="bg-yellow-400 py-2 px-4 h-[48px]">
+							Apply Coupon
+						</button>
+					</div>
+
+					<div>
+						<div className="flex items-center gap-2 my-5">
+							<h1 className="uppercase text-xl font-semibold my-4 text-[#3d464d]">Cart Summary</h1>
+							<div className="flex flex-grow flex-wrap">
+								<span className="w-full  border_style "></span>
+							</div>
+						</div>
+
+						<div className="bg-white p-10 space-y-5 text-[#3d464d] font-semibold">
+							<div className="flex justify-between">
+								<h1>Sub total</h1>
+								<p>$150</p>
+							</div>
+							<div className="flex justify-between">
+								<h1>Sub total</h1>
+								<p>$10</p>
+							</div>
+							<hr />
+
+							<div>
+								<div className="flex justify-between">
+									<h1>Total</h1>
+									<p>$160</p>
+								</div>
+							</div>
+							<div>
+								<button type="submit" className="bg-yellow-400 py-2 px-7 w-full">
+									Proceed To Checkout
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
