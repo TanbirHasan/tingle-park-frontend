@@ -1,0 +1,8 @@
+tr:hover {
+    background-color: #ECECEC;
+}
+
+td {
+    height: 88px;
+    vertical-align: center;
+}

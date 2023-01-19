@@ -2,46 +2,55 @@
 	{
 		"id": "63bd7a2a7a901dbf79c27bac",
 		"title": "Camera",
-		"picture": "https://i.ibb.co/wdMD6dQ/product-1.jpg"
+		"picture": "https://i.ibb.co/wdMD6dQ/product-1.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2afe3a00a5df1dff69",
 		"title": "Shirt",
-		"picture": "https://i.ibb.co/H2jPCH2/product-2.jpg"
+		"picture": "https://i.ibb.co/H2jPCH2/product-2.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2a1d1dfe06d8f7b1a1",
 		"title": "Lamp",
-		"picture": "https://i.ibb.co/ydh9p5d/product-3.jpg"
+		"picture": "https://i.ibb.co/ydh9p5d/product-3.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2a1fb9930c828ac600",
 		"title": "Shoes",
-		"picture": "https://i.ibb.co/ZM0QsM1/product-4.jpg"
+		"picture": "https://i.ibb.co/ZM0QsM1/product-4.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2afa1aa2dc6786124b",
 		"title": "Drone",
-		"picture": "https://i.ibb.co/hXtxKr8/product-5.jpg"
+		"picture": "https://i.ibb.co/hXtxKr8/product-5.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2af068bb9b1f3adc88",
 		"title": "Watch",
-		"picture": "https://i.ibb.co/KNkTrLC/product-6.jpg"
+		"picture": "https://i.ibb.co/KNkTrLC/product-6.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2a409f2895d4c844c8",
 		"title": "Dress",
-		"picture": "https://i.ibb.co/3czPjPz/product-7.jpg"
+		"picture": "https://i.ibb.co/3czPjPz/product-7.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63bd7a2aca9c060879e0ce00",
 		"title": "Facial Cream",
-		"picture": "https://i.ibb.co/LzkZKVz/product-8.jpg"
+		"picture": "https://i.ibb.co/LzkZKVz/product-8.jpg",
+		"quantity": 0
 	},
 	{
 		"id": "63c6653f4a77fe583c029130",
 		"title": "Chair",
-		"picture": "https://i.ibb.co/Bt8cMrs/product-9.jpg"
+		"picture": "https://i.ibb.co/Bt8cMrs/product-9.jpg",
+		"quantity": 0
 	}
 ]

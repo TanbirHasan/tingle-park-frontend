@@ -1,4 +1,5 @@
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
+import CheckOut from '../../pages/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Shop from '../../pages/Shop/Shop/Shop';
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/shop',
 				element: <Shop />,
+			},
+			{
+				path: '/checkout',
+				element: <CheckOut />,
 			},
 			{
 				path: '/contact',

@@ -148,13 +148,11 @@ const Shop = () => {
 						</button>
 						<button
 							type="button"
-							title="Page 1"
 							className="inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border  text-[#FFD333]  ">
 							2
 						</button>
 						<button
 							type="button"
-							title="Page 1"
 							className="inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border  text-[#FFD333]  ">
 							3
 						</button>
