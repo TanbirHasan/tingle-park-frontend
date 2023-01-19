@@ -29,7 +29,7 @@ const Navbar = () => {
 	// 	};
 	// }, []);
 
-	const cartItemCount = useSelector((state) => state.cartReducer.cartItemCount);
+	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
 	const wishListCount = useSelector((state) => state.wishListReducer.wishItemCount);
 
@@ -97,7 +97,7 @@ const Navbar = () => {
 						<NavLink
 							to={'/checkout'}
 							className={({ isActive }) =>
-								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
 							}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}>
 							<li className="text-black">Checkout</li>
@@ -106,7 +106,7 @@ const Navbar = () => {
 							to={'/shopping-cart'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
-								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
 							}>
 							<li className="text-black">Shopping Cart</li>
 						</NavLink>
@@ -146,18 +146,19 @@ const Navbar = () => {
 						<NavLink
 							to={'/'}
 							className={({ isActive }) =>
-								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
 							}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}>
-							<li className="text-black">Checkout</li>
+							<li className="">Checkout</li>
 						</NavLink>
 						<NavLink
 							to={'/'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}>
-							<li className="text-black">Shopping Cart</li>
+							}
+						>
+							<li className="">Shopping Cart</li>
 						</NavLink>
 					</ul>
 				</div>

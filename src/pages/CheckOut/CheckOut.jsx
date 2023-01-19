@@ -3,22 +3,29 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeItemsFromCart } from '../../features/CartSlice';
+import { decreaseQuantity, increaseQuantity, removeItemsFromCart } from '../../features/CartSlice';
 import './checkOut.css';
 
 const CheckOut = () => {
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
 	const dispatch = useDispatch();
 
-	const handleIncrease = (id) => {
-		const product = cartItems.find((item) => item.id === id);
-		// const quantity = product.quantity + 1
+	const handleIncrease = (product) => {
+		dispatch(increaseQuantity(product));
+	};
+
+	const handleDecrease = (product) => {
+		dispatch(decreaseQuantity(product));
 	};
 
 	const handleDelete = (id) => {
 		dispatch(removeItemsFromCart(id));
 	};
 
+	const total = cartItems.reduce((a, b) => {
+		return a + b.quantity;	
+	}, 0)
+	
 	return (
 		<div className="w-[90%] mx-auto">
 			<div className="mt-10">
@@ -86,27 +93,28 @@ const CheckOut = () => {
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
 											type="button"
+											onClick={() => handleDecrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
 											<AiOutlineMinus className="text-md font-bold" />
 										</button>
 
-										<input
-											type="text"
-											name=""
-											id=""
-											defaultValue={1}
-											className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 "
-										/>
+										<button
+											type="button"
+											className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 ">
+											{item.quantity}
+										</button>
 
 										<button
 											type="button"
-											onClick={handleIncrease(item.id)}
+											onClick={() => handleIncrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
 											<AiOutlinePlus className="text-md font-bold" />
 										</button>
 									</td>
 
-									<td className="whitespace-nowrap px-4 py-2">$120,000</td>
+									<td className="whitespace-nowrap px-4 py-2">
+										$<span>{parseInt(item.quantity * 150)}</span>
+									</td>
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
 											type="button"
@@ -129,7 +137,9 @@ const CheckOut = () => {
 							type="email"
 							className="py-2 px-7 h-[48px] border-0 focus:outline-0 focus:ring-0"
 						/>
-						<button type="button" className="bg-yellow-400 py-2 px-4 h-[48px]">
+						<button
+							type="button"
+							className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-2 px-4 h-[48px]">
 							Apply Coupon
 						</button>
 					</div>
@@ -142,13 +152,13 @@ const CheckOut = () => {
 							</div>
 						</div>
 
-						<div className="bg-white p-10 space-y-5 text-[#3d464d] font-semibold">
+						<div className="bg-white py-10 px-5 space-y-5 text-[#3d464d] font-semibold">
 							<div className="flex justify-between">
 								<h1>Sub total</h1>
-								<p>$150</p>
+								<p>$<span>{total*150}</span></p>
 							</div>
 							<div className="flex justify-between">
-								<h1>Sub total</h1>
+								<h1>Shipping</h1>
 								<p>$10</p>
 							</div>
 							<hr />
@@ -156,11 +166,13 @@ const CheckOut = () => {
 							<div>
 								<div className="flex justify-between">
 									<h1>Total</h1>
-									<p>$160</p>
+									<p>$<span>{(total*150) + 10}</span></p>
 								</div>
 							</div>
 							<div>
-								<button type="submit" className="bg-yellow-400 py-2 px-7 w-full">
+								<button
+									type="submit"
+									className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
 									Proceed To Checkout
 								</button>
 							</div>
