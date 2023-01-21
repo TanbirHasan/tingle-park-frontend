@@ -23,13 +23,17 @@ const Shop = () => {
 				<nav className="w-full h-[48px] flex px-4 bg-white ">
 					<ol className="flex  space-x-2 ">
 						<li className="flex items-center space-x-1">
-							<Link to={'/'} className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
+							<Link
+								to={'/'}
+								className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
 								Home
 							</Link>
 						</li>
 						<li className="flex items-center space-x-1">
 							<span className="dark:text-gray-400">/</span>
-							<Link to={'/shop'} className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
+							<Link
+								to={'/shop'}
+								className="flex items-center px-1 text-[#1b1f22] capitalize hover:underline">
 								Shop
 							</Link>
 						</li>
@@ -52,10 +56,10 @@ const Shop = () => {
 					<div className="lg:mt-10">
 						<div className="flex justify-between items-center">
 							<div className="flex gap-4">
-								<div className="bg-white p-2">
+								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBorderAll />
 								</div>
-								<div className="bg-white p-2">
+								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBars />
 								</div>
 							</div>
@@ -144,13 +148,11 @@ const Shop = () => {
 						</button>
 						<button
 							type="button"
-							title="Page 1"
 							className="inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border  text-[#FFD333]  ">
 							2
 						</button>
 						<button
 							type="button"
-							title="Page 1"
 							className="inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border  text-[#FFD333]  ">
 							3
 						</button>

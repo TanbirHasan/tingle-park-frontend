@@ -25,13 +25,13 @@ const Contact = () => {
 			</div>
 
 			<div className="flex items-center justify-start gap-5">
-				<div className="w-[40%] lg:w-[20%]">
+				<div>
 					<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold text-left">
 						Contact Us
 					</h1>
 				</div>
-				<div className="flex w-[80%] flex-wrap">
-					<span className="w-full  h-1 border border-dashed bg-[#909fa7]"></span>
+				<div className="flex flex-grow flex-wrap">
+					<span className="w-full  border_style "></span>
 				</div>
 			</div>
 

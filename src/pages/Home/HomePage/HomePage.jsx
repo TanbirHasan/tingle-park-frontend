@@ -9,7 +9,7 @@ import Services from '../Services/Services';
 
 const HomePage = () => {
 	return (
-		<div className="lg:w-[90%] mx-auto">
+		<div className="lg:w-[90%] mx-auto p-4 lg:p-0">
 			<Banner />
 			<Services />
 			<Categories />

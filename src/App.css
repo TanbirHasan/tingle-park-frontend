@@ -3,6 +3,14 @@
     animation: bounce 2s linear infinite;
 }
 
+.border_style {
+    /* 
+    background: repeating-linear-gradient(to right, rgb(211, 211, 211) 0,
+            rgba(211, 211, 211, 0.5) 1px, rgba(255, 255, 255, 0) 1px,
+            rgba(255, 255, 255, 0) 1px);
+    height: 1px; */
+    border: 1px dashed rgb(211, 211, 211);
+}
 
 
 @keyframes bounce {

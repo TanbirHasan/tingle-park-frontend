@@ -102,9 +102,9 @@ const Footer = () => {
 							placeholder="Your Email Address"
 							required
 							type="email"
-							className="lg:w-[150px] py-2 px-3"
+							className="lg:w-[180px] py-2 px-3 focus:ring-0"
 						/>
-						<button type="submit" className="bg-yellow-400 px-3">
+						<button type="submit" className="bg-yellow-400 text-black px-3">
 							Sign up
 						</button>
 					</form>
