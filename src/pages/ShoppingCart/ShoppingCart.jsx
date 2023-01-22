@@ -4,9 +4,9 @@ import { RxCross1 } from 'react-icons/rx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { decreaseQuantity, increaseQuantity, removeItemsFromCart } from '../../features/CartSlice';
-import './checkOut.css';
+import './ShoppingCart.css';
 
-const CheckOut = () => {
+const ShoppingCart = () => {
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
 	const dispatch = useDispatch();
 
@@ -184,4 +184,4 @@ const CheckOut = () => {
 	);
 };
 
-export default CheckOut;
+export default ShoppingCart;
