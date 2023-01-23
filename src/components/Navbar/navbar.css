@@ -9,13 +9,11 @@
     transition: all 0.5s 0s ease;
 }
 
-.links a:hover {
-    color: #FFC800;
-}
-
-/* .active {
+/* .links a:hover {
     color: #FFC800;
 } */
+
+
 
 @keyframes opacityTransition {
     from {

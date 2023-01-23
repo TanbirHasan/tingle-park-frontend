@@ -11,23 +11,21 @@ const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isPagesOpen, setIsPagesOpen] = useState(false);
 
-	// const menuRef = useRef();
+	const menuRef = useRef();
 
-	// useEffect(() => {
-	// 	let handler = (e) => {
-	// 		if (e.target) {
-	// 			setOpenDropdown(false);
-	// 			setIsPagesOpen(false);
-	// 		} else {
-	// 			document.removeEventListener('mousedown', handler);
-	// 		}
-	// 	};
+	useEffect(() => {
+		let handler = (e) => {
+			if (e.target) {
+				// setOpenDropdown(false);
+				setIsPagesOpen(false);
+			}
+		};
 
-	// 	document.addEventListener('mousedown', handler);
-	// 	return () => {
-	// 		document.removeEventListener('mousedown', handler);
-	// 	};
-	// }, []);
+		document.addEventListener('mousedown', handler);
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		};
+	}, []);
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
@@ -72,13 +70,13 @@ const Navbar = () => {
 
 	const menuRoutes = (
 		<>
-			<NavLink to={'/'}>
+			<NavLink to={'/'} className="hover:text-[#FFD333]">
 				<li>Home</li>
 			</NavLink>
-			<NavLink to={'/shop'}>
+			<NavLink to={'/shop'} className="hover:text-[#FFD333]">
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/shop-detail'}>
+			<NavLink to={'/shop-detail'} className="hover:text-[#FFD333]">
 				<li>Shop Detail</li>
 			</NavLink>
 			<Link className={'group inline-block relative'}>
@@ -89,31 +87,33 @@ const Navbar = () => {
 					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
 				</div>
 
-				<div className="flex items-center gap-2">
+				<div ref={menuRef} className="flex items-center gap-2">
 					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
+						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-black text-box bg-[#FFD333]  md:text-md ${
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
 						<NavLink
-							to={'/checkout'}
+							to={'/shopping-cart'}
 							className={({ isActive }) =>
-								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}>
-							<li className="text-black">Checkout</li>
+								`${
+									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
+								} hover:bg-white py-2 px-4 block font-bold`
+							}>
+							<li>Shopping Cart</li>
 						</NavLink>
 						<NavLink
-							to={'/shopping-cart'}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
+							to={'/checkout'}
 							className={({ isActive }) =>
-								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+								`${
+									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
+								} hover:bg-white py-2 px-4 block font-bold `
 							}>
-							<li className="text-black">Shopping Cart</li>
+							<li>Checkout</li>
 						</NavLink>
 					</ul>
 				</div>
 			</Link>
-			<NavLink to={'/contact'}>
+			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
 		</>
@@ -156,8 +156,7 @@ const Navbar = () => {
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}
-						>
+							}>
 							<li className="">Shopping Cart</li>
 						</NavLink>
 					</ul>
