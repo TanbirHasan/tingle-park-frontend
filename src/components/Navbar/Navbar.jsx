@@ -215,7 +215,10 @@ const Navbar = () => {
 
 					<div className="flex justify-between items-center lg:hidden">
 						<div>
-							<h1 className="text-4xl font-extrabold">LOGO</h1>
+							<h1 className="uppercase text-[25px] font-extrabold">
+								<span className="bg-[#3d464d] text-[#ffd333] px-2">Multi</span>
+								<span className="bg-[#ffd333] text-[#3d464d] px-2">Shop</span>
+							</h1>
 						</div>
 						<div className={`flex justify-end lg:hidden`} onClick={handleClick}>
 							{isMenuOpen ? (

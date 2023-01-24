@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const CheckOut = () => {
@@ -11,6 +12,13 @@ const CheckOut = () => {
 	} = useForm();
 
 	const [showShipping, setShowShipping] = useState(false);
+	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
+
+	const total = cartItems.reduce((a, b) => {
+		return a + b.quantity;
+	}, 0);
+
+	console.log(total);
 
 	const handlePayment = (data) => {
 		console.log(data);
@@ -419,24 +427,21 @@ const CheckOut = () => {
 							<div className="flex justify-between">
 								<h1 className="text-lg font-medium">Products</h1>
 							</div>
-							<div className="flex justify-between text-[#6c757d] text-lg">
-								<h1>Product Name 1</h1>
-								<p>$150</p>
-							</div>
-							<div className="flex justify-between text-[#6c757d] text-lg">
-								<h1>Product Name 2</h1>
-								<p>$150</p>
-							</div>
-							<div className="flex justify-between text-[#6c757d] text-lg">
-								<h1>Product Name 3</h1>
-								<p>$150</p>
-							</div>
+							{cartItems.map((item) => (
+								<div key={item.id} className="flex justify-between text-[#6c757d] text-lg">
+									<h1>{item.title}</h1>
+									<p>$150</p>
+								</div>
+							))}
+
 							<hr />
 
 							<div className="space-y-5 text-lg text-black">
 								<div className="flex justify-between">
 									<h1>Subtotal</h1>
-									<p>$150</p>
+									<p>
+										$<span>{cartItems.length * 150}</span>
+									</p>
 								</div>
 								<div className="flex justify-between">
 									<h1>Shipping</h1>
@@ -448,7 +453,7 @@ const CheckOut = () => {
 
 							<div className="flex justify-between text-xl">
 								<h1>Total</h1>
-								<p>$160</p>
+								<p> <span>$</span> {cartItems.length * 150 + 10}</p>
 							</div>
 						</div>
 					</div>
