@@ -1,7 +1,15 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const CheckOut = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm();
+
 	return (
 		<div className="w-[90%] mx-auto">
 			<div className="my-10">
@@ -30,6 +38,44 @@ const CheckOut = () => {
 						</li>
 					</ol>
 				</nav>
+			</div>
+
+			<div>
+				<div className='w-[65%] mb-20'>
+					<div className="flex items-center gap-2">
+						<h1 className="uppercase text-xl font-semibold my-4">Billing Address</h1>
+						<div className="flex flex-grow flex-wrap">
+							<span className="w-full  border_style "></span>
+						</div>
+					</div>
+
+					<div>
+						<form className="bg-white py-10 px-10 grid grid-cols-2 gap-x-10 gap-y-5">
+							<div>
+								<label htmlFor="firstName" className="text-[#6c757d]">
+									First Name
+								</label>
+								<input
+									type="text"
+									{...register('name', { required: 'Your Name is required' })}
+									placeholder="Your Name"
+									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] mt-2 "
+								/>
+							</div>
+							<div>
+								<label htmlFor="firstName" className="text-[#6c757d]">
+									Last Name
+								</label>
+								<input
+									type="text"
+									{...register('name', { required: 'Your Name is required' })}
+									placeholder="Your Name"
+									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] mt-2 "
+								/>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

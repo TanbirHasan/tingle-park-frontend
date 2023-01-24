@@ -97,7 +97,7 @@ const Contact = () => {
 									required: 'Subject is required',
 									minLength: {
 										value: 10,
-										message: 'Message must have at least 30 characters',
+										message: 'Message must have at least 10 characters',
 									},
 								})}
 								cols="30"
