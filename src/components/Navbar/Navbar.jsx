@@ -15,13 +15,13 @@ const Navbar = () => {
 
 	useEffect(() => {
 		let handler = (e) => {
-			if (e.target) {
+			if (!menuRef.current.contains(e.target)) {
 				// setOpenDropdown(false);
 				setIsPagesOpen(false);
 			}
 		};
-
 		document.addEventListener('mousedown', handler);
+
 		return () => {
 			document.removeEventListener('mousedown', handler);
 		};
@@ -82,7 +82,7 @@ const Navbar = () => {
 			<Link className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
-					className="flex items-center lg:justify-center ">
+					className="flex items-center lg:justify-center hover:text-[#FFD333] ">
 					<li>Pages</li>
 					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
 				</div>
@@ -94,6 +94,7 @@ const Navbar = () => {
 						}  `}>
 						<NavLink
 							to={'/shopping-cart'}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${
 									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
@@ -103,6 +104,7 @@ const Navbar = () => {
 						</NavLink>
 						<NavLink
 							to={'/checkout'}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${
 									isActive ? 'text-white  hover:bg-[#FFD333]' : ''

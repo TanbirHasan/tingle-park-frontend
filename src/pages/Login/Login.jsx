@@ -7,15 +7,15 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset
-	} = useForm(); 
+		reset,
+	} = useForm();
 
 	// const [loginError, setLoginError] = useState('');
 	// const [load, setLoad] = useState(false);
 
 	const handleLogin = (data) => {
 		console.log(data);
-		reset()
+		reset();
 	};
 
 	return (
@@ -33,7 +33,9 @@ const Login = () => {
 							type="email"
 							{...register('email', { required: 'Email Address is required' })}
 							placeholder="Email"
-							className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2"
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.email && 'focus:border-red-600'
+							}`}
 						/>
 						{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
 					</div>
@@ -45,7 +47,9 @@ const Login = () => {
 							type="password"
 							{...register('password', { required: 'Password  is required' })}
 							placeholder="Password"
-							className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 "
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.password && 'focus:border-red-600'
+							}`}
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
 						<div className="flex justify-end text-xs text-gray-400">

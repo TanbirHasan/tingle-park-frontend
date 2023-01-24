@@ -63,7 +63,9 @@ const Contact = () => {
 								type="text"
 								{...register('name', { required: 'Your Name is required' })}
 								placeholder="Your Name"
-								className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] "
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.name && 'focus:border-red-600'
+								}`}
 							/>
 							{errors.name && <p className="text-red-600">{errors.name?.message}</p>}
 						</div>
@@ -78,7 +80,9 @@ const Contact = () => {
 									},
 								})}
 								placeholder="Your Email"
-								className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] "
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.email && 'focus:border-red-600'
+								} `}
 							/>
 							{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
 						</div>
@@ -87,7 +91,9 @@ const Contact = () => {
 								type="text"
 								{...register('subject', { required: 'Subject is required' })}
 								placeholder="Subject"
-								className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] "
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.subject && 'focus:border-red-600'
+								}`}
 							/>
 							{errors.subject && <p className="text-red-600">{errors.subject?.message}</p>}
 						</div>
@@ -103,7 +109,9 @@ const Contact = () => {
 								cols="30"
 								rows="5"
 								placeholder="Message"
-								className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] "></textarea>
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.message && 'focus:border-red-600'
+								}`}></textarea>
 							{errors.message && <p className="text-red-600">{errors.message?.message}</p>}
 						</div>
 

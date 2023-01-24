@@ -33,7 +33,9 @@ const Register = () => {
 							type="text"
 							{...register('name', { required: 'Your Name is required' })}
 							placeholder="Name"
-							className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2"
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.name && 'focus:border-red-600'
+							}`}
 						/>
 						{errors.name && <p className="text-red-600">{errors.name?.message}</p>}
 					</div>
@@ -51,7 +53,9 @@ const Register = () => {
 								},
 							})}
 							placeholder="Email"
-							className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2"
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.email && 'focus:border-red-600'
+							}`}
 						/>
 						{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
 					</div>
@@ -69,7 +73,9 @@ const Register = () => {
 								},
 							})}
 							placeholder="Password"
-							className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 "
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.password && 'focus:border-red-600'
+							}`}
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
 					</div>
