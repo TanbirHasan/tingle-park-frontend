@@ -1,6 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import ShippingForm from '../ShippingForm/ShippingForm';
 
 const CheckOut = () => {
 	const {
@@ -9,6 +11,17 @@ const CheckOut = () => {
 		formState: { errors },
 		reset,
 	} = useForm();
+
+	const [showShipping, setShowShipping] = useState(false);
+
+	const handlePayment = (data) => {
+		console.log(data);
+
+		const { firstName, lastName, email, mobile, address1, address2, country, city, state, zip } =
+			data;
+
+		reset();
+	};
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -116,7 +129,7 @@ const CheckOut = () => {
 									{...register('address1', {
 										required: 'Address 1 is required',
 									})}
-									placeholder="+880 123456"
+									placeholder="123 street"
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 								/>
 								{errors.address1 && <p className="text-red-600">{errors.address1?.message}</p>}
@@ -130,7 +143,7 @@ const CheckOut = () => {
 									{...register('address2', {
 										required: 'Address 2 is required',
 									})}
-									placeholder="+880 123456"
+									placeholder="123 street"
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 								/>
 								{errors.address2 && <p className="text-red-600">{errors.address2?.message}</p>}
@@ -144,13 +157,13 @@ const CheckOut = () => {
 									{...register('country', {
 										required: 'Country is required',
 									})}
-									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
-									name=""
-									id="">
-									<option value="">United States</option>
-									<option value="">Albania</option>
-									<option value="">Oman</option>
-									<option value="">UAE</option>
+									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 ">
+									<option selected value="United States">
+										United States
+									</option>
+									<option value="Albania">Albania</option>
+									<option value="Oman">Oman</option>
+									<option value="UAE">UAE</option>
 								</select>
 								{errors.country && <p className="text-red-600">{errors.country?.message}</p>}
 							</div>
@@ -208,12 +221,21 @@ const CheckOut = () => {
 							<div className="flex items-center">
 								<input
 									type="checkbox"
+									onClick={() => setShowShipping(!showShipping)}
 									className=" appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
 								/>
 								<p className="ml-2">Ship to different address</p>
 							</div>
 						</div>
 					</div>
+
+					{showShipping ? (
+						<div className="">
+							<ShippingForm />
+						</div>
+					) : (
+						''
+					)}
 				</div>
 
 				<div className="lg:w-[35%]">
@@ -227,20 +249,38 @@ const CheckOut = () => {
 
 						<div className="bg-white py-10 px-5 space-y-5 text-[#3d464d] font-semibold">
 							<div className="flex justify-between">
-								<h1>Sub total</h1>
-								<p>{/* $<span>{total * 150}</span> */}</p>
+								<h1 className="text-lg font-medium">Products</h1>
 							</div>
-							<div className="flex justify-between">
-								<h1>Shipping</h1>
-								<p>$10</p>
+							<div className="flex justify-between text-[#6c757d] text-lg">
+								<h1>Product Name 1</h1>
+								<p>$150</p>
+							</div>
+							<div className="flex justify-between text-[#6c757d] text-lg">
+								<h1>Product Name 2</h1>
+								<p>$150</p>
+							</div>
+							<div className="flex justify-between text-[#6c757d] text-lg">
+								<h1>Product Name 3</h1>
+								<p>$150</p>
 							</div>
 							<hr />
 
-							<div>
+							<div className="space-y-5 text-lg text-black">
 								<div className="flex justify-between">
-									<h1>Total</h1>
-									<p>{/* $<span>{total * 150 + 10}</span> */}</p>
+									<h1>Subtotal</h1>
+									<p>$150</p>
 								</div>
+								<div className="flex justify-between">
+									<h1>Shipping</h1>
+									<p>$10</p>
+								</div>
+							</div>
+
+							<hr />
+
+							<div className="flex justify-between text-xl">
+								<h1>Total</h1>
+								<p>$160</p>
 							</div>
 						</div>
 					</div>
@@ -287,6 +327,7 @@ const CheckOut = () => {
 							<div>
 								<button
 									type="submit"
+									onClick={handleSubmit(handlePayment)}
 									className="bg-[#FFD333] text-black hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
 									Proceed To Checkout
 								</button>
