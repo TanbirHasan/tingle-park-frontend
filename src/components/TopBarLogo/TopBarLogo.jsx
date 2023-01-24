@@ -1,4 +1,5 @@
 import React from 'react';
+import { BiSearch } from 'react-icons/bi';
 
 const TopBarLogo = () => {
 	return (
@@ -11,18 +12,20 @@ const TopBarLogo = () => {
 					</h1>
 				</div>
 
-				<div>
+				<div className='flex items-center relative'>
 					<input
 						type="text"
 						placeholder="Search for Products"
-						className="w-[450px] focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF]  "
+						className="w-[450px] focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF]   "
 					/>
-					<button className="border h-[42px] p-2">Search</button>
+					<button className="absolute right-0 border h-[42px] px-5 border-r-0 bg-none">
+						<BiSearch className='font-extrabold w-[20px] text-[#FFD333]' />
+					</button>
 				</div>
 
-				<div className=''>
-					<p className='text-[#6c757d] text-[18px]'>Customer Service</p>
-					<p className='text-[#3d464d] text-[20px] font-medium'>+012 345 6789</p>
+				<div className="">
+					<p className="text-[#6c757d] text-[18px]">Customer Service</p>
+					<p className="text-[#3d464d] text-[20px] font-medium">+012 345 6789</p>
 				</div>
 			</div>
 		</div>
