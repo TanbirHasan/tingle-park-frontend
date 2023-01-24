@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-const ShippingForm = () => {
+const ShippingForm = ({ showShipping }) => {
 	const {
 		register,
 		handleSubmit,
@@ -10,8 +10,8 @@ const ShippingForm = () => {
 	} = useForm();
 
 	return (
-		<div>
-			<div className="flex items-center gap-2 mt-10">
+		<div className={`${showShipping ? 'text-box' : ''}`}>
+			<div className={`flex items-center gap-2 mt-10 `}>
 				<h1 className="uppercase text-xl font-semibold my-4">Shipping Address</h1>
 				<div className="flex flex-grow flex-wrap">
 					<span className="w-full  border_style "></span>
@@ -20,36 +20,36 @@ const ShippingForm = () => {
 			<div className="bg-white py-10 px-10">
 				<form className=" grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
 					<div>
-						<label htmlFor="firstName" className="text-[#6c757d]">
+						<label htmlFor="firstName1" className="text-[#6c757d]">
 							First Name
 						</label>
 						<input
 							type="text"
-							{...register('firstName', { required: 'First Name is required' })}
+							{...register('firstName1', { required: 'First Name is required' })}
 							placeholder="John"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.firstName && <p className="text-red-600">{errors.firstName?.message}</p>}
+						{errors.firstName1 && <p className="text-red-600">{errors.firstName1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="lastName" className="text-[#6c757d]">
+						<label htmlFor="lastName1" className="text-[#6c757d]">
 							Last Name
 						</label>
 						<input
 							type="text"
-							{...register('lastName', { required: 'Last Name is required' })}
+							{...register('lastName1', { required: 'Last Name is required' })}
 							placeholder="Smith"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.lastName && <p className="text-red-600">{errors.lastName?.message}</p>}
+						{errors.lastName1 && <p className="text-red-600">{errors.lastName1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="email" className="text-[#6c757d]">
+						<label htmlFor="email1" className="text-[#6c757d]">
 							Email
 						</label>
 						<input
 							type="text"
-							{...register('email', {
+							{...register('email1', {
 								required: 'Email Address is required',
 								pattern: {
 									value: /.+@.+\..+/i,
@@ -59,57 +59,57 @@ const ShippingForm = () => {
 							placeholder="example@example.com"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
+						{errors.email1 && <p className="text-red-600">{errors.email1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="mobile" className="text-[#6c757d]">
+						<label htmlFor="mobile1" className="text-[#6c757d]">
 							Mobile No
 						</label>
 						<input
 							type="text"
-							{...register('mobile', {
+							{...register('mobile1', {
 								required: 'Mobile Number is required',
 							})}
 							placeholder="+880 123456"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.mobile && <p className="text-red-600">{errors.mobile?.message}</p>}
+						{errors.mobile1 && <p className="text-red-600">{errors.mobile1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="address1" className="text-[#6c757d]">
+						<label htmlFor="address1Ship" className="text-[#6c757d]">
 							Address Line 1
 						</label>
 						<input
 							type="text"
-							{...register('address1', {
+							{...register('address1Ship', {
 								required: 'Address 1 is required',
 							})}
 							placeholder="123 street"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.address1 && <p className="text-red-600">{errors.address1?.message}</p>}
+						{errors.address1Ship && <p className="text-red-600">{errors.address1Ship?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="address2" className="text-[#6c757d]">
+						<label htmlFor="address2Ship" className="text-[#6c757d]">
 							Address Line 2
 						</label>
 						<input
 							type="text"
-							{...register('address2', {
+							{...register('address2Ship', {
 								required: 'Address 2 is required',
 							})}
 							placeholder="123 street"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.address2 && <p className="text-red-600">{errors.address2?.message}</p>}
+						{errors.address2Ship && <p className="text-red-600">{errors.address2Ship?.message}</p>}
 					</div>
 
 					<div>
-						<label htmlFor="country" className="text-[#6c757d]">
+						<label htmlFor="country1" className="text-[#6c757d]">
 							Country
 						</label>
 						<select
-							{...register('country', {
+							{...register('country1', {
 								required: 'Country is required',
 							})}
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 ">
@@ -120,35 +120,35 @@ const ShippingForm = () => {
 							<option value="Oman">Oman</option>
 							<option value="UAE">UAE</option>
 						</select>
-						{errors.country && <p className="text-red-600">{errors.country?.message}</p>}
+						{errors.country1 && <p className="text-red-600">{errors.country1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="city" className="text-[#6c757d]">
+						<label htmlFor="city1" className="text-[#6c757d]">
 							City
 						</label>
 						<input
 							type="text"
-							{...register('city', {
+							{...register('city1', {
 								required: 'City is required',
 							})}
 							placeholder="New York"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.city && <p className="text-red-600">{errors.city?.message}</p>}
+						{errors.city1 && <p className="text-red-600">{errors.city1?.message}</p>}
 					</div>
 					<div>
-						<label htmlFor="state" className="text-[#6c757d]">
+						<label htmlFor="state1" className="text-[#6c757d]">
 							State
 						</label>
 						<input
 							type="text"
-							{...register('state', {
+							{...register('state1', {
 								required: 'State is required',
 							})}
 							placeholder="New York"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.state && <p className="text-red-600">{errors.state?.message}</p>}
+						{errors.state1 && <p className="text-red-600">{errors.state1?.message}</p>}
 					</div>
 					<div>
 						<label htmlFor="zip" className="text-[#6c757d]">
@@ -156,13 +156,13 @@ const ShippingForm = () => {
 						</label>
 						<input
 							type="text"
-							{...register('zip', {
+							{...register('zip1', {
 								required: 'ZIP is required',
 							})}
 							placeholder="123"
 							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 						/>
-						{errors.zip && <p className="text-red-600">{errors.zip?.message}</p>}
+						{errors.zip1 && <p className="text-red-600">{errors.zip1?.message}</p>}
 					</div>
 				</form>
 			</div>
