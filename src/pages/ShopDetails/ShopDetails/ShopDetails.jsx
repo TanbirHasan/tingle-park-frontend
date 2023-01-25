@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper';
+import 'react-tabs/style/react-tabs.css';
 
 import {
 	AiFillStar,
@@ -26,6 +27,8 @@ import p7 from '../../../assets/product-7.jpg';
 import p8 from '../../../assets/product-8.jpg';
 import p9 from '../../../assets/product-9.jpg';
 import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import ProductDescription from '../ProductDescription/ProductDescription';
 
 const ShopDetails = () => {
 	return (
@@ -58,8 +61,8 @@ const ShopDetails = () => {
 				</nav>
 			</div>
 
-			<div className="my-10 flex gap-10">
-				<div className="bg-white w-[40%] ">
+			<div className="my-10 flex flex-col lg:flex-row gap-10">
+				<div className="bg-white lg:w-[40%] ">
 					<Swiper
 						slidesPerView={1}
 						loop={true}
@@ -140,7 +143,7 @@ const ShopDetails = () => {
 						/>
 					</div>
 
-					<div className="flex items-center gap-10">
+					<div className="flex flex-col lg:flex-row items-center gap-10">
 						<div className="flex items-center">
 							<button
 								type="button"
@@ -177,6 +180,26 @@ const ShopDetails = () => {
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<div className="my-10 bg-white p-10">
+				<Tabs>
+					<TabList>
+						<Tab>Description</Tab>
+						<Tab>Information</Tab>
+						<Tab>Reviews (0)</Tab>
+					</TabList>
+
+					<TabPanel>
+						<ProductDescription />
+					</TabPanel>
+					<TabPanel>
+						<h2>Any content 2</h2>
+					</TabPanel>
+					<TabPanel>
+						<h2>Any content 2</h2>
+					</TabPanel>
+				</Tabs>
 			</div>
 		</div>
 	);
