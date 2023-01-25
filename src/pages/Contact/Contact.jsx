@@ -1,9 +1,28 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm();
+
+	const handleContact = (data) => {
+		const { name, email, subject, message } = data;
+
+		alert(`Name - ${name}
+		Email -  ${email}
+		Subject -  ${subject}
+		Message -  ${message}`);
+
+		reset();
+	};
+
 	return (
 		<div className="lg:w-[90%] mx-auto my-10 p-4 lg:p-0">
 			<div className="mb-10">
@@ -38,35 +57,63 @@ const Contact = () => {
 			<div className="flex gap-10 flex-col lg:flex-row">
 				{/* form (left side of contact Page) */}
 				<div className="mt-10 lg:w-[60%]">
-					<form className="bg-white py-5 px-10">
-						<input
-							type="text"
-							name=""
-							id=""
-							placeholder="Your Name"
-							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057] mb-5 border-[#D4D9DF] "
-						/>
-						<input
-							type="text"
-							name=""
-							id=""
-							placeholder="Your Email"
-							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057] mb-5 border-[#D4D9DF] "
-						/>
-						<input
-							type="text"
-							name=""
-							id=""
-							placeholder="Subject"
-							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057] mb-5 border-[#D4D9DF] "
-						/>
-						<textarea
-							name=""
-							id=""
-							cols="30"
-							rows="5"
-							placeholder="Message"
-							className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057] mb-5 border-[#D4D9DF] "></textarea>
+					<form onSubmit={handleSubmit(handleContact)} className="bg-white py-5 px-10">
+						<div className="mb-5">
+							<input
+								type="text"
+								{...register('name', { required: 'Your Name is required' })}
+								placeholder="Your Name"
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.name && 'focus:border-red-600'
+								}`}
+							/>
+							{errors.name && <p className="text-red-600">{errors.name?.message}</p>}
+						</div>
+						<div className="mb-5">
+							<input
+								type="text"
+								{...register('email', {
+									required: 'Email Address is required',
+									pattern: {
+										value: /.+@.+\..+/i,
+										message: 'Please enter a valid email address',
+									},
+								})}
+								placeholder="Your Email"
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.email && 'focus:border-red-600'
+								} `}
+							/>
+							{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
+						</div>
+						<div className="mb-5">
+							<input
+								type="text"
+								{...register('subject', { required: 'Subject is required' })}
+								placeholder="Subject"
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.subject && 'focus:border-red-600'
+								}`}
+							/>
+							{errors.subject && <p className="text-red-600">{errors.subject?.message}</p>}
+						</div>
+						<div className="mb-5">
+							<textarea
+								{...register('message', {
+									required: 'Subject is required',
+									minLength: {
+										value: 10,
+										message: 'Message must have at least 10 characters',
+									},
+								})}
+								cols="30"
+								rows="5"
+								placeholder="Message"
+								className={`w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
+									errors.message && 'focus:border-red-600'
+								}`}></textarea>
+							{errors.message && <p className="text-red-600">{errors.message?.message}</p>}
+						</div>
 
 						<button type="submit" className="bg-[#ffd333] w-[154px] h-[42px] text-[#3d464d]">
 							Send Message

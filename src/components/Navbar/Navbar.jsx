@@ -11,23 +11,21 @@ const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isPagesOpen, setIsPagesOpen] = useState(false);
 
-	// const menuRef = useRef();
+	const menuRef = useRef();
 
-	// useEffect(() => {
-	// 	let handler = (e) => {
-	// 		if (e.target) {
-	// 			setOpenDropdown(false);
-	// 			setIsPagesOpen(false);
-	// 		} else {
-	// 			document.removeEventListener('mousedown', handler);
-	// 		}
-	// 	};
+	useEffect(() => {
+		let handler = (e) => {
+			if (!menuRef.current.contains(e.target)) {
+				// setOpenDropdown(false);
+				setIsPagesOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', handler);
 
-	// 	document.addEventListener('mousedown', handler);
-	// 	return () => {
-	// 		document.removeEventListener('mousedown', handler);
-	// 	};
-	// }, []);
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		};
+	}, []);
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
@@ -72,48 +70,52 @@ const Navbar = () => {
 
 	const menuRoutes = (
 		<>
-			<NavLink to={'/'}>
+			<NavLink to={'/'} className="hover:text-[#FFD333]">
 				<li>Home</li>
 			</NavLink>
-			<NavLink to={'/shop'}>
+			<NavLink to={'/shop'} className="hover:text-[#FFD333]">
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/shop-detail'}>
+			<NavLink to={'/shop-details'} className="hover:text-[#FFD333]">
 				<li>Shop Detail</li>
 			</NavLink>
 			<Link className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
-					className="flex items-center lg:justify-center ">
+					className="flex items-center lg:justify-center hover:text-[#FFD333] ">
 					<li>Pages</li>
 					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
 				</div>
 
-				<div className="flex items-center gap-2">
+				<div ref={menuRef} className="flex items-center gap-2">
 					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
+						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-black text-box bg-[#FFD333]  md:text-md ${
 							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
 						}  `}>
-						<NavLink
-							to={'/checkout'}
-							className={({ isActive }) =>
-								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}>
-							<li className="text-black">Checkout</li>
-						</NavLink>
 						<NavLink
 							to={'/shopping-cart'}
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
-								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
+								`${
+									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
+								} hover:bg-white py-2 px-4 block font-bold`
 							}>
-							<li className="text-black">Shopping Cart</li>
+							<li>Shopping Cart</li>
+						</NavLink>
+						<NavLink
+							to={'/checkout'}
+							onClick={() => setIsPagesOpen(!isPagesOpen)}
+							className={({ isActive }) =>
+								`${
+									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
+								} hover:bg-white py-2 px-4 block font-bold `
+							}>
+							<li>Checkout</li>
 						</NavLink>
 					</ul>
 				</div>
 			</Link>
-			<NavLink to={'/contact'}>
+			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
 		</>
@@ -156,8 +158,7 @@ const Navbar = () => {
 							onClick={() => setIsPagesOpen(!isPagesOpen)}
 							className={({ isActive }) =>
 								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}
-						>
+							}>
 							<li className="">Shopping Cart</li>
 						</NavLink>
 					</ul>
@@ -216,7 +217,10 @@ const Navbar = () => {
 
 					<div className="flex justify-between items-center lg:hidden">
 						<div>
-							<h1 className="text-4xl font-extrabold">LOGO</h1>
+							<h1 className="uppercase text-[25px] font-extrabold">
+								<span className="bg-[#3d464d] text-[#ffd333] px-2">Multi</span>
+								<span className="bg-[#ffd333] text-[#3d464d] px-2">Shop</span>
+							</h1>
 						</div>
 						<div className={`flex justify-end lg:hidden`} onClick={handleClick}>
 							{isMenuOpen ? (

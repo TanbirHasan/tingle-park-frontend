@@ -23,9 +23,9 @@ const ShoppingCart = () => {
 	};
 
 	const total = cartItems.reduce((a, b) => {
-		return a + b.quantity;	
-	}, 0)
-	
+		return a + b.quantity;
+	}, 0);
+
 	return (
 		<div className="w-[90%] mx-auto">
 			<div className="mt-10">
@@ -155,7 +155,9 @@ const ShoppingCart = () => {
 						<div className="bg-white py-10 px-5 space-y-5 text-[#3d464d] font-semibold">
 							<div className="flex justify-between">
 								<h1>Sub total</h1>
-								<p>$<span>{total*150}</span></p>
+								<p>
+									$<span>{total * 150}</span>
+								</p>
 							</div>
 							<div className="flex justify-between">
 								<h1>Shipping</h1>
@@ -166,7 +168,9 @@ const ShoppingCart = () => {
 							<div>
 								<div className="flex justify-between">
 									<h1>Total</h1>
-									<p>$<span>{(total*150) + 10}</span></p>
+									<p>
+										$<span>{total * 150 + 10}</span>
+									</p>
 								</div>
 							</div>
 							<div>

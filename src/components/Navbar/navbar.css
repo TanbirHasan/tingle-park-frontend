@@ -9,13 +9,11 @@
     transition: all 0.5s 0s ease;
 }
 
-.links a:hover {
-    color: #FFC800;
-}
-
-/* .active {
+/* .links a:hover {
     color: #FFC800;
 } */
+
+
 
 @keyframes opacityTransition {
     from {
@@ -25,6 +23,27 @@
     to {
         opacity: 1;
     }
+}
+
+@keyframes formTransition {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.form-transition {
+    animation: opacityTransition 0.5s ease-in;
+}
+
+.form-inactive {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    transition: 500ms linear;
 }
 
 @keyframes transformX {

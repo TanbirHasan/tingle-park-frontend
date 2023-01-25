@@ -29,7 +29,7 @@ function App() {
 		<div className="App bg-[#F5F5F5]">
 			{visible && (
 				<button
-					className="bounce scroll-button absolute z-50"
+					className={`bounce scroll-button absolute z-50 ${visible ? 'text-box' : ''}`}
 					onClick={scrollToTop}
 					style={{
 						position: 'fixed',
@@ -38,7 +38,6 @@ function App() {
 						width: '36px',
 						height: '38px',
 						backgroundColor: '#FFD333',
-						
 					}}>
 					<FaAngleDoubleUp className="w-[30px] h-[20px] mx-auto text-black" />
 				</button>
