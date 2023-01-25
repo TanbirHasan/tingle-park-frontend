@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Autoplay, Navigation } from 'swiper';
+import { Autoplay, Navigation, Pagination } from 'swiper';
 import 'react-tabs/style/react-tabs.css';
 
 import {
@@ -30,8 +30,19 @@ import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from '../../../components/ProductCard/ProductCard';
+import { fetchProducts } from '../../../features/ProductSlice';
 
 const ShopDetails = () => {
+	const { products, isLoading } = useSelector((state) => state.productsReducer);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchProducts());
+	}, [dispatch]);
+
 	return (
 		<div className="w-[90%] mx-auto">
 			<div className="my-10">
@@ -201,6 +212,45 @@ const ShopDetails = () => {
 						<h2>Any content 2</h2>
 					</TabPanel>
 				</Tabs>
+			</div>
+
+			<div className="my-20">
+				<Swiper
+					slidesPerView={4}
+					spaceBetween={30}
+					speed={1200}
+					autoHeight={true}
+					breakpoints={{
+					
+						200: {
+							slidesPerView: 1,
+						},
+						
+						640: {
+							slidesPerView: 2,
+						},
+						
+						768: {
+							slidesPerView: 4,
+						},
+						
+					}}
+					loop={true}
+					// loopFillGroupWithBlank={true}
+					
+					autoplay={{
+						delay: 2500,
+						disableOnInteraction: false,
+					}}
+					modules={[Autoplay, Pagination, Navigation]}
+					className="mySwiper_Details">
+					{products.map((product) => (
+						<SwiperSlide>
+							{' '}
+							<ProductCard product={product} />{' '}
+						</SwiperSlide>
+					))}
+				</Swiper>
 			</div>
 		</div>
 	);
