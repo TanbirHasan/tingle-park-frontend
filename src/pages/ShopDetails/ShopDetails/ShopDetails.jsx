@@ -78,6 +78,7 @@ const ShopDetails = () => {
 					<Swiper
 						slidesPerView={1}
 						loop={true}
+						speed={1200}
 						autoplay={{
 							delay: 3000,
 							disableOnInteraction: false,
@@ -215,29 +216,35 @@ const ShopDetails = () => {
 			</div>
 
 			<div className="my-20">
+				<div className="flex items-center gap-5 my-5">
+					<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold  ">
+						You may also like
+					</h1>
+					<div className="flex flex-grow flex-wrap">
+						<span className="w-full  border_style "></span>
+					</div>
+				</div>
 				<Swiper
 					slidesPerView={4}
 					spaceBetween={30}
 					speed={1200}
 					autoHeight={true}
 					breakpoints={{
-					
 						200: {
 							slidesPerView: 1,
 						},
-						
+
 						640: {
 							slidesPerView: 2,
 						},
-						
+
 						768: {
 							slidesPerView: 4,
 						},
-						
 					}}
 					loop={true}
 					// loopFillGroupWithBlank={true}
-					
+
 					autoplay={{
 						delay: 2500,
 						disableOnInteraction: false,
