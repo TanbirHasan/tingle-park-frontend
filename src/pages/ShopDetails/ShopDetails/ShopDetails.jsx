@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper';
+
+import {
+	AiFillStar,
+	AiOutlineMinus,
+	AiOutlinePlus,
+	AiOutlineStar,
+	AiOutlineTwitter,
+} from 'react-icons/ai';
+import { BsFillCartFill } from 'react-icons/bs';
+import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import { ImPinterest } from 'react-icons/im';
 
 import p1 from '../../../assets/product-1.jpg';
 import p2 from '../../../assets/product-2.jpg';
@@ -18,6 +25,7 @@ import p6 from '../../../assets/product-6.jpg';
 import p7 from '../../../assets/product-7.jpg';
 import p8 from '../../../assets/product-8.jpg';
 import p9 from '../../../assets/product-9.jpg';
+import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
 
 const ShopDetails = () => {
 	return (
@@ -50,8 +58,8 @@ const ShopDetails = () => {
 				</nav>
 			</div>
 
-			<div>
-				<div className="bg-white w-[50%]  my-10">
+			<div className="my-10 flex gap-10">
+				<div className="bg-white w-[40%] ">
 					<Swiper
 						slidesPerView={1}
 						loop={true}
@@ -90,6 +98,84 @@ const ShopDetails = () => {
 							<img src={p9} alt="" className=" w-[560px] mx-auto" />
 						</SwiperSlide>
 					</Swiper>
+				</div>
+
+				<div className="bg-white w-full p-10">
+					<h1 className="text-[#3d464d] text-3xl font-bold">Product Name Goes Here</h1>
+
+					<div className="flex items-center mt-5 gap-1">
+						<AiFillStar className="text-[#FFD333] " />
+						<AiFillStar className="text-[#FFD333] " />
+						<AiFillStar className="text-[#FFD333] " />
+						<AiFillStar className="text-[#FFD333] " />
+						<AiOutlineStar className="text-[#FFD333] " />
+						<div className="ml-2 text-[#6c757d] text-[12.8px]">(99 reviews)</div>
+					</div>
+					<h1 className="text-[#3d464d] text-3xl font-bold my-4">$150.00</h1>
+
+					<p className="mt-4 text-[#6c757d]">
+						Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
+						ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
+					</p>
+
+					<SizesAndColor
+						heading={'Sizes'}
+						i1={'XS'}
+						i2={'S'}
+						i3={'M'}
+						i4={'L'}
+						i5={'XL'}
+						commonName={'sizes'}
+					/>
+
+					<div className="mb-7">
+						<SizesAndColor
+							heading={'Colors'}
+							i1={'Black'}
+							i2={'White'}
+							i3={'Red'}
+							i4={'Blue'}
+							i5={'Green'}
+							commonName={'colors'}
+						/>
+					</div>
+
+					<div className="flex items-center gap-10">
+						<div className="flex items-center">
+							<button
+								type="button"
+								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
+								<AiOutlineMinus className="text-2xl font-extrabold" />
+							</button>
+
+							<button
+								type="button"
+								className="inline-flex items-center justify-center w-[50px] h-[41px] text-xl  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0">
+								0
+							</button>
+
+							<button
+								type="button"
+								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
+								<AiOutlinePlus className="text-2xl font-extrabold" />
+							</button>
+						</div>
+
+						<div>
+							<button
+								type="button"
+								className="inline-flex items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
+								<BsFillCartFill /> <span className="ml-2">Add to cart</span>
+							</button>
+						</div>
+					</div>
+
+					<div className="mt-5 flex items-center gap-4 ">
+						<h1 className="text-[#3d464d] font-bold">Share on:</h1>
+						<div className="flex items-center gap-4 text-[#1b1f22]">
+							<FaFacebookF /> <AiOutlineTwitter /> <FaLinkedinIn /> <ImPinterest />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
