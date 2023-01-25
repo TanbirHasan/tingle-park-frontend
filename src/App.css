@@ -26,3 +26,26 @@
         transform: translateY(0);
     }
 }
+
+.mySwiper1 .swiper-button-prev {
+    color: #6c757d;
+
+}
+
+
+.mySwiper1 .swiper-button-next {
+    color: #6c757d;
+
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    color: #3d464d;
+
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-weight: bolder;
+    font-size: 32px !important;
+}

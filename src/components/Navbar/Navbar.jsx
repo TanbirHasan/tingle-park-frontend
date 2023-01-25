@@ -76,7 +76,7 @@ const Navbar = () => {
 			<NavLink to={'/shop'} className="hover:text-[#FFD333]">
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/shop-detail'} className="hover:text-[#FFD333]">
+			<NavLink to={'/shop-details'} className="hover:text-[#FFD333]">
 				<li>Shop Detail</li>
 			</NavLink>
 			<Link className={'group inline-block relative'}>
