@@ -49,3 +49,19 @@
     font-weight: bolder;
     font-size: 32px !important;
 }
+
+/* React Tabs */
+
+.react-tabs__tab--selected {
+    background-color: #F5F5F5 !important;
+    border-radius: 0 !important;
+    border-color: #d5d2d2 !important;
+}
+
+.react-tabs__tab {
+    padding: 10px 15px !important;
+}
+
+.react-tabs__tab-list {
+    border-bottom: 1px solid #dedfdf !important;
+}

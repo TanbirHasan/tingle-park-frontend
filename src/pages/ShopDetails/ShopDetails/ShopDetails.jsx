@@ -29,6 +29,7 @@ import p9 from '../../../assets/product-9.jpg';
 import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductDescription from '../ProductDescription/ProductDescription';
+import ProductInformation from '../ProductInformation/ProductInformation';
 
 const ShopDetails = () => {
 	return (
@@ -194,7 +195,7 @@ const ShopDetails = () => {
 						<ProductDescription />
 					</TabPanel>
 					<TabPanel>
-						<h2>Any content 2</h2>
+						<ProductInformation />
 					</TabPanel>
 					<TabPanel>
 						<h2>Any content 2</h2>
