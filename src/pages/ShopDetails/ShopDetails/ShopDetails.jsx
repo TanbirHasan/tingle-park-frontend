@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link, useLocation } from 'react-router-dom';
+import 'react-tabs/style/react-tabs.css';
+import { Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Autoplay, Navigation, Pagination } from 'swiper';
-import 'react-tabs/style/react-tabs.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import {
 	AiFillStar,
@@ -17,31 +17,37 @@ import { BsFillCartFill } from 'react-icons/bs';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
-import p1 from '../../../assets/product-1.jpg';
-import p2 from '../../../assets/product-2.jpg';
-import p3 from '../../../assets/product-3.jpg';
-import p4 from '../../../assets/product-4.jpg';
-import p5 from '../../../assets/product-5.jpg';
-import p6 from '../../../assets/product-6.jpg';
-import p7 from '../../../assets/product-7.jpg';
-import p8 from '../../../assets/product-8.jpg';
-import p9 from '../../../assets/product-9.jpg';
-import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import ProductCard from '../../../components/ProductCard/ProductCard';
+import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
+import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
+import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
-import { useDispatch, useSelector } from 'react-redux';
-import ProductCard from '../../../components/ProductCard/ProductCard';
-import { fetchProducts } from '../../../features/ProductSlice';
+import Reviews from '../Reviews/Reviews';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
-
 	const dispatch = useDispatch();
+	const location = useLocation();
+	const { id, title, picture, sizes_color, quantity } = location.state;
+
+	const [addToCart, setAddedToCart] = useState(false);
+
+	let product = { id, title, picture, sizes_color, quantity };
+	const remainingProducts = products.filter((p) => p.id !== id);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
+
+	const handleAddToCart = () => {
+		dispatch(incrementCart());
+		dispatch(addItemsToCart(product));
+		setAddedToCart(!addToCart);
+	};
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -87,37 +93,13 @@ const ShopDetails = () => {
 						modules={[Autoplay, Navigation]}
 						className="mySwiper1">
 						<SwiperSlide>
-							<img src={p1} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p2} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p3} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p4} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p5} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p6} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p7} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p8} alt="" className=" w-[560px] mx-auto" />
-						</SwiperSlide>
-						<SwiperSlide>
-							<img src={p9} alt="" className=" w-[560px] mx-auto" />
+							<img src={picture} alt="" className=" w-[560px] mx-auto" />
 						</SwiperSlide>
 					</Swiper>
 				</div>
 
 				<div className="bg-white w-full p-10">
-					<h1 className="text-[#3d464d] text-3xl font-bold">Product Name Goes Here</h1>
+					<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
 
 					<div className="flex items-center mt-5 gap-1">
 						<AiFillStar className="text-[#FFD333] " />
@@ -134,30 +116,48 @@ const ShopDetails = () => {
 						ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
 					</p>
 
-					<SizesAndColor
-						heading={'Sizes'}
-						i1={'XS'}
-						i2={'S'}
-						i3={'M'}
-						i4={'L'}
-						i5={'XL'}
-						commonName={'sizes'}
-					/>
+					{sizes_color ? (
+						<>
+							<SizesAndColor
+								heading={'Sizes'}
+								i1={'XS'}
+								i2={'S'}
+								i3={'M'}
+								i4={'L'}
+								i5={'XL'}
+								commonName={'sizes'}
+							/>
 
-					<div className="mb-7">
-						<SizesAndColor
-							heading={'Colors'}
-							i1={'Black'}
-							i2={'White'}
-							i3={'Red'}
-							i4={'Blue'}
-							i5={'Green'}
-							commonName={'colors'}
-						/>
-					</div>
+							<div className="mb-5">
+								<SizesAndColor
+									heading={'Colors'}
+									i1={'Black'}
+									i2={'White'}
+									i3={'Red'}
+									i4={'Blue'}
+									i5={'Green'}
+									commonName={'colors'}
+								/>
+							</div>
+						</>
+					) : (
+						<>
+							<div className="my-7">
+								<SizesAndColor
+									heading={'Colors'}
+									i1={'Black'}
+									i2={'White'}
+									i3={'Red'}
+									i4={'Blue'}
+									i5={'Green'}
+									commonName={'colors'}
+								/>
+							</div>
+						</>
+					)}
 
 					<div className="flex flex-col lg:flex-row items-center gap-10">
-						<div className="flex items-center">
+						{/* <div className="flex items-center">
 							<button
 								type="button"
 								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
@@ -167,7 +167,7 @@ const ShopDetails = () => {
 							<button
 								type="button"
 								className="inline-flex items-center justify-center w-[50px] h-[41px] text-xl  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0">
-								0
+								{quantity}
 							</button>
 
 							<button
@@ -175,11 +175,13 @@ const ShopDetails = () => {
 								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
 								<AiOutlinePlus className="text-2xl font-extrabold" />
 							</button>
-						</div>
+						</div> */}
 
 						<div>
 							<button
 								type="button"
+								disabled={addToCart ? true : false}
+								onClick={handleAddToCart}
 								className="inline-flex items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
 								<BsFillCartFill /> <span className="ml-2">Add to cart</span>
 							</button>
@@ -210,7 +212,7 @@ const ShopDetails = () => {
 						<ProductInformation />
 					</TabPanel>
 					<TabPanel>
-						<h2>Any content 2</h2>
+						<Reviews />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -251,8 +253,11 @@ const ShopDetails = () => {
 					}}
 					modules={[Autoplay, Pagination, Navigation]}
 					className="mySwiper_Details">
-					{products.map((product) => (
-						<SwiperSlide>
+					{isLoading && (
+						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+					)}
+					{remainingProducts.map((product) => (
+						<SwiperSlide key={product.id}>
 							{' '}
 							<ProductCard product={product} />{' '}
 						</SwiperSlide>

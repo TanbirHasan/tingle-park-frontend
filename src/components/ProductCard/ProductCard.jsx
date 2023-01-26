@@ -65,7 +65,7 @@ const ProductCard = ({ product }) => {
 				</div>
 
 				<div className="text-center px-4 py-5">
-					<Link to={'/product-details'} state={product}>
+					<Link to={'/shop-details'} state={product}>
 						<h3 className=" text-2xl md:text-xl font-bold cursor-pointer hover:text-[#FFD333] duration-300">
 							{title}
 						</h3>

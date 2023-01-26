@@ -174,11 +174,13 @@ const ShoppingCart = () => {
 								</div>
 							</div>
 							<div>
-								<button
-									type="submit"
-									className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
-									Proceed To Checkout
-								</button>
+								<Link to="/checkout">
+									<button
+										type="submit"
+										className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
+										Proceed To Checkout
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>

@@ -26,16 +26,21 @@ const Login = () => {
 					onSubmit={handleSubmit(handleLogin)}
 					className="space-y-6 ng-untouched ng-pristine ng-valid">
 					<div className="space-y-1 text-sm">
-						<label htmlFor="username" className="block text-gray-400">
+						<label htmlFor="email" className="block text-gray-400">
 							Email
 						</label>
 						<input
 							type="email"
-							{...register('email', { required: 'Email Address is required' })}
-							placeholder="Email"
-							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+							{...register('email', {
+								required: 'Email Address is required',
+								pattern: {
+									value: /.+@.+\..+/i,
+									message: 'Please enter a valid email address',
+								},
+							})}
+							className={`w-full mt-3 bg-gray-900 border-gray-700 focus:outline-0 px-4 py-3 rounded-md border  focus:ring-0 focus:ring-transparent focus:border-[#FFD333] focus:border-2    ${
 								errors.email && 'focus:border-red-600'
-							}`}
+							} `}
 						/>
 						{errors.email && <p className="text-red-600">{errors.email?.message}</p>}
 					</div>
@@ -46,10 +51,9 @@ const Login = () => {
 						<input
 							type="password"
 							{...register('password', { required: 'Password  is required' })}
-							placeholder="Password"
-							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+							className={`w-full mt-3 bg-gray-900 border-gray-700 focus:outline-0 px-4 py-3 rounded-md border  focus:ring-0 focus:ring-transparent focus:border-[#FFD333] focus:border-2    ${
 								errors.password && 'focus:border-red-600'
-							}`}
+							} `}
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
 						<div className="flex justify-end text-xs text-gray-400">
