@@ -11,21 +11,21 @@ const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isPagesOpen, setIsPagesOpen] = useState(false);
 
-	const menuRef = useRef();
+	// const menuRef = useRef();
 
-	useEffect(() => {
-		let handler = (e) => {
-			if (!menuRef.current.contains(e.target)) {
-				// setOpenDropdown(false);
-				setIsPagesOpen(false);
-			}
-		};
-		document.addEventListener('mousedown', handler);
+	// useEffect(() => {
+	// 	let handler = (e) => {
+	// 		if (!menuRef.current.contains(e.target)) {
+	// 			// setOpenDropdown(false);
+	// 			setIsPagesOpen(false);
+	// 		}
+	// 	};
+	// 	document.addEventListener('mousedown', handler);
 
-		return () => {
-			document.removeEventListener('mousedown', handler);
-		};
-	}, []);
+	// 	return () => {
+	// 		document.removeEventListener('mousedown', handler);
+	// 	};
+	// }, []);
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
@@ -76,10 +76,8 @@ const Navbar = () => {
 			<NavLink to={'/shop'} className="hover:text-[#FFD333]">
 				<li>Shop</li>
 			</NavLink>
-			<NavLink to={'/shop-details'} className="hover:text-[#FFD333]">
-				<li>Shop Detail</li>
-			</NavLink>
-			<Link className={'group inline-block relative'}>
+			
+			{/* <Link className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
 					className="flex items-center lg:justify-center hover:text-[#FFD333] ">
@@ -114,7 +112,7 @@ const Navbar = () => {
 						</NavLink>
 					</ul>
 				</div>
-			</Link>
+			</Link> */}
 			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
@@ -129,9 +127,7 @@ const Navbar = () => {
 			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
-			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/'}>
-				<li>Shop Detail</li>
-			</NavLink>
+			
 			<NavLink className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
@@ -178,12 +174,15 @@ const Navbar = () => {
 					<span className="font-bold">{wishListCount}</span>
 				</div>
 			</div>
-			<div className="flex items-center gap-1">
-				<BsCartFill className="text-2xl text-[#FFC800] cursor-pointer" />
-				<div className="w-5 h-5 border border-white rounded-full flex items-center justify-center">
-					<span className="font-bold">{cartItemCount}</span>
+
+			<Link to="/shopping-cart">
+				<div className="flex items-center gap-1">
+					<BsCartFill className="text-2xl text-[#FFC800] cursor-pointer" />
+					<div className="w-5 h-5 border border-white rounded-full flex items-center justify-center">
+						<span className="font-bold">{cartItemCount}</span>
+					</div>
 				</div>
-			</div>
+			</Link>
 		</>
 	);
 
