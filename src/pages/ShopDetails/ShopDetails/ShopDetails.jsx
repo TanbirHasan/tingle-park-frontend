@@ -26,6 +26,7 @@ import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
 import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
+import Reviews from '../Reviews/Reviews';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
@@ -156,7 +157,7 @@ const ShopDetails = () => {
 					)}
 
 					<div className="flex flex-col lg:flex-row items-center gap-10">
-						<div className="flex items-center">
+						{/* <div className="flex items-center">
 							<button
 								type="button"
 								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
@@ -174,7 +175,7 @@ const ShopDetails = () => {
 								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
 								<AiOutlinePlus className="text-2xl font-extrabold" />
 							</button>
-						</div>
+						</div> */}
 
 						<div>
 							<button
@@ -211,7 +212,7 @@ const ShopDetails = () => {
 						<ProductInformation />
 					</TabPanel>
 					<TabPanel>
-						<h2>Any content 2</h2>
+						<Reviews />
 					</TabPanel>
 				</Tabs>
 			</div>

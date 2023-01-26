@@ -39,6 +39,7 @@ const Customers = () => {
 				spaceBetween={30}
 				slidesPerGroup={2}
 				loop={true}
+				speed={1200}
 				loopFillGroupWithBlank={true}
 				autoplay={{
 					delay: 2000,

@@ -1,4 +1,3 @@
-import ProductDetail from '../../components/ProductDetail/ProductDetail';
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import HomePage from '../../pages/Home/HomePage/HomePage';
@@ -19,10 +18,7 @@ export const router = createBrowserRouter([
 				path: '/',
 				element: <HomePage />,
 			},
-			{
-				path: '/product-details',
-				element: <ProductDetail />,
-			},
+
 			{
 				path: '/shop',
 				element: <Shop />,
