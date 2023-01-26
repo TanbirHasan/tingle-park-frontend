@@ -32,7 +32,7 @@
 		"title": "Drone",
 		"picture": "https://i.ibb.co/hXtxKr8/product-5.jpg",
 		"quantity": 0,
-		"sizes_color": true
+		"sizes_color": false
 	},
 	{
 		"id": "63bd7a2af068bb9b1f3adc88",
