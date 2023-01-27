@@ -28,7 +28,7 @@ const ShoppingCart = () => {
 
 	let total = 0;
 
-	cartItems.map((item) => (total += (item.quantity) * item.price));
+	cartItems.map((item) => (total += item.quantity * item.price));
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -96,6 +96,7 @@ const ShoppingCart = () => {
 
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
+											disabled={item.quantity === 0 ? true : false}
 											type="button"
 											onClick={() => handleDecrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
@@ -105,7 +106,7 @@ const ShoppingCart = () => {
 										<button
 											type="button"
 											className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 ">
-											{item.quantity}
+											{item.quantity >= 0 ? item.quantity : 0}
 										</button>
 
 										<button
@@ -117,7 +118,7 @@ const ShoppingCart = () => {
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
-										$<span>{parseInt((item.quantity) * item.price)}</span>
+										$<span>{parseInt(item.quantity * item.price)}</span>
 									</td>
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
