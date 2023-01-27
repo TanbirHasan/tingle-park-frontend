@@ -1,4 +1,5 @@
-import React from 'react';
+import { Rating } from '@mui/material';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import user from '../../../assets/user.jpg';
@@ -11,8 +12,18 @@ const Reviews = () => {
 		reset,
 	} = useForm();
 
+	const [ratings, setRatings] = useState(3);
+
 	const handleReview = (data) => {
-		console.log(data);
+		const { name, email, review } = data;
+		const userReview = {
+			name,
+			email,
+			review,
+			ratings,
+		};
+		alert(`${name} ${email} ${review} ${ratings}`);
+		reset()
 	};
 
 	return (
@@ -48,16 +59,28 @@ const Reviews = () => {
 				<p className="text-[#6c757d]">
 					Your email address will not be published. Required fields are marked *
 				</p>
-				<div className="flex items-center mt-5 gap-1">
+				{/* <div className="flex items-center mt-5 gap-1">
 					<div className="text-[#6c757d] text-lg font-medium">Your Rating * :</div>
 					<AiOutlineStar className="text-[#FFD333] text-[24px] " />
 					<AiOutlineStar className="text-[#FFD333] text-[24px] " />
 					<AiOutlineStar className="text-[#FFD333] text-[24px] " />
 					<AiOutlineStar className="text-[#FFD333] text-[24px] " />
 					<AiOutlineStar className="text-[#FFD333] text-[24px] " />
-				</div>
+				</div> */}
 
 				<form onSubmit={handleSubmit(handleReview)}>
+					<div className="flex items-center gap-2 mt-5">
+						<div className="text-[#6c757d] text-lg font-medium">Your Rating * :</div>
+						<Rating
+							name="simple-controlled"
+							value={ratings}
+							size="large"
+							onChange={(event, newValue) => {
+								setRatings(newValue);
+							}}
+						/>
+					</div>
+
 					<div className="my-5">
 						<label
 							htmlFor="review"
@@ -66,7 +89,7 @@ const Reviews = () => {
 						</label>
 						<textarea
 							{...register('review', {
-								required: 'Subject is required',
+								required: 'Review is required',
 								minLength: {
 									value: 10,
 									message: 'Review must have at least 10 characters',
@@ -77,7 +100,7 @@ const Reviews = () => {
 							className={`w-full mt-3 focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
 								errors.review && 'focus:border-red-600'
 							}`}></textarea>
-						{/* {errors.review && <p className="text-red-600 text-right">{errors.review?.message}</p>} */}
+						{errors.review && <p className="text-red-600 text-right">{errors.review?.message}</p>}
 					</div>
 					<div className="mt-5">
 						<label htmlFor="name" className={`text-[#6c757d]    ${errors.name && 'text-red-600'}`}>

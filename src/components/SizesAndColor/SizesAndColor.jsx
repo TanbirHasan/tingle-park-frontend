@@ -8,7 +8,7 @@ const SizesAndColor = ({ heading, i1, i2, i3, i4, i5, commonName }) => {
 				<input
 					type="radio"
 					name={commonName}
-					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
+					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent cursor-pointer"
 				/>
 				<label htmlFor="payment-option-1" className="ml-2">
 					{i1}
@@ -18,7 +18,7 @@ const SizesAndColor = ({ heading, i1, i2, i3, i4, i5, commonName }) => {
 				<input
 					type="radio"
 					name={commonName}
-					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
+					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent cursor-pointer"
 				/>
 				<label htmlFor="payment-option-1" className="ml-2">
 					{i2}
@@ -28,7 +28,7 @@ const SizesAndColor = ({ heading, i1, i2, i3, i4, i5, commonName }) => {
 				<input
 					type="radio"
 					name={commonName}
-					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
+					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent cursor-pointer"
 				/>
 				<label htmlFor="payment-option-1" className="ml-2">
 					{i3}
@@ -38,7 +38,7 @@ const SizesAndColor = ({ heading, i1, i2, i3, i4, i5, commonName }) => {
 				<input
 					type="radio"
 					name={commonName}
-					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
+					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent cursor-pointer"
 				/>
 				<label htmlFor="payment-option-1" className="ml-2">
 					{i4}
@@ -48,7 +48,7 @@ const SizesAndColor = ({ heading, i1, i2, i3, i4, i5, commonName }) => {
 				<input
 					type="radio"
 					name={commonName}
-					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent"
+					className="appearance-none text-[#ffd333] focus:ring-0 focus:ring-transparent cursor-pointer"
 				/>
 				<label htmlFor="payment-option-1" className="ml-2">
 					{i5}
