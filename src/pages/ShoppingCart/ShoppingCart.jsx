@@ -13,12 +13,12 @@ const ShoppingCart = () => {
 	const [purchaseQuantity, setPurchaseQuantity] = useState(1);
 
 	const handleIncrease = (product) => {
-		// dispatch(increaseQuantity(product));
+		dispatch(increaseQuantity(product));
 		setPurchaseQuantity(purchaseQuantity + 1);
 	};
 
 	const handleDecrease = (product) => {
-		// dispatch(decreaseQuantity(product));
+		dispatch(decreaseQuantity(product));
 		setPurchaseQuantity(purchaseQuantity - 1);
 	};
 
@@ -28,7 +28,7 @@ const ShoppingCart = () => {
 
 	let total = 0;
 
-	cartItems.map((item) => (total += purchaseQuantity * item.price));
+	cartItems.map((item) => (total += (item.quantity) * item.price));
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -105,7 +105,7 @@ const ShoppingCart = () => {
 										<button
 											type="button"
 											className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 ">
-											{purchaseQuantity}
+											{item.quantity}
 										</button>
 
 										<button
@@ -117,7 +117,7 @@ const ShoppingCart = () => {
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
-										$<span>{parseInt(purchaseQuantity * item.price)}</span>
+										$<span>{parseInt((item.quantity) * item.price)}</span>
 									</td>
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
@@ -178,7 +178,7 @@ const ShoppingCart = () => {
 								</div>
 							</div>
 							<div>
-								<Link to="/checkout" state={purchaseQuantity} >
+								<Link to="/checkout" state={purchaseQuantity}>
 									<button
 										type="submit"
 										className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">

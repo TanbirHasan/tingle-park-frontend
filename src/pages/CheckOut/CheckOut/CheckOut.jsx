@@ -18,7 +18,7 @@ const CheckOut = () => {
 	const purchasedQuantity = location.state;
 
 	let total = 0;
-	cartItems.map((item) => (total += purchasedQuantity * item.price));
+	cartItems.map((item) => (total += (item.quantity) * item.price));
 
 	const handlePayment = (data) => {
 		console.log(data);
@@ -416,7 +416,7 @@ const CheckOut = () => {
 							{cartItems.map((item) => (
 								<div key={item.id} className="flex justify-between text-[#6c757d] text-lg">
 									<h1>{item.title}</h1>
-									<p>${item.price * purchasedQuantity}</p>
+									<p>${item.price * item.quantity}</p>
 								</div>
 							))}
 
