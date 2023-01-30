@@ -6,7 +6,8 @@
 		"quantity": 1,
 		"sizes_color": false,
 		"ratings": 5,
-		"price": 600
+		"price": 600,
+		"stockAmount": 10
 	},
 	{
 		"id": "63bd7a2afe3a00a5df1dff69",
@@ -15,7 +16,8 @@
 		"quantity": 1,
 		"sizes_color": true,
 		"ratings": 4.5,
-		"price": 200
+		"price": 200,
+		"stockAmount": 3
 	},
 	{
 		"id": "63bd7a2a1d1dfe06d8f7b1a1",
@@ -24,7 +26,8 @@
 		"quantity": 1,
 		"sizes_color": false,
 		"ratings": 5,
-		"price": 298
+		"price": 298,
+		"stockAmount": 32
 	},
 	{
 		"id": "63bd7a2a1fb9930c828ac600",
@@ -33,7 +36,8 @@
 		"quantity": 1,
 		"sizes_color": true,
 		"ratings": 3.5,
-		"price": 398
+		"price": 398,
+		"stockAmount": 20
 	},
 	{
 		"id": "63bd7a2afa1aa2dc6786124b",
@@ -42,7 +46,8 @@
 		"quantity": 1,
 		"sizes_color": false,
 		"ratings": 4.5,
-		"price": 1000
+		"price": 1000,
+		"stockAmount": 5
 	},
 	{
 		"id": "63bd7a2af068bb9b1f3adc88",
@@ -51,7 +56,8 @@
 		"quantity": 1,
 		"sizes_color": true,
 		"ratings": 5,
-		"price": 400
+		"price": 400,
+		"stockAmount": 24
 	},
 	{
 		"id": "63bd7a2a409f2895d4c844c8",
@@ -60,7 +66,8 @@
 		"quantity": 1,
 		"sizes_color": true,
 		"ratings": 4,
-		"price": 200
+		"price": 200,
+		"stockAmount": 50
 	},
 	{
 		"id": "63bd7a2aca9c060879e0ce00",
@@ -69,7 +76,8 @@
 		"quantity": 1,
 		"sizes_color": false,
 		"ratings": 5,
-		"price": 120
+		"price": 120,
+		"stockAmount": 200
 	},
 	{
 		"id": "63c6653f4a77fe583c029130",
@@ -78,6 +86,7 @@
 		"quantity": 1,
 		"sizes_color": true,
 		"ratings": 4,
-		"price": 700
+		"price": 700,
+		"stockAmount": 1
 	}
 ]

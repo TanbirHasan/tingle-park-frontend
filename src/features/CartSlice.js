@@ -13,11 +13,17 @@ const CartSlice = createSlice({
 		},
 		increaseQuantity: (state, action) => {
 			const itemInCart = state.cartProducts.find((p) => p.id === action.payload.id);
+
 			itemInCart.quantity++;
+			itemInCart.stockAmount--;
+			if (itemInCart.quantity === itemInCart.stockAmount) {
+				itemInCart.quantity = itemInCart.stockAmount;
+			}
 		},
 		decreaseQuantity: (state, action) => {
 			const itemInCart = state.cartProducts.find((p) => p.id === action.payload.id);
 			itemInCart.quantity--;
+			itemInCart.stockAmount++;
 		},
 
 		removeItemsFromCart: (state, action) => {

@@ -95,6 +95,8 @@ const ShoppingCart = () => {
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
+										<div className='text-red-600 mb-2'>{item.stockAmount - 1 === 0 ? 'No more stock available' : ''}</div>
+
 										<button
 											disabled={item.quantity === 0 ? true : false}
 											type="button"
@@ -103,6 +105,19 @@ const ShoppingCart = () => {
 											<AiOutlineMinus className="text-md font-bold" />
 										</button>
 
+										{/* {item.stockAmount - 1 === 0 ? (
+											<button
+												type="button"
+												className="inline-flex items-center justify-center w-[190px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] text-red-500 focus:outline-0 focus:ring-transparent border-0 ">
+												<span className='text-black'>{item.quantity >= 0 ? item.quantity : 0}</span> No stock Available
+											</button>
+										) : (
+											<button
+												type="button"
+												className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 ">
+												{item.quantity >= 0 ? item.quantity : 0}
+											</button>
+										)} */}
 										<button
 											type="button"
 											className="inline-flex items-center justify-center w-[40px] h-[31px] text-md  font-semibold text-center bg-[#F5F5F5] focus:outline-0 focus:ring-transparent border-0 ">
@@ -110,6 +125,7 @@ const ShoppingCart = () => {
 										</button>
 
 										<button
+											disabled={item.stockAmount - 1 === 0 ? true : false}
 											type="button"
 											onClick={() => handleIncrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">

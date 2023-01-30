@@ -40,28 +40,44 @@ const ProductCard = ({ product }) => {
 						/>
 					</div>
 					<div className="middle flex gap-3 ">
-						<BsFillCartFill
+						<button
+							disabled={cartClicked ? true : false}
 							onClick={() => handleCart(product)}
-							size={40}
-							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
+							className={`icon-button border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D]  hover:duration-500 ${
 								cartClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
-							} `}
-						/>
-						<AiOutlineHeart
+							} `}>
+							<BsFillCartFill
+								className={`${
+									cartClicked ? 'icon-button bg-[#cccccc] text-[#666666]' : ''
+								} mx-auto`}
+								size={20}
+							/>
+						</button>
+
+						<button
+							disabled={wishListClicked ? true : false}
 							onClick={() => handleWishList(product)}
-							size={40}
-							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
+							className={`icon-button border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D]  hover:duration-500 ${
 								wishListClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
-							}`}
-						/>
-						<FiRefreshCcw
-							size={40}
-							className="border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 "
-						/>
-						<AiOutlineSearch
-							size={40}
-							className="border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 "
-						/>
+							} `}>
+							<AiOutlineHeart
+								className={`${
+									wishListClicked ? 'icon-button bg-[#cccccc] text-[#666666]' : ''
+								} mx-auto`}
+								size={20}
+							/>
+						</button>
+
+						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+							<FiRefreshCcw size={20} className="mx-auto" />
+						</button>
+
+						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+							<AiOutlineSearch
+								className='mx-auto'
+								size={20}
+							/>
+						</button>
 					</div>
 				</div>
 
