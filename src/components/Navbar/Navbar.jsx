@@ -136,6 +136,12 @@ const Navbar = () => {
 			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
+
+			{user?.uid ? null : (
+				<NavLink to={'/login'} className="hover:text-[#FFD333]">
+					<li>Login</li>
+				</NavLink>
+			)}
 		</>
 	);
 
@@ -183,6 +189,11 @@ const Navbar = () => {
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
+			{user?.uid ? null : (
+				<NavLink to={'/login'}>
+					<li>Login</li>
+				</NavLink>
+			)}
 		</>
 	);
 
