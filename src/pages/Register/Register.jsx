@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Register = () => {
-	const { createUser, updateUserProfile } = useContext(AuthContext);
+	const { createUser, updateUserProfile, googleSignUp } = useContext(AuthContext);
 
 	const {
 		register,
@@ -14,16 +14,22 @@ const Register = () => {
 		reset,
 	} = useForm();
 
-	// const [registerError, setRegisterError] = useState('');
+	const [registerError, setRegisterError] = useState('');
 	// const [load, setLoad] = useState(false);
 
 	const handleRegister = (data) => {
 		const { name, email, password, photo } = data;
-		createUser(email, password).then((result) => {
-			console.log(result.user);
-			toast.success('Registered Successfully');
-			handleUpdateUserProfile(name, photo);
-		});
+		createUser(email, password)
+			.then((result) => {
+				console.log(result.user);
+				toast.success('Registered Successfully');
+				handleUpdateUserProfile(name, photo);
+			})
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.message);
+				setRegisterError(err.message);
+			});
 		reset();
 	};
 
@@ -37,6 +43,19 @@ const Register = () => {
 			.then(() => {})
 			.catch((err) => {
 				toast.error(err.message);
+				setRegisterError(err.message);
+			});
+	};
+
+	const handleGoogleSignUp = () => {
+		googleSignUp()
+			.then((result) => {
+				console.log(result.user);
+				toast.success('success');
+			})
+			.catch((e) => {
+				setRegisterError(e.message);
+				toast.error(e.message);
 			});
 	};
 
@@ -125,7 +144,7 @@ const Register = () => {
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
 				</div>
 				<div className="flex justify-center space-x-4">
-					<button className="p-3 rounded-sm">
+					<button onClick={handleGoogleSignUp} className="p-3 rounded-sm">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 32 32"
