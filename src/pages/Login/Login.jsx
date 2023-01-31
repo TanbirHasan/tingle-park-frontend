@@ -1,26 +1,71 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Login = () => {
+	const { signIn, googleSignUp, forgotPassword } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
+		watch,
 	} = useForm();
 
-	// const [loginError, setLoginError] = useState('');
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
+
+	const [loginError, setLoginError] = useState('');
 	// const [load, setLoad] = useState(false);
 
+	const userEmail = watch('email');
+
 	const handleLogin = (data) => {
-		console.log(data);
+		setLoginError('');
+		const { email, password } = data;
+		signIn(email, password)
+			.then((result) => {
+				console.log(result.user);
+				toast.success('Sign in successfully');
+				navigate(from, { replace: true });
+			})
+			.catch((e) => {
+				setLoginError(e.message);
+				toast.error(e.message);
+			});
 		reset();
+	};
+
+	const handleGoogleSignUp = () => {
+		googleSignUp()
+			.then((result) => {
+				console.log(result.user);
+				toast.success('successfully signed in');
+			})
+			.catch((e) => {
+				setLoginError(e.message);
+				toast.error(e.message);
+			});
+	};
+
+	const handleForgotPassword = () => {
+		forgotPassword(userEmail)
+			.then(() => {
+				toast.success('Password reset email sent!');
+			})
+			.catch((e) => {
+				toast.error(e.message);
+			});
 	};
 
 	return (
 		<div>
 			<div className="w-full max-w-md mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+				{loginError && <p className="text-center text-xl my-3 text-red-600">{loginError}</p>}
 				<h1 className="text-2xl font-bold text-center">Login</h1>
 				<form
 					onSubmit={handleSubmit(handleLogin)}
@@ -50,18 +95,17 @@ const Login = () => {
 						</label>
 						<input
 							type="password"
+							name="password"
 							{...register('password', { required: 'Password  is required' })}
 							className={`w-full mt-3 bg-gray-900 border-gray-700 focus:outline-0 px-4 py-3 rounded-md border  focus:ring-0 focus:ring-transparent focus:border-[#FFD333] focus:border-2    ${
 								errors.password && 'focus:border-red-600'
 							} `}
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
-						<div className="flex justify-end text-xs text-gray-400">
-							<a rel="noopener noreferrer" href="/">
-								Forgot Password?
-							</a>
-						</div>
 					</div>
+						<div className="flex justify-end mt-4 text-xs text-gray-400">
+							<button onClick={handleForgotPassword}>Forgot Password?</button>
+						</div>
 					<button className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
 						Sign in
 					</button>
@@ -72,7 +116,7 @@ const Login = () => {
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
 				</div>
 				<div className="flex justify-center space-x-4">
-					<button className="p-3 rounded-sm">
+					<button onClick={handleGoogleSignUp} className="p-3 rounded-sm">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 32 32"

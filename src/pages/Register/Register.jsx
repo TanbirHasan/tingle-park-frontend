@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Register = () => {
-	const { createUser, updateUserProfile, googleSignUp } = useContext(AuthContext);
+	const { createUser, updateUserProfile, googleSignUp, verifyUserEmail } = useContext(AuthContext);
 
 	const {
 		register,
@@ -17,13 +17,18 @@ const Register = () => {
 	const [registerError, setRegisterError] = useState('');
 	// const [load, setLoad] = useState(false);
 
+	const navigate = useNavigate();
+
 	const handleRegister = (data) => {
+		setRegisterError('');
 		const { name, email, password, photo } = data;
 		createUser(email, password)
 			.then((result) => {
 				console.log(result.user);
 				toast.success('Registered Successfully');
 				handleUpdateUserProfile(name, photo);
+				verificationEmail();
+				navigate('/');
 			})
 			.catch((err) => {
 				console.log(err);
@@ -47,11 +52,17 @@ const Register = () => {
 			});
 	};
 
+	const verificationEmail = () => {
+		verifyUserEmail().then(() => {
+			toast.success(`Verification email sent successfully`);
+		});
+	};
+
 	const handleGoogleSignUp = () => {
 		googleSignUp()
 			.then((result) => {
 				console.log(result.user);
-				toast.success('success');
+				toast.success('successfully signed up');
 			})
 			.catch((e) => {
 				setRegisterError(e.message);
@@ -62,6 +73,7 @@ const Register = () => {
 	return (
 		<div>
 			<div className="w-full max-w-md mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+				{registerError && <p className="text-center text-xl my-3 text-red-600">{registerError}</p>}
 				<h1 className="text-2xl font-bold text-center">Register</h1>
 				<form
 					onSubmit={handleSubmit(handleRegister)}
