@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Register = () => {
+	const { createUser, updateUserProfile } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
@@ -14,8 +18,26 @@ const Register = () => {
 	// const [load, setLoad] = useState(false);
 
 	const handleRegister = (data) => {
-		console.log(data);
+		const { name, email, password, photo } = data;
+		createUser(email, password).then((result) => {
+			console.log(result.user);
+			toast.success('Registered Successfully');
+			handleUpdateUserProfile(name, photo);
+		});
 		reset();
+	};
+
+	const handleUpdateUserProfile = (name, photoURL) => {
+		const profile = {
+			displayName: name,
+			photoURL: photoURL,
+		};
+
+		updateUserProfile(profile)
+			.then(() => {})
+			.catch((err) => {
+				toast.error(err.message);
+			});
 	};
 
 	return (
@@ -38,6 +60,20 @@ const Register = () => {
 							}`}
 						/>
 						{errors.name && <p className="text-red-600">{errors.name?.message}</p>}
+					</div>
+					<div className="space-y-1 text-sm">
+						<label htmlFor="username" className="block text-gray-400">
+							Photo URL
+						</label>
+						<input
+							type="text"
+							{...register('photo', { required: 'Photo URL is required' })}
+							placeholder="Name"
+							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
+								errors.photo && 'focus:border-red-600'
+							}`}
+						/>
+						{errors.photo && <p className="text-red-600">{errors.photo?.message}</p>}
 					</div>
 					<div className="space-y-1 text-sm">
 						<label htmlFor="username" className="block text-gray-400">
