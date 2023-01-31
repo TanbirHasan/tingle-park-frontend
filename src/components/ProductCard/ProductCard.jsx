@@ -1,3 +1,4 @@
+import { Rating } from '@mui/material';
 import React, { useState } from 'react';
 import { AiFillStar, AiOutlineHeart, AiOutlineSearch, AiOutlineStar } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
@@ -9,7 +10,7 @@ import { addItemsToWishList, incrementWishList } from '../../features/WishListSl
 import './productCard.css';
 
 const ProductCard = ({ product }) => {
-	const { id, title, picture } = product;
+	const { id, title, picture, ratings, price } = product;
 
 	const [cartClicked, setCartClicked] = useState(false);
 	const [wishListClicked, setWishListClicked] = useState(false);
@@ -39,28 +40,44 @@ const ProductCard = ({ product }) => {
 						/>
 					</div>
 					<div className="middle flex gap-3 ">
-						<BsFillCartFill
+						<button
+							disabled={cartClicked ? true : false}
 							onClick={() => handleCart(product)}
-							size={40}
-							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
+							className={`icon-button border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D]  hover:duration-500 ${
 								cartClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
-							} `}
-						/>
-						<AiOutlineHeart
+							} `}>
+							<BsFillCartFill
+								className={`${
+									cartClicked ? 'icon-button bg-[#cccccc] text-[#666666]' : ''
+								} mx-auto`}
+								size={20}
+							/>
+						</button>
+
+						<button
+							disabled={wishListClicked ? true : false}
 							onClick={() => handleWishList(product)}
-							size={40}
-							className={`border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ${
+							className={`icon-button border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D]  hover:duration-500 ${
 								wishListClicked ? 'bg-[#3D464D] text-[#FFCA07]' : ''
-							}`}
-						/>
-						<FiRefreshCcw
-							size={40}
-							className="border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 "
-						/>
-						<AiOutlineSearch
-							size={40}
-							className="border border-[#3D464D] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 "
-						/>
+							} `}>
+							<AiOutlineHeart
+								className={`${
+									wishListClicked ? 'icon-button bg-[#cccccc] text-[#666666]' : ''
+								} mx-auto`}
+								size={20}
+							/>
+						</button>
+
+						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+							<FiRefreshCcw size={20} className="mx-auto" />
+						</button>
+
+						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+							<AiOutlineSearch
+								className='mx-auto'
+								size={20}
+							/>
+						</button>
 					</div>
 				</div>
 
@@ -71,15 +88,19 @@ const ProductCard = ({ product }) => {
 						</h3>
 					</Link>
 					<div className="flex justify-center items-center gap-5 mt-2">
-						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">$123</p>
+						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">${price}</p>
 						<p className="line-through text-[#6c757d] font-medium">$123</p>
 					</div>
-					<div className="flex justify-center mt-2 items-center">
+					{/* <div className="flex justify-center mt-2 items-center">
 						<AiFillStar className="text-[#FFD333] text-lg" />
 						<AiFillStar className="text-[#FFD333] text-lg" />
 						<AiFillStar className="text-[#FFD333] text-lg" />
 						<AiFillStar className="text-[#FFD333] text-lg" />
 						<AiOutlineStar className="text-[#FFD333] text-lg" />
+						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>
+					</div> */}
+					<div className="flex justify-center mt-2 items-center">
+						<Rating name="half-rating-read" value={ratings} precision={0.5} readOnly />
 						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>
 					</div>
 					<p className="mt-2 max-w-sm text-gray-700"></p>

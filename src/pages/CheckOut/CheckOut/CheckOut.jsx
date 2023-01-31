@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const CheckOut = () => {
 	const {
@@ -13,12 +13,12 @@ const CheckOut = () => {
 
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
+	const location = useLocation();
 
-	const total = cartItems.reduce((a, b) => {
-		return a + b.quantity;
-	}, 0);
+	const purchasedQuantity = location.state;
 
-	console.log(total);
+	let total = 0;
+	cartItems.map((item) => (total += (item.quantity) * item.price));
 
 	const handlePayment = (data) => {
 		console.log(data);
@@ -235,14 +235,6 @@ const CheckOut = () => {
 						</div>
 					</div>
 
-					{/* {showShipping ? (
-						<div>
-							<ShippingForm showShipping={showShipping} />
-						</div>
-					) : (
-						''
-					)} */}
-
 					<div className={`${showShipping ? 'text-box' : 'form-inactive'}`}>
 						<div className={`flex items-center gap-2 mt-10 `}>
 							<h1 className="uppercase text-xl font-semibold my-4">Shipping Address</h1>
@@ -406,7 +398,6 @@ const CheckOut = () => {
 							</form>
 						</div>
 					</div>
-
 				</div>
 
 				<div className="lg:w-[35%]">
@@ -425,7 +416,7 @@ const CheckOut = () => {
 							{cartItems.map((item) => (
 								<div key={item.id} className="flex justify-between text-[#6c757d] text-lg">
 									<h1>{item.title}</h1>
-									<p>$150</p>
+									<p>${item.price * item.quantity}</p>
 								</div>
 							))}
 
@@ -435,7 +426,7 @@ const CheckOut = () => {
 								<div className="flex justify-between">
 									<h1>Subtotal</h1>
 									<p>
-										$<span>{cartItems.length * 150}</span>
+										$<span>{total}</span>
 									</p>
 								</div>
 								<div className="flex justify-between">
@@ -450,7 +441,7 @@ const CheckOut = () => {
 								<h1>Total</h1>
 								<p>
 									{' '}
-									<span>$</span> {cartItems.length * 150 + 10}
+									<span>$</span> {total + 10}
 								</p>
 							</div>
 						</div>

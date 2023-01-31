@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ProductDescription = () => {
+const ProductDescription = ({product}) => {
 	return (
 		<div className="mt-10">
-			<h1 className="text-[#3d464d] text-3xl font-semibold ">Product Name Goes Here</h1>
+			<h1 className="text-[#3d464d] text-3xl font-semibold ">{ product.title }</h1>
 			<div className="mt-3 text-[#6c757d]">
 				<p>
 					Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam

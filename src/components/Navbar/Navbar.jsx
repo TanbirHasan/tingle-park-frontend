@@ -128,7 +128,7 @@ const Navbar = () => {
 				<li>Shop</li>
 			</NavLink>
 			
-			<NavLink className={'group inline-block relative'}>
+			{/* <NavLink className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
 					className="flex items-center lg:justify-center ">
@@ -159,7 +159,7 @@ const Navbar = () => {
 						</NavLink>
 					</ul>
 				</div>
-			</NavLink>
+			</NavLink> */}
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>

@@ -21,7 +21,6 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
-
 }
 
 
@@ -33,4 +32,15 @@
 
 .box:hover .middle {
     opacity: 1;
+}
+
+.icon-button:disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
+}
+
+.icon-button:disabled :hover {
+    background-color: #cccccc;
 }

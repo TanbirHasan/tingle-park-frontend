@@ -27,16 +27,17 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import Reviews from '../Reviews/Reviews';
+import { Rating } from '@mui/material';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const { id, title, picture, sizes_color, quantity } = location.state;
+	const { id, title, picture, sizes_color, quantity, price, ratings } = location.state;
 
 	const [addToCart, setAddedToCart] = useState(false);
 
-	let product = { id, title, picture, sizes_color, quantity };
+	let product = { id, title, picture, sizes_color, quantity, price, ratings };
 	const remainingProducts = products.filter((p) => p.id !== id);
 
 	useEffect(() => {
@@ -101,15 +102,20 @@ const ShopDetails = () => {
 				<div className="bg-white w-full p-10">
 					<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
 
-					<div className="flex items-center mt-5 gap-1">
-						<AiFillStar className="text-[#FFD333] " />
-						<AiFillStar className="text-[#FFD333] " />
-						<AiFillStar className="text-[#FFD333] " />
-						<AiFillStar className="text-[#FFD333] " />
-						<AiOutlineStar className="text-[#FFD333] " />
-						<div className="ml-2 text-[#6c757d] text-[12.8px]">(99 reviews)</div>
+					<div className="flex items-center  gap-1">
+						<div className="flex justify-center mt-2 items-center">
+							<Rating
+								name="half-rating-read"
+								size="small"
+								value={ratings}
+								precision={0.5}
+								readOnly
+							/>
+							<span className="ml-1 mb-1 text-[#6c757d]">(99) reviews</span>
+						</div>
 					</div>
-					<h1 className="text-[#3d464d] text-3xl font-bold my-4">$150.00</h1>
+
+					<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
 
 					<p className="mt-4 text-[#6c757d]">
 						Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
@@ -206,10 +212,10 @@ const ShopDetails = () => {
 					</TabList>
 
 					<TabPanel>
-						<ProductDescription />
+						<ProductDescription product={product} />
 					</TabPanel>
 					<TabPanel>
-						<ProductInformation />
+						<ProductInformation product={product} />
 					</TabPanel>
 					<TabPanel>
 						<Reviews />
