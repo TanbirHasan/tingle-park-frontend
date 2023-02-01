@@ -78,3 +78,11 @@ button[disabled] {
 button[disabled]:hover {
     background-color: #cccccc;
 }
+
+/* .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+    background-color: white !important;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+    background-color: white !important;
+} */

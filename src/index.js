@@ -14,7 +14,15 @@ root.render(
 		<UserAuthProvider>
 			<Provider store={store}>
 				<App />
-				<Toaster />
+				<Toaster
+					toastOptions={{
+						className: '',
+						style: {
+							background: '#000000',
+							color: '#fff',
+						},
+					}}
+				/>
 			</Provider>
 		</UserAuthProvider>
 	</React.StrictMode>

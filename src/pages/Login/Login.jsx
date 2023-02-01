@@ -30,7 +30,7 @@ const Login = () => {
 		signIn(email, password)
 			.then((result) => {
 				console.log(result.user);
-				toast.success('Sign in successfully');
+				toast.success('Successfully signed in');
 				navigate(from, { replace: true });
 			})
 			.catch((e) => {
@@ -45,6 +45,7 @@ const Login = () => {
 			.then((result) => {
 				console.log(result.user);
 				toast.success('successfully signed in');
+				navigate(from, { replace: true });
 			})
 			.catch((e) => {
 				setLoginError(e.message);

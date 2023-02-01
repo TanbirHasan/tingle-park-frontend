@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Register = () => {
@@ -18,6 +18,8 @@ const Register = () => {
 	const [load, setLoad] = useState(false);
 
 	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
 
 	const handleRegister = (data) => {
 		setRegisterError('');
@@ -41,6 +43,7 @@ const Register = () => {
 		reset();
 	};
 
+	// update user profile
 	const handleUpdateUserProfile = (name, photoURL) => {
 		const profile = {
 			displayName: name,
@@ -55,17 +58,20 @@ const Register = () => {
 			});
 	};
 
+	// verify email address
 	const verificationEmail = () => {
 		verifyUserEmail().then(() => {
 			toast.success(`Verification email sent successfully`);
 		});
 	};
 
+	// google sign in
 	const handleGoogleSignUp = () => {
 		googleSignUp()
 			.then((result) => {
 				console.log(result.user);
 				toast.success('successfully signed up');
+				navigate(from, { replace: true });
 			})
 			.catch((e) => {
 				setRegisterError(e.message);

@@ -8,7 +8,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
-	updateProfile,
+	updateProfile
 } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../Firebase/firebase.config';
@@ -43,7 +43,7 @@ const UserAuthProvider = ({ children }) => {
 
 	// google
 
-	const googleSignUp = (email, password) => {
+	const googleSignUp = () => {
 		return signInWithPopup(auth, provider);
 	};
 

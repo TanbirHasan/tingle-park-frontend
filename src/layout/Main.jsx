@@ -8,7 +8,7 @@ import TopNavbar from '../components/TopNavbar/TopNavbar';
 const Main = () => {
 	return (
 		<div>
-			<TopNavbar />
+			{/* <TopNavbar /> */}
 			<TopBarLogo />
 			<Navbar />
 			<Outlet />

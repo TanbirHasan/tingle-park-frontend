@@ -217,7 +217,7 @@ const Navbar = () => {
 
 			{user?.uid && (
 				<div>
-					<Tooltip title="Account settings">
+					<Tooltip arrow={true} title={user?.displayName}>
 						<Avatar
 							onClick={handleClick2}
 							size="small"
@@ -255,7 +255,7 @@ const Navbar = () => {
 									right: 14,
 									width: 10,
 									height: 10,
-									bgcolor: 'background.paper',
+									// bgcolor: 'background.paper',
 									transform: 'translateY(-50%) rotate(45deg)',
 									zIndex: 0,
 								},
