@@ -20,22 +20,25 @@ const Login = () => {
 	const from = location.state?.from?.pathname || '/';
 
 	const [loginError, setLoginError] = useState('');
-	// const [load, setLoad] = useState(false);
+	const [load, setLoad] = useState(false);
 
 	const userEmail = watch('email');
 
 	const handleLogin = (data) => {
 		setLoginError('');
 		const { email, password } = data;
+		setLoad(true);
 		signIn(email, password)
 			.then((result) => {
 				console.log(result.user);
 				toast.success('Successfully signed in');
 				navigate(from, { replace: true });
+				setLoad(false);
 			})
 			.catch((e) => {
-				setLoginError(e.message);
-				toast.error(e.message);
+				setLoginError(e.message.slice(17, e.message.length - 2));
+				toast.error(e.message.slice(17, e.message.length - 2));
+				setLoad(false);
 			});
 		reset();
 	};
@@ -48,8 +51,8 @@ const Login = () => {
 				navigate(from, { replace: true });
 			})
 			.catch((e) => {
-				setLoginError(e.message);
-				toast.error(e.message);
+				setLoginError(e.message.slice(17, e.message.length - 2));
+				toast.error(e.message.slice(17, e.message.length - 2));
 			});
 	};
 
@@ -59,15 +62,17 @@ const Login = () => {
 				toast.success('Password reset email sent!');
 			})
 			.catch((e) => {
-				toast.error(e.message);
+				toast.error(e.message.slice(17, e.message.length - 2));
+				setLoginError(e.message.slice(17, e.message.length - 2));
 			});
 	};
 
 	return (
 		<div>
 			<div className="w-full max-w-md mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
-				{loginError && <p className="text-center text-xl my-3 text-red-600">{loginError}</p>}
-				<h1 className="text-2xl font-bold text-center">Login</h1>
+				<h1 className="text-5xl font-extrabold text-center mb-5">Login</h1>
+				{loginError && <p className="text-center text-xl   text-red-600">{loginError}</p>}
+
 				<form
 					onSubmit={handleSubmit(handleLogin)}
 					className="space-y-6 ng-untouched ng-pristine ng-valid">
@@ -103,13 +108,19 @@ const Login = () => {
 							} `}
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
+					<div className="flex justify-end mt-4 text-xs text-gray-400">
+						<button onClick={handleForgotPassword}>Forgot Password?</button>
 					</div>
-						<div className="flex justify-end mt-4 text-xs text-gray-400">
-							<button onClick={handleForgotPassword}>Forgot Password?</button>
-						</div>
-					<button className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
-						Sign in
-					</button>
+					</div>
+					{load ? (
+						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
+					) : (
+						<button
+							type="submit"
+							className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
+							Sign in
+						</button>
+					)}
 				</form>
 				<div className="flex items-center pt-4 space-x-1">
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

@@ -1,8 +1,7 @@
 import { Rating } from '@mui/material';
 import React, { useState } from 'react';
-import { AiFillStar, AiOutlineHeart, AiOutlineSearch, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineSearch } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
-import { FiRefreshCcw } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemsToCart, incrementCart } from '../../features/CartSlice';
@@ -68,16 +67,15 @@ const ProductCard = ({ product }) => {
 							/>
 						</button>
 
-						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+						{/* <button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
 							<FiRefreshCcw size={20} className="mx-auto" />
-						</button>
+						</button> */}
 
-						<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
-							<AiOutlineSearch
-								className='mx-auto'
-								size={20}
-							/>
-						</button>
+						<Link to={'/shop-details'} state={product}>
+							<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
+								<AiOutlineSearch className="mx-auto" size={20} />
+							</button>
+						</Link>
 					</div>
 				</div>
 

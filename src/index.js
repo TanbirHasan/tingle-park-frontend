@@ -17,6 +17,7 @@ root.render(
 				<Toaster
 					toastOptions={{
 						className: '',
+						duration: 2500,
 						style: {
 							background: '#000000',
 							color: '#fff',

@@ -21,25 +21,59 @@ const Register = () => {
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
+	const imageHostKey = process.env.REACT_APP_imgbb_key;
+
 	const handleRegister = (data) => {
 		setRegisterError('');
-		const { name, email, password, photo } = data;
+		const { name, email, password, image } = data;
+
+		// const { name, email, password } = data;
+		// const image = data.image[0];
+		// const formData = new FormData();
+		// formData.append('image', image);
+		// const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+		// setLoad(true);
+		// fetch(url, {
+		// 	method: 'POST',
+		// 	body: formData,
+		// })
+		// 	.then((res) => res.json())
+		// 	.then((imgData) => {
+		// 		console.log(imgData);
+		// 		createUser(email, password)
+		// 			.then((result) => {
+		// 				console.log(result.user);
+		// 				toast.success('Registered Successfully');
+		// 				handleUpdateUserProfile(name, image);
+		// 				verificationEmail();
+		// 				navigate('/');
+		// 				setLoad(false);
+		// 			})
+		// 			.catch((err) => {
+		// 				console.log(err);
+		// 				toast.error(err.message);
+		// 				setRegisterError(err.message);
+		// 				setLoad(false);
+		// 			});
+		// 	});
+
 		setLoad(true);
 		createUser(email, password)
 			.then((result) => {
 				console.log(result.user);
 				toast.success('Registered Successfully');
-				handleUpdateUserProfile(name, photo);
+				handleUpdateUserProfile(name, image);
 				verificationEmail();
 				navigate('/');
 				setLoad(false);
 			})
-			.catch((err) => {
-				console.log(err);
-				toast.error(err.message);
-				setRegisterError(err.message);
+			.catch((e) => {
+				console.log(e);
+				toast.error(e.message.slice(17, e.message.length - 2));
+				setRegisterError(e.message.slice(17, e.message.length - 2));
 				setLoad(false);
 			});
+
 		reset();
 	};
 
@@ -74,16 +108,16 @@ const Register = () => {
 				navigate(from, { replace: true });
 			})
 			.catch((e) => {
-				setRegisterError(e.message);
-				toast.error(e.message);
+				setRegisterError(e.message.slice(17, e.message.length - 2));
+				toast.error(e.message.slice(17, e.message.length - 2));
 			});
 	};
 
 	return (
 		<div>
 			<div className="w-full max-w-md mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
-				{registerError && <p className="text-center text-xl my-3 text-red-600">{registerError}</p>}
-				<h1 className="text-2xl font-bold text-center">Register</h1>
+				<h1 className="text-5xl font-extrabold text-center mb-5">Register</h1>
+				{registerError && <p className="text-center text-xl  text-red-600">{registerError}</p>}
 				<form
 					onSubmit={handleSubmit(handleRegister)}
 					className="space-y-6 ng-untouched ng-pristine ng-valid">
@@ -107,13 +141,26 @@ const Register = () => {
 						</label>
 						<input
 							type="text"
-							{...register('photo', { required: 'Photo URL is required' })}
-							placeholder="Name"
+							{...register('image', { required: 'Photo URL is required' })}
+							placeholder="Photo URL"
 							className={`w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:outline-0 focus:ring-0 focus:border-[#FFC800] focus:border-2 ${
-								errors.photo && 'focus:border-red-600'
+								errors.image && 'focus:border-red-600'
 							}`}
 						/>
-						{errors.photo && <p className="text-red-600">{errors.photo?.message}</p>}
+						{errors.image && <p className="text-red-600">{errors.image?.message}</p>}
+
+						{/* <label className="label">
+							<span className="label-text">Photo</span>
+						</label>
+						<input
+							{...register('image', {
+								required: 'Image is required',
+							})}
+							type="file"
+							accept="image/*"
+							className="input input-bordered w-full "
+						/>
+						{errors.image && <p className="text-red-600">{errors.image?.message}</p>} */}
 					</div>
 					<div className="space-y-1 text-sm">
 						<label htmlFor="username" className="block text-gray-400">
@@ -144,8 +191,8 @@ const Register = () => {
 							{...register('password', {
 								required: 'Password  is required',
 								minLength: {
-									value: 8,
-									message: 'Password must be at least 8 characters',
+									value: 6,
+									message: 'Password must be at least 6 characters',
 								},
 							})}
 							placeholder="Password"

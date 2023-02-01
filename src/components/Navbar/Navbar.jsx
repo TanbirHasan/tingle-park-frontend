@@ -217,7 +217,19 @@ const Navbar = () => {
 
 			{user?.uid && (
 				<div>
-					<Tooltip arrow={true} title={user?.displayName}>
+					<Tooltip
+						componentsProps={{
+							tooltip: {
+								sx: {
+									bgcolor: 'common.black',
+									'& .MuiTooltip-arrow': {
+										color: 'common.black',
+									},
+								},
+							},
+						}}
+						arrow
+						title={user?.displayName}>
 						<Avatar
 							onClick={handleClick2}
 							size="small"
@@ -226,7 +238,7 @@ const Navbar = () => {
 							aria-controls={open ? 'account-menu' : undefined}
 							aria-haspopup="true"
 							aria-expanded={open ? 'true' : undefined}>
-							<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+							<Avatar sx={{ width: 32, height: 32 }}></Avatar>
 						</Avatar>
 					</Tooltip>
 					<Menu
@@ -263,6 +275,10 @@ const Navbar = () => {
 						}}
 						transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 						anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+						{/* <MenuItem onClick={handleClose}>
+							<Avatar /> Profile
+						</MenuItem>
+						<Divider /> */}
 						<MenuItem onClick={handleLogOut}>
 							<ListItemIcon>
 								<Logout fontSize="small" />

@@ -95,7 +95,9 @@ const ShoppingCart = () => {
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
-										<div className='text-red-600 mb-2'>{item.stockAmount - 1 === 0 ? 'No more stock available' : ''}</div>
+										<div className="text-red-600 mb-2">
+											{item.stockAmount - 1 === 0 ? 'No more stock available' : ''}
+										</div>
 
 										<button
 											disabled={item.quantity === 0 ? true : false}
