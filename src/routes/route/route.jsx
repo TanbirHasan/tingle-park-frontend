@@ -4,6 +4,7 @@ import HomePage from '../../pages/Home/HomePage/HomePage';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Main from './../../layout/Main';
 import Login from './../../pages/Login/Login';
 import Register from './../../pages/Register/Register';
@@ -33,7 +34,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/checkout',
-				element: <CheckOut />,
+				element: (
+					<PrivateRoute>
+						<CheckOut />,
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/contact',
