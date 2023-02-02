@@ -33,7 +33,7 @@ const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const { id, title, picture, sizes_color, quantity, price, ratings } = location.state;
+	const { id, title, picture, sizes_color, quantity, price, ratings } = location?.state;
 
 	const [addToCart, setAddedToCart] = useState(false);
 

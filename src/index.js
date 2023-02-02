@@ -5,13 +5,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './app/store';
+import UserAuthProvider from './Contexts/UserAuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<UserAuthProvider>
+			<Provider store={store}>
+				<App />
+				<Toaster
+					toastOptions={{
+						className: '',
+						duration: 2500,
+						style: {
+							background: '#000000',
+							color: '#fff',
+						},
+					}}
+				/>
+			</Provider>
+		</UserAuthProvider>
 	</React.StrictMode>
 );
 

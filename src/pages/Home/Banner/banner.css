@@ -11,7 +11,6 @@
 
 .carousel-common-style::before {
     content: "";
-
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -38,20 +37,16 @@
 .swiper-pagination .swiper-pagination-bullet {
     border: 2px solid white;
     background-color: transparent;
-
     opacity: 1;
     padding: 7px 7px;
     border-radius: 0;
     width: auto;
     height: 15px;
     opacity: 1;
-
-
 }
 
 .swiper-pagination-bullet-active {
     background-color: white !important;
-
     padding: 7px 20px !important;
     width: auto;
 }

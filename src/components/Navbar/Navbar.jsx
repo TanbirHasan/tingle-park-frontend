@@ -1,15 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineDown, AiOutlineRight } from 'react-icons/ai';
+import Logout from '@mui/icons-material/Logout';
+import Avatar from '@mui/material/Avatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import React, { useContext, useState } from 'react';
+import { AiFillHeart, AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/UserAuthProvider';
 import './navbar.css';
 
 const Navbar = () => {
+	const { user, logOut } = useContext(AuthContext);
 	const [openDropdown, setOpenDropdown] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [isPagesOpen, setIsPagesOpen] = useState(false);
+	// const [isPagesOpen, setIsPagesOpen] = useState(false);
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const handleClick2 = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const handleLogOut = () => {
+		logOut();
+		setAnchorEl(null);
+	};
 
 	// const menuRef = useRef();
 
@@ -76,7 +96,7 @@ const Navbar = () => {
 			<NavLink to={'/shop'} className="hover:text-[#FFD333]">
 				<li>Shop</li>
 			</NavLink>
-			
+
 			{/* <Link className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
@@ -116,6 +136,12 @@ const Navbar = () => {
 			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
+
+			{user?.uid ? null : (
+				<NavLink to={'/login'} className="hover:text-[#FFD333]">
+					<li>Login</li>
+				</NavLink>
+			)}
 		</>
 	);
 
@@ -127,7 +153,7 @@ const Navbar = () => {
 			<NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to={'/shop'}>
 				<li>Shop</li>
 			</NavLink>
-			
+
 			{/* <NavLink className={'group inline-block relative'}>
 				<div
 					onClick={() => setIsPagesOpen(!isPagesOpen)}
@@ -163,6 +189,11 @@ const Navbar = () => {
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
+			{user?.uid ? null : (
+				<NavLink to={'/login'}>
+					<li>Login</li>
+				</NavLink>
+			)}
 		</>
 	);
 
@@ -183,6 +214,80 @@ const Navbar = () => {
 					</div>
 				</div>
 			</Link>
+
+			{user?.uid && (
+				<div>
+					<Tooltip
+						componentsProps={{
+							tooltip: {
+								sx: {
+									bgcolor: 'common.black',
+									'& .MuiTooltip-arrow': {
+										color: 'common.black',
+									},
+								},
+							},
+						}}
+						arrow
+						title={user?.displayName}>
+						<Avatar
+							onClick={handleClick2}
+							size="small"
+							src={user?.photoURL}
+							sx={{ ml: 2, cursor: 'pointer' }}
+							aria-controls={open ? 'account-menu' : undefined}
+							aria-haspopup="true"
+							aria-expanded={open ? 'true' : undefined}>
+							<Avatar sx={{ width: 32, height: 32 }}></Avatar>
+						</Avatar>
+					</Tooltip>
+					<Menu
+						anchorEl={anchorEl}
+						id="account-menu"
+						open={open}
+						onClose={handleClose}
+						onClick={handleClose}
+						PaperProps={{
+							elevation: 0,
+							sx: {
+								overflow: 'visible',
+								filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+								mt: 1.5,
+								'& .MuiAvatar-root': {
+									width: 32,
+									height: 32,
+									ml: -0.5,
+									mr: 1,
+								},
+								'&:before': {
+									content: '""',
+									display: 'block',
+									position: 'absolute',
+									top: 0,
+									right: 14,
+									width: 10,
+									height: 10,
+									// bgcolor: 'background.paper',
+									transform: 'translateY(-50%) rotate(45deg)',
+									zIndex: 0,
+								},
+							},
+						}}
+						transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+						anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+						{/* <MenuItem onClick={handleClose}>
+							<Avatar /> Profile
+						</MenuItem>
+						<Divider /> */}
+						<MenuItem onClick={handleLogOut}>
+							<ListItemIcon>
+								<Logout fontSize="small" />
+							</ListItemIcon>
+							Logout
+						</MenuItem>
+					</Menu>
+				</div>
+			)}
 		</>
 	);
 
@@ -211,7 +316,7 @@ const Navbar = () => {
 							<div className="space-x-5 ml-10 flex links">{menuRoutes}</div>
 						</div>
 
-						<div className="flex gap-10">{menuIcons}</div>
+						<div className="flex items-center gap-4">{menuIcons}</div>
 					</ul>
 
 					<div className="flex justify-between items-center lg:hidden">
