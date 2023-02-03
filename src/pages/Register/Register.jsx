@@ -8,6 +8,15 @@ import { AuthContext } from '../../Contexts/UserAuthProvider';
 const Register = () => {
 	const { createUser, updateUserProfile, googleSignUp, verifyUserEmail } = useContext(AuthContext);
 
+	const [fileURL, setFileURL] = useState();
+	const [file, setFile] = useState();
+
+	function handleChange(e) {
+		// console.log(e.target.files);
+		setFile(e.target.files)
+		setFileURL(URL.createObjectURL(e.target.files[0]));
+	}
+
 	const {
 		register,
 		handleSubmit,
@@ -26,54 +35,57 @@ const Register = () => {
 
 	const handleRegister = (data) => {
 		setRegisterError('');
-		const { name, email, password, image } = data;
 
-		// const { name, email, password } = data;
+		const { name, email, password } = data;
 		// const image = data.image[0];
-		// const formData = new FormData();
-		// formData.append('image', image);
-		// const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
-		// setLoad(true);
-		// fetch(url, {
-		// 	method: 'POST',
-		// 	body: formData,
-		// })
-		// 	.then((res) => res.json())
-		// 	.then((imgData) => {
-		// 		console.log(imgData);
-		// 		createUser(email, password)
-		// 			.then((result) => {
-		// 				console.log(result.user);
-		// 				toast.success('Registered Successfully');
-		// 				handleUpdateUserProfile(name, image);
-		// 				verificationEmail();
-		// 				navigate('/');
-		// 				setLoad(false);
-		// 			})
-		// 			.catch((err) => {
-		// 				console.log(err);
-		// 				toast.error(err.message);
-		// 				setRegisterError(err.message);
-		// 				setLoad(false);
-		// 			});
-		// 	});
-
+		const image = file[0];
+		// console.log(image)
+		const formData = new FormData();
+		formData.append('image', image);
+		const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
 		setLoad(true);
-		createUser(email, password)
-			.then((result) => {
-				console.log(result.user);
-				toast.success('Registered Successfully');
-				handleUpdateUserProfile(name, image);
-				verificationEmail();
-				navigate('/');
-				setLoad(false);
-			})
-			.catch((e) => {
-				console.log(e);
-				toast.error(e.message.slice(17, e.message.length - 2));
-				setRegisterError(e.message.slice(17, e.message.length - 2));
-				setLoad(false);
+		fetch(url, {
+			method: 'POST',
+			body: formData,
+		})
+			.then((res) => res.json())
+			.then((imgData) => {
+				console.log(imgData);
+				createUser(email, password)
+					.then((result) => {
+						console.log(result.user);
+						toast.success('Registered Successfully');
+						handleUpdateUserProfile(name, imgData.data.display_url);
+						verificationEmail();
+						navigate('/');
+						setLoad(false);
+					})
+					.catch((err) => {
+						console.log(err);
+						toast.error(err.message);
+						setRegisterError(err.message);
+						setLoad(false);
+					});
 			});
+
+			
+			// const { name, email, password, image } = data;
+		// setLoad(true);
+		// createUser(email, password)
+		// 	.then((result) => {
+		// 		console.log(result.user);
+		// 		toast.success('Registered Successfully');
+		// 		handleUpdateUserProfile(name, image);
+		// 		verificationEmail();
+		// 		navigate('/');
+		// 		setLoad(false);
+		// 	})
+		// 	.catch((e) => {
+		// 		console.log(e);
+		// 		toast.error(e.message.slice(17, e.message.length - 2));
+		// 		setRegisterError(e.message.slice(17, e.message.length - 2));
+		// 		setLoad(false);
+		// 	});
 
 		reset();
 	};
@@ -135,7 +147,7 @@ const Register = () => {
 						{errors.name && <p className="text-red-600">{errors.name?.message}</p>}
 					</div>
 					<div className="space-y-1 text-sm">
-						<label htmlFor="username" className="block text-gray-400">
+						{/* <label htmlFor="username" className="block text-gray-400">
 							Photo URL
 						</label>
 						<input
@@ -146,11 +158,63 @@ const Register = () => {
 								errors.image && 'focus:border-red-600'
 							} `}
 						/>
-						{errors.image && <p className="text-red-600">{errors.image?.message}</p>}
+						{errors.image && <p className="text-red-600">{errors.image?.message}</p>} */}
 
+						{/* Uploading picture and storing in IMGBB */}
+						<label className="block text-gray-400">
+							<span className="label-text">Photo</span>
+						</label>
+						<div className="extraOutline p-4  m-auto rounded-lg">
+							<div
+								className={`file_upload p-5 relative border-4 border-dotted border-gray-400 rounded-lg `}>
+								{fileURL ? (
+									<img src={fileURL} alt="" className="rounded-full w-16 h-16 mx-auto mb-5 mt-5" />
+								) : (
+									<svg
+										className="text-indigo-500 w-24 mx-auto mb-4 animate-pulse"
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+										/>
+									</svg>
+									// <img src={uploadGif} alt="" className="text-indigo-500 w-24 mx-auto mb-4" />
+								)}
+
+								<div className="input_field flex flex-col w-max mx-auto text-center">
+									<label>
+										<input
+											{...register('image', {
+												required: 'Image is required',
+											})}
+											className="text-sm cursor-pointer w-36 hidden"
+											type="file"
+											accept="image/*"
+											onChange={handleChange}
+										/>
+
+										{fileURL ? (
+											null
+										) : (
+											<div className="text bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-5 hover:bg-indigo-500">
+												Select
+											</div>
+										)}
+									</label>
+								</div>
+							</div>
+						</div>
+
+						{/* For photoURL */}
 						{/* <label className="label">
 							<span className="label-text">Photo</span>
 						</label>
+
 						<input
 							{...register('image', {
 								required: 'Image is required',
@@ -158,8 +222,8 @@ const Register = () => {
 							type="file"
 							accept="image/*"
 							className="input input-bordered w-full "
-						/>
-						{errors.image && <p className="text-red-600">{errors.image?.message}</p>} */}
+						/> */}
+						{errors.image && <p className="text-red-600">{errors.image?.message}</p>}
 					</div>
 					<div className="space-y-1 text-sm">
 						<label htmlFor="username" className="block text-gray-400">

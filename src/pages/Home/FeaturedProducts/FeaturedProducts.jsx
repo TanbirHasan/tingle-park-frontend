@@ -11,8 +11,8 @@ const FeaturedProducts = () => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
-	const productSlices = [...products]	
-	productSlices.pop()
+	const productSlices = [...products];
+	productSlices.pop();
 
 	return (
 		<div className="my-20">
@@ -25,14 +25,15 @@ const FeaturedProducts = () => {
 				</div>
 			</div>
 
+			{isLoading ? (
+				<div className="flex h-screen justify-center items-center">
+					<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
+				</div>
+			) : (
+				''
+			)}
+
 			<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 my-10">
-				{isLoading ? (
-					<div className='flex h-screen justify-center items-center'>
-						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
-					</div>
-				) : (
-					''
-				)}
 				{productSlices.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}

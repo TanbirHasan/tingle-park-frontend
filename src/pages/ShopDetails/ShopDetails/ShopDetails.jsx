@@ -7,16 +7,13 @@ import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import {
-	AiFillStar,
-	AiOutlineMinus,
-	AiOutlinePlus,
-	AiOutlineStar,
-	AiOutlineTwitter,
+	AiOutlineTwitter
 } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
+import { Rating } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
@@ -27,7 +24,6 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import Reviews from '../Reviews/Reviews';
-import { Rating } from '@mui/material';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
