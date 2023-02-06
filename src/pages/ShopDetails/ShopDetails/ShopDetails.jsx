@@ -18,7 +18,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
-import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
 import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
 import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
@@ -76,8 +75,8 @@ const ShopDetails = () => {
 				</nav>
 			</div>
 
-			<div className="my-10 flex flex-col lg:flex-row gap-10">
-				<div className="bg-white lg:w-[40%] ">
+			<div className="my-10 flex flex-col  lg:flex-row gap-10">
+				<div className="bg-white lg:w-[40%]">
 					<Swiper
 						slidesPerView={1}
 						loop={true}
@@ -113,12 +112,12 @@ const ShopDetails = () => {
 
 					<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
 
-					<p className="mt-4 text-[#6c757d]">
+					<p className="my-4 text-[#6c757d]">
 						Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
 						ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
 					</p>
 
-					{sizes_color ? (
+					{/* {sizes_color ? (
 						<>
 							<SizesAndColor
 								heading={'Sizes'}
@@ -156,7 +155,7 @@ const ShopDetails = () => {
 								/>
 							</div>
 						</>
-					)}
+					)} */}
 
 					<div className="flex flex-col lg:flex-row items-center gap-10">
 						{/* <div className="flex items-center">
@@ -184,7 +183,7 @@ const ShopDetails = () => {
 								type="button"
 								disabled={addToCart ? true : false}
 								onClick={handleAddToCart}
-								className="inline-flex items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
+								className="inline-flex mt-5 items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
 								<BsFillCartFill /> <span className="ml-2">Add to cart</span>
 							</button>
 						</div>

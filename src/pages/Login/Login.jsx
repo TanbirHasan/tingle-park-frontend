@@ -72,7 +72,7 @@ const Login = () => {
 		<div>
 			<div className="w-full max-w-md mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
 				<h1 className="text-5xl font-extrabold text-center mb-5">Login</h1>
-				{loginError && <p className="text-center text-xl   text-red-600">{loginError}</p>}
+				{/* {loginError && <p className="text-center text-xl   text-red-600">{loginError}</p>} */}
 
 				<form
 					onSubmit={handleSubmit(handleLogin)}
@@ -113,7 +113,7 @@ const Login = () => {
 							<button onClick={handleForgotPassword}>Forgot Password?</button>
 						</div>
 					</div>
-					{load ? (
+					{/* {load ? (
 						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
 					) : (
 						<button
@@ -121,7 +121,16 @@ const Login = () => {
 							className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
 							Sign in
 						</button>
-					)}
+					)} */}
+					<button
+						type="submit"
+						className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
+						{load ? (
+							<div className="w-6 h-6 mx-auto border-4 border-dashed rounded-full animate-spin border-yellow-300"></div>
+						) : (
+							<span>Sign in</span>
+						)}
+					</button>
 				</form>
 				<div className="flex items-center pt-4 space-x-1">
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
@@ -129,7 +138,9 @@ const Login = () => {
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
 				</div>
 				<div className="flex justify-center space-x-4">
-					<button onClick={handleGoogleSignUp} className="p-3 rounded-sm hover:scale-110 duration-700">
+					<button
+						onClick={handleGoogleSignUp}
+						className="p-3 rounded-sm hover:scale-110 duration-700">
 						<FcGoogle className="w-10 h-10 fill-current" />
 					</button>
 				</div>

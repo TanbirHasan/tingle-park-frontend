@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { fetchProducts } from '../../../features/ProductSlice';
-import FilterProducts from '../FilterProducts/FilterProducts';
-import { FaBars, FaBorderAll } from 'react-icons/fa';
-import { AiFillCaretDown } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 
 const Shop = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
@@ -13,8 +11,19 @@ const Shop = () => {
 	const [sortingDropdown, setSortingDropdown] = useState(false);
 	const [showDropdown, setShowDropdown] = useState(false);
 
+	const menuRef = useRef();
 	useEffect(() => {
 		dispatch(fetchProducts());
+		let handler = (e) => {
+			if (!menuRef.current.contains(e.target)) {
+				// setSortingDropdown(false);
+				setShowDropdown(false);
+			}
+		};
+		document.addEventListener('mousedown', handler);
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		};
 	}, [dispatch]);
 
 	return (
@@ -48,25 +57,27 @@ const Shop = () => {
 			</div>
 
 			<div className="flex flex-col lg:flex-row gap-10">
-				<div className="lg:w-[25%]">
+				{/* <div className="lg:w-[25%]">
 					<FilterProducts />
-				</div>
+				</div> */}
 
 				<div className="w-full">
 					<div className="lg:mt-10">
-						<div className="flex justify-between items-center">
-							<div className="flex gap-4">
+						<div className="flex justify-end items-center">
+							{/* <div className="flex gap-4">
 								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBorderAll />
 								</div>
 								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBars />
 								</div>
-							</div>
+							</div> */}
 							<div className="flex items-center gap-3">
-								<div onClick={() => setSortingDropdown(!sortingDropdown)}>
+								<div>
 									<div className="relative  flex items-center justify-between   duration-500 cursor-pointer  ">
-										<div className="flex items-center gap-2">
+										<div
+											onClick={() => setSortingDropdown(!sortingDropdown)}
+											className="flex items-center gap-2">
 											<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
 												<span className="text-sm">Sorting</span>
 												<AiFillCaretDown className="text-xs ml-2" />
@@ -90,7 +101,7 @@ const Shop = () => {
 										</div>
 									</div>
 								</div>
-								<div onClick={() => setShowDropdown(!showDropdown)}>
+								<div ref={menuRef} onClick={() => setShowDropdown(!showDropdown)}>
 									<div className="relative  flex items-center justify-between  duration-500 cursor-pointer">
 										<div className="flex items-center gap-2">
 											<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
@@ -127,7 +138,7 @@ const Shop = () => {
 					) : (
 						''
 					)}
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 lg:w-[90%] mx-auto">
 						{products.map((product) => (
 							<ProductCard key={product.id} product={product} />
 						))}

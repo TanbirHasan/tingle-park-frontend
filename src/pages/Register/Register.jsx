@@ -13,19 +13,21 @@ const Register = () => {
 
 	function handleChange(e) {
 		// console.log(e.target.files);
-		setFile(e.target.files)
+		setFile(e.target.files);
 		setFileURL(URL.createObjectURL(e.target.files[0]));
 	}
 
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors },
 		reset,
 	} = useForm();
 
 	const [registerError, setRegisterError] = useState('');
 	const [load, setLoad] = useState(false);
+	// const [fileError, setFileError] = useState(false);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -68,8 +70,7 @@ const Register = () => {
 					});
 			});
 
-			
-			// const { name, email, password, image } = data;
+		// const { name, email, password, image } = data;
 		// setLoad(true);
 		// createUser(email, password)
 		// 	.then((result) => {
@@ -130,7 +131,7 @@ const Register = () => {
 		<div>
 			<div className="w-full max-w-lg mx-auto my-20 p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
 				<h1 className="text-5xl font-extrabold text-center mb-5">Register</h1>
-				{registerError && <p className="text-center text-xl  text-red-600">{registerError}</p>}
+				{/* {registerError && <p className="text-center text-xl  text-red-600">{registerError}</p>} */}
 				<form onSubmit={handleSubmit(handleRegister)} className="space-y-6 w-[90%] mx-auto">
 					<div className="space-y-1 text-sm">
 						<label htmlFor="username" className="block text-gray-400">
@@ -163,52 +164,58 @@ const Register = () => {
 						{/* Uploading picture and storing in IMGBB */}
 						<label className="block text-gray-400">
 							<span className="label-text">Photo</span>
-						</label>
-						<div className="extraOutline p-4  m-auto rounded-lg">
-							<div
-								className={`file_upload p-5 relative border-4 border-dotted border-gray-400 rounded-lg `}>
-								{fileURL ? (
-									<img src={fileURL} alt="" className="rounded-full w-16 h-16 mx-auto mb-5 mt-5" />
-								) : (
-									<svg
-										className="text-indigo-500 w-24 mx-auto mb-4 animate-pulse"
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor">
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+							<div className="extraOutline p-4  m-auto rounded-lg">
+								<div
+									className={`file_upload p-5 relative border-4 border-dotted  rounded-lg border-gray-400`}>
+									{fileURL ? (
+										<img
+											src={fileURL}
+											alt=""
+											className="rounded-full w-16 h-16 mx-auto mb-5 mt-5"
 										/>
-									</svg>
-									// <img src={uploadGif} alt="" className="text-indigo-500 w-24 mx-auto mb-4" />
-								)}
+									) : (
+										<svg
+											className="text-indigo-500 w-24 mx-auto mb-4 animate-pulse"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor">
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth="2"
+												d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+											/>
+										</svg>
+										// <img src={uploadGif} alt="" className="text-indigo-500 w-24 mx-auto mb-4" />
+									)}
 
-								<div className="input_field flex flex-col w-max mx-auto text-center">
-									<label>
-										<input
-											{...register('image', {
-												required: 'Image is required',
-											})}
-											className="text-sm cursor-pointer w-36 hidden"
-											type="file"
-											accept="image/*"
-											onChange={handleChange}
-										/>
+									<div className="input_field flex flex-col w-max mx-auto text-center">
+										<label>
+											<input
+												{...register('image', {
+													required: 'Image is required',
+												})}
+												className="text-sm cursor-pointer w-36 hidden"
+												type="file"
+												accept="image/*"
+												onChange={handleChange}
+											/>
 
-										{fileURL ? (
-											null
-										) : (
-											<div className="text bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-5 hover:bg-indigo-500">
-												Select
-											</div>
-										)}
-									</label>
+											{fileURL ? null : (
+												<div
+													className={`text bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-5 hover:bg-indigo-500 ${
+														errors.image && 'bg-red-600 text-white hover:bg-red-700 duration-500'
+													}`}>
+													{errors.image ? 'Please select an Image' : 'Select'}
+												</div>
+											)}
+										</label>
+									</div>
 								</div>
 							</div>
-						</div>
+							{/* {errors.image && <p className="text-red-600">{errors.image?.message}</p>} */}
+						</label>
 
 						{/* For photoURL */}
 						{/* <label className="label">
@@ -223,7 +230,7 @@ const Register = () => {
 							accept="image/*"
 							className="input input-bordered w-full "
 						/> */}
-						{errors.image && <p className="text-red-600">{errors.image?.message}</p>}
+						{/* {errors.image && <p className="text-red-600">{errors.image?.message}</p>} */}
 					</div>
 					<div className="space-y-1 text-sm">
 						<label htmlFor="username" className="block text-gray-400">

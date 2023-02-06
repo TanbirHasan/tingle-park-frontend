@@ -4,7 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillHeart, AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
@@ -31,21 +31,21 @@ const Navbar = () => {
 		setAnchorEl(null);
 	};
 
-	// const menuRef = useRef();
+	const menuRef = useRef();
 
-	// useEffect(() => {
-	// 	let handler = (e) => {
-	// 		if (!menuRef.current.contains(e.target)) {
-	// 			// setOpenDropdown(false);
-	// 			setIsPagesOpen(false);
-	// 		}
-	// 	};
-	// 	document.addEventListener('mousedown', handler);
+	useEffect(() => {
+		let handler = (e) => {
+			if (!menuRef.current.contains(e.target)) {
+				setOpenDropdown(false);
+				// setIsPagesOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', handler);
 
-	// 	return () => {
-	// 		document.removeEventListener('mousedown', handler);
-	// 	};
-	// }, []);
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		};
+	}, []);
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
@@ -298,7 +298,9 @@ const Navbar = () => {
 					<ul className="items-center hidden space-x-8 lg:flex justify-between">
 						<div className="flex items-center gap-5">
 							<div onClick={() => setOpenDropdown(!openDropdown)} className="">
-								<div className="relative bg-[#FFD333] w-[300px] h-[70px] flex items-center justify-between p-5 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer">
+								<div
+									ref={menuRef}
+									className="relative bg-[#FFD333] w-[300px] h-[70px] flex items-center justify-between p-5 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer">
 									<div className="flex items-center gap-2">
 										<FaBars />
 										<button className="font-bold">Categories</button>
@@ -309,7 +311,7 @@ const Navbar = () => {
 											{menuItemsDropDown}
 										</ul>
 									</div>
-									<AiOutlineDown />
+									{openDropdown ? <AiOutlineClose /> : <AiOutlineDown />}
 								</div>
 							</div>
 
