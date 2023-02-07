@@ -189,7 +189,34 @@ const Navbar = () => {
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
-			{user?.uid ? null : (
+			{user?.uid ? (
+				<div className='mx-auto lg:hidden pr-10'>
+					<Tooltip
+						componentsProps={{
+							tooltip: {
+								sx: {
+									bgcolor: 'common.black',
+									'& .MuiTooltip-arrow': {
+										color: 'common.black',
+									},
+								},
+							},
+						}}
+						arrow
+						title={user?.displayName}>
+						<Avatar
+							onClick={handleClick2}
+							size="small"
+							src={user?.photoURL}
+							sx={{cursor: 'pointer',width: 52, height: 52 }}
+							aria-controls={open ? 'account-menu' : undefined}
+							aria-haspopup="true"
+							aria-expanded={open ? 'true' : undefined}>
+							<Avatar sx={{ width: 32, height: 32 }}></Avatar>
+						</Avatar>
+					</Tooltip>
+				</div>
+			) : (
 				<NavLink to={'/login'}>
 					<li>Login</li>
 				</NavLink>

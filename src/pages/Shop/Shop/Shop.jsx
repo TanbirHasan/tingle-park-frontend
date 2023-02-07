@@ -12,8 +12,11 @@ const Shop = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 
 	const menuRef = useRef();
+	const menuRef2 = useRef();
+
 	useEffect(() => {
 		dispatch(fetchProducts());
+
 		let handler = (e) => {
 			if (!menuRef.current.contains(e.target)) {
 				// setSortingDropdown(false);
@@ -21,8 +24,17 @@ const Shop = () => {
 			}
 		};
 		document.addEventListener('mousedown', handler);
+
+		let handler2 = (e) => {
+			if (!menuRef2.current.contains(e.target)) {
+				setSortingDropdown(false);
+			}
+		};
+		document.addEventListener('mousedown', handler2);
+
 		return () => {
 			document.removeEventListener('mousedown', handler);
+			document.removeEventListener('mousedown', handler2);
 		};
 	}, [dispatch]);
 
@@ -62,7 +74,7 @@ const Shop = () => {
 				</div> */}
 
 				<div className="w-full">
-					<div className="lg:mt-10">
+					<div className="mt-10">
 						<div className="flex justify-end items-center">
 							{/* <div className="flex gap-4">
 								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
@@ -76,6 +88,7 @@ const Shop = () => {
 								<div>
 									<div className="relative  flex items-center justify-between   duration-500 cursor-pointer  ">
 										<div
+											ref={menuRef2}
 											onClick={() => setSortingDropdown(!sortingDropdown)}
 											className="flex items-center gap-2">
 											<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
@@ -113,7 +126,9 @@ const Shop = () => {
 													showDropdown ? 'dropdown-active' : 'dropdown-inactive'
 												} `}>
 												<>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={() => console.log('10')}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">10</p>
 													</button>
 													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
