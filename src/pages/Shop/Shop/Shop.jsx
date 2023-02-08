@@ -69,8 +69,13 @@ const Shop = () => {
 			</div>
 
 			<div className="flex flex-col lg:flex-row gap-10">
-				{/* <div className="lg:w-[25%]">
+				{/* <div className="lg:w-[25%] ">
 					<FilterProducts />
+					<div className="">
+						<h1 className="mt-10  p-5  font-extrabold text-5xl bg-clip-text text-transparent bg-gradient-to-b from-yellow-400 via-yellow-200 to-amber-200">
+							Categories
+						</h1>
+					</div>
 				</div> */}
 
 				<div className="w-full">
@@ -153,7 +158,7 @@ const Shop = () => {
 					) : (
 						''
 					)}
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 lg:w-[90%] mx-auto">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10  mx-auto w-[75%]">
 						{products.map((product) => (
 							<ProductCard key={product.id} product={product} />
 						))}
