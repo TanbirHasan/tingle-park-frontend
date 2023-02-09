@@ -1,5 +1,6 @@
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
+import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
@@ -19,7 +20,10 @@ export const router = createBrowserRouter([
 				path: '/',
 				element: <HomePage />,
 			},
-
+			{
+				path: '/categorizedProduct',
+				element: <CategorizedProductPage />,
+			},
 			{
 				path: '/shop',
 				element: <Shop />,

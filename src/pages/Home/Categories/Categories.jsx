@@ -9,29 +9,24 @@ const Categories = () => {
 	const categories = [
 		{
 			name: 'Fashion',
-			productAmount: 100,
 			picture: cat1,
 		},
 		{
 			name: 'Electronics',
-			productAmount: 100,
 			picture: cat2,
 		},
 		{
 			name: 'Home Decor',
-			productAmount: 100,
 			picture: cat3,
 		},
 		{
 			name: 'Cosmetics',
-			productAmount: 100,
 			picture: cat4,
 		},
-		
 	];
 
 	return (
-		<div className="my-40">
+		<div className="my-20">
 			<div className="flex items-center  gap-5">
 				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold lg:text-left">
 					Categories
