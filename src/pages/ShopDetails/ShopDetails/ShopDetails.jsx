@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import { Autoplay, Navigation, Pagination } from 'swiper';
@@ -12,7 +12,6 @@ import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
 import { Rating } from '@mui/material';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
@@ -36,7 +35,7 @@ const ShopDetails = () => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
-	const handleAddToCart = () => {
+	const handleAddToCart = (product) => {
 		dispatch(incrementCart());
 		dispatch(addItemsToCart(product));
 		setAddedToCart(!addToCart);
@@ -91,7 +90,7 @@ const ShopDetails = () => {
 					</Swiper>
 				</div>
 
-				<div className='flex bg-white lg:h-[547px] items-center'>
+				<div className="flex bg-white lg:h-[547px] items-center">
 					<div className=" w-full p-10">
 						<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
 
@@ -180,7 +179,7 @@ const ShopDetails = () => {
 								<button
 									type="button"
 									disabled={addToCart ? true : false}
-									onClick={handleAddToCart}
+									onClick={() => handleAddToCart(location?.state)}
 									className="inline-flex mt-5 items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
 									<BsFillCartFill /> <span className="ml-2">Add to cart</span>
 								</button>
