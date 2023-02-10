@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { PropagateLoader } from 'react-spinners';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { fetchProducts } from '../../../features/ProductSlice';
 
@@ -50,7 +51,7 @@ const CategorizedProductPage = () => {
 
 			{isLoading ? (
 				<div className="flex h-screen justify-center items-center w-full">
-					<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
+					<PropagateLoader color="#FFD333" size={20} speedMultiplier={2} />
 				</div>
 			) : (
 				''

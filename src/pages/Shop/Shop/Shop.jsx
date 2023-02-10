@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { PropagateLoader } from 'react-spinners';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { fetchProducts } from '../../../features/ProductSlice';
 
@@ -152,8 +153,8 @@ const Shop = () => {
 					</div>
 
 					{isLoading ? (
-						<div className="flex h-screen justify-center items-center w-full">
-							<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
+						<div className="flex h-screen justify-center items-center">
+							<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
 						</div>
 					) : (
 						''
