@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { PropagateLoader } from 'react-spinners';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { fetchProducts } from '../../../features/ProductSlice';
-import FilterProducts from '../FilterProducts/FilterProducts';
-import { FaBars, FaBorderAll } from 'react-icons/fa';
-import { AiFillCaretDown } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 
 const Shop = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
@@ -13,8 +12,31 @@ const Shop = () => {
 	const [sortingDropdown, setSortingDropdown] = useState(false);
 	const [showDropdown, setShowDropdown] = useState(false);
 
+	const menuRef = useRef();
+	const menuRef2 = useRef();
+
 	useEffect(() => {
 		dispatch(fetchProducts());
+
+		let handler = (e) => {
+			if (!menuRef.current.contains(e.target)) {
+				// setSortingDropdown(false);
+				setShowDropdown(false);
+			}
+		};
+		document.addEventListener('mousedown', handler);
+
+		let handler2 = (e) => {
+			if (!menuRef2.current.contains(e.target)) {
+				setSortingDropdown(false);
+			}
+		};
+		document.addEventListener('mousedown', handler2);
+
+		return () => {
+			document.removeEventListener('mousedown', handler);
+			document.removeEventListener('mousedown', handler2);
+		};
 	}, [dispatch]);
 
 	return (
@@ -48,25 +70,33 @@ const Shop = () => {
 			</div>
 
 			<div className="flex flex-col lg:flex-row gap-10">
-				<div className="lg:w-[25%]">
+				{/* <div className="lg:w-[25%] ">
 					<FilterProducts />
-				</div>
+					<div className="">
+						<h1 className="mt-10  p-5  font-extrabold text-5xl bg-clip-text text-transparent bg-gradient-to-b from-yellow-400 via-yellow-200 to-amber-200">
+							Categories
+						</h1>
+					</div>
+				</div> */}
 
 				<div className="w-full">
-					<div className="lg:mt-10">
-						<div className="flex justify-between items-center">
-							<div className="flex gap-4">
+					<div className="mt-10">
+						<div className="flex justify-end items-center">
+							{/* <div className="flex gap-4">
 								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBorderAll />
 								</div>
 								<div className="bg-white p-2 cursor-pointer hover:bg-[#ECECEC] duration-500">
 									<FaBars />
 								</div>
-							</div>
+							</div> */}
 							<div className="flex items-center gap-3">
-								<div onClick={() => setSortingDropdown(!sortingDropdown)}>
+								<div>
 									<div className="relative  flex items-center justify-between   duration-500 cursor-pointer  ">
-										<div className="flex items-center gap-2">
+										<div
+											ref={menuRef2}
+											onClick={() => setSortingDropdown(!sortingDropdown)}
+											className="flex items-center gap-2">
 											<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
 												<span className="text-sm">Sorting</span>
 												<AiFillCaretDown className="text-xs ml-2" />
@@ -90,7 +120,7 @@ const Shop = () => {
 										</div>
 									</div>
 								</div>
-								<div onClick={() => setShowDropdown(!showDropdown)}>
+								<div ref={menuRef} onClick={() => setShowDropdown(!showDropdown)}>
 									<div className="relative  flex items-center justify-between  duration-500 cursor-pointer">
 										<div className="flex items-center gap-2">
 											<button className="font-semibold bg-white p-2 px-2 flex items-center hover:bg-[#ECECEC] duration-500 focus:outline outline-[#ECECEC]">
@@ -102,7 +132,9 @@ const Shop = () => {
 													showDropdown ? 'dropdown-active' : 'dropdown-inactive'
 												} `}>
 												<>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={() => console.log('10')}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">10</p>
 													</button>
 													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
@@ -121,13 +153,13 @@ const Shop = () => {
 					</div>
 
 					{isLoading ? (
-						<div className="flex h-screen justify-center items-center w-full">
-							<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
+						<div className="flex h-screen justify-center items-center">
+							<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
 						</div>
 					) : (
 						''
 					)}
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10  mx-auto w-[75%]">
 						{products.map((product) => (
 							<ProductCard key={product.id} product={product} />
 						))}

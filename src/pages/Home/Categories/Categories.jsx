@@ -1,52 +1,27 @@
 import React from 'react';
-import CategoriesCard from './CategoriesCard';
 import cat1 from '../../../assets/cat-1.jpg';
 import cat2 from '../../../assets/cat-2.jpg';
 import cat3 from '../../../assets/cat-3.jpg';
 import cat4 from '../../../assets/cat-4.jpg';
+import CategoriesCard from './CategoriesCard';
 
 const Categories = () => {
 	const categories = [
 		{
 			name: 'Fashion',
-			productAmount: 100,
 			picture: cat1,
 		},
 		{
 			name: 'Electronics',
-			productAmount: 100,
 			picture: cat2,
 		},
 		{
-			name: 'Shoes',
-			productAmount: 100,
+			name: 'Home Decor',
 			picture: cat3,
 		},
 		{
-			name: 'Accessory',
-			productAmount: 100,
+			name: 'Cosmetics',
 			picture: cat4,
-		},
-		{
-			name: 'Electronics',
-			productAmount: 100,
-			picture: cat2,
-		},
-		{
-			name: 'Accessory',
-			productAmount: 100,
-			picture: cat4,
-		},
-		{
-			name: 'Fashion',
-			productAmount: 100,
-			picture: cat1,
-		},
-
-		{
-			name: 'Shoes',
-			productAmount: 100,
-			picture: cat3,
 		},
 	];
 

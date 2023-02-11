@@ -127,7 +127,7 @@ const ShoppingCart = () => {
 										</button>
 
 										<button
-											disabled={item.stockAmount - 1 === 0 ? true : false}
+											disabled={(item.stockAmount - 1)  === 0 ? true : false}
 											type="button"
 											onClick={() => handleIncrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">

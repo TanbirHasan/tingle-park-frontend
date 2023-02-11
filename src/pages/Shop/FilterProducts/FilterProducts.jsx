@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterProducts = () => {
 	return (
-		<div className="mt-10">
+		<div className="mt-10 bg-white">
 			<div>
 				{/* Filter by price */}
 				<div className="flex items-center gap-2">

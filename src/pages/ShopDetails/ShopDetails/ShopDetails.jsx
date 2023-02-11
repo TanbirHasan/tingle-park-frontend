@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 import { Autoplay, Navigation, Pagination } from 'swiper';
@@ -6,35 +6,26 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import {
-	AiFillStar,
-	AiOutlineMinus,
-	AiOutlinePlus,
-	AiOutlineStar,
-	AiOutlineTwitter,
-} from 'react-icons/ai';
+import { AiOutlineTwitter } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
-import { useState } from 'react';
+import { Rating } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
-import SizesAndColor from '../../../components/SizesAndColor/SizesAndColor';
 import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
 import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import Reviews from '../Reviews/Reviews';
-import { Rating } from '@mui/material';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { id, title, picture, sizes_color, quantity, price, ratings } = location?.state;
-
 	const [addToCart, setAddedToCart] = useState(false);
 
 	let product = { id, title, picture, sizes_color, quantity, price, ratings };
@@ -44,7 +35,7 @@ const ShopDetails = () => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
-	const handleAddToCart = () => {
+	const handleAddToCart = (product) => {
 		dispatch(incrementCart());
 		dispatch(addItemsToCart(product));
 		setAddedToCart(!addToCart);
@@ -80,8 +71,8 @@ const ShopDetails = () => {
 				</nav>
 			</div>
 
-			<div className="my-10 flex flex-col lg:flex-row gap-10">
-				<div className="bg-white lg:w-[40%] ">
+			<div className="my-10 flex flex-col  lg:flex-row gap-10">
+				<div className="bg-white lg:w-[40%]">
 					<Swiper
 						slidesPerView={1}
 						loop={true}
@@ -99,30 +90,31 @@ const ShopDetails = () => {
 					</Swiper>
 				</div>
 
-				<div className="bg-white w-full p-10">
-					<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
+				<div className="flex bg-white lg:h-[547px] items-center">
+					<div className=" w-full p-10">
+						<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
 
-					<div className="flex items-center  gap-1">
-						<div className="flex justify-center mt-2 items-center">
-							<Rating
-								name="half-rating-read"
-								size="small"
-								value={ratings}
-								precision={0.5}
-								readOnly
-							/>
-							<span className="ml-1 mb-1 text-[#6c757d]">(99) reviews</span>
+						<div className="flex items-center  gap-1">
+							<div className="flex justify-center mt-2 items-center">
+								<Rating
+									name="half-rating-read"
+									size="small"
+									value={ratings}
+									precision={0.5}
+									readOnly
+								/>
+								<span className="ml-1 mb-1 text-[#6c757d]">(99) reviews</span>
+							</div>
 						</div>
-					</div>
 
-					<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
+						<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
 
-					<p className="mt-4 text-[#6c757d]">
-						Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
-						ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
-					</p>
+						<p className="my-4 text-[#6c757d]">
+							Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
+							ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
+						</p>
 
-					{sizes_color ? (
+						{/* {sizes_color ? (
 						<>
 							<SizesAndColor
 								heading={'Sizes'}
@@ -160,10 +152,10 @@ const ShopDetails = () => {
 								/>
 							</div>
 						</>
-					)}
+					)} */}
 
-					<div className="flex flex-col lg:flex-row items-center gap-10">
-						{/* <div className="flex items-center">
+						<div className="flex flex-col lg:flex-row items-center gap-10">
+							{/* <div className="flex items-center">
 							<button
 								type="button"
 								className="inline-flex items-center justify-center w-[40px] h-[41px] text-sm  border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
@@ -183,21 +175,22 @@ const ShopDetails = () => {
 							</button>
 						</div> */}
 
-						<div>
-							<button
-								type="button"
-								disabled={addToCart ? true : false}
-								onClick={handleAddToCart}
-								className="inline-flex items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
-								<BsFillCartFill /> <span className="ml-2">Add to cart</span>
-							</button>
+							<div>
+								<button
+									type="button"
+									disabled={addToCart ? true : false}
+									onClick={() => handleAddToCart(location?.state)}
+									className="inline-flex mt-5 items-center justify-center w-[200px] h-[41px] text-xl  font-semibold text-center  border-0 bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500">
+									<BsFillCartFill /> <span className="ml-2">Add to cart</span>
+								</button>
+							</div>
 						</div>
-					</div>
 
-					<div className="mt-5 flex items-center gap-4 ">
-						<h1 className="text-[#3d464d] font-bold">Share on:</h1>
-						<div className="flex items-center gap-4 text-[#1b1f22]">
-							<FaFacebookF /> <AiOutlineTwitter /> <FaLinkedinIn /> <ImPinterest />
+						<div className="mt-5 flex items-center gap-4 ">
+							<h1 className="text-[#3d464d] font-bold">Share on:</h1>
+							<div className="flex items-center gap-4 text-[#1b1f22]">
+								<FaFacebookF /> <AiOutlineTwitter /> <FaLinkedinIn /> <ImPinterest />
+							</div>
 						</div>
 					</div>
 				</div>

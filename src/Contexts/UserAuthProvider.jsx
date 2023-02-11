@@ -81,7 +81,8 @@ const UserAuthProvider = ({ children }) => {
 		signIn,
 		forgotPassword,
         logOut,
-        verifyUserEmail
+		verifyUserEmail,
+		loading
 	};
 
 	return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;

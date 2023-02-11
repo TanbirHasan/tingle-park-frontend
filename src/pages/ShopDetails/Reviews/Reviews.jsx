@@ -12,7 +12,7 @@ const Reviews = () => {
 		reset,
 	} = useForm();
 
-	const [ratings, setRatings] = useState(3);
+	const [ratings, setRatings] = useState(0);
 
 	const handleReview = (data) => {
 		const { name, email, review } = data;
@@ -23,7 +23,7 @@ const Reviews = () => {
 			ratings,
 		};
 		alert(`${name} ${email} ${review} ${ratings}`);
-		reset()
+		reset();
 	};
 
 	return (
@@ -75,6 +75,7 @@ const Reviews = () => {
 							name="simple-controlled"
 							value={ratings}
 							size="large"
+							precision={0.5}
 							onChange={(event, newValue) => {
 								setRatings(newValue);
 							}}

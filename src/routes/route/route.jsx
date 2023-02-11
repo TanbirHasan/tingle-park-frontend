@@ -1,9 +1,11 @@
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
+import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Main from './../../layout/Main';
 import Login from './../../pages/Login/Login';
 import Register from './../../pages/Register/Register';
@@ -18,7 +20,10 @@ export const router = createBrowserRouter([
 				path: '/',
 				element: <HomePage />,
 			},
-
+			{
+				path: '/categorizedProduct',
+				element: <CategorizedProductPage />,
+			},
 			{
 				path: '/shop',
 				element: <Shop />,
@@ -33,7 +38,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/checkout',
-				element: <CheckOut />,
+				element: (
+					<PrivateRoute>
+						<CheckOut />,
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/contact',
