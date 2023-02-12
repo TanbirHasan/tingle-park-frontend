@@ -1,11 +1,12 @@
 import Logout from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineClose, AiOutlineDown, AiOutlineRight } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -33,19 +34,19 @@ const Navbar = () => {
 
 	const menuRef = useRef();
 
-	useEffect(() => {
-		let handler = (e) => {
-			if (!menuRef.current.contains(e.target)) {
-				setOpenDropdown(false);
-				// setIsPagesOpen(false);
-			}
-		};
-		document.addEventListener('mousedown', handler);
+	// useEffect(() => {
+	// 	let handler = (e) => {
+	// 		if (!menuRef.current.contains(e.target)) {
+	// 			setOpenDropdown(false);
+	// 			// setIsPagesOpen(false);
+	// 		}
+	// 	};
+	// 	document.addEventListener('mousedown', handler);
 
-		return () => {
-			document.removeEventListener('mousedown', handler);
-		};
-	}, []);
+	// 	return () => {
+	// 		document.removeEventListener('mousedown', handler);
+	// 	};
+	// }, []);
 
 	const cartItemCount = useSelector((state) => state.cartReducer.cartProducts.length);
 
@@ -154,43 +155,36 @@ const Navbar = () => {
 				<li>Shop</li>
 			</NavLink>
 
-			{/* <NavLink className={'group inline-block relative'}>
-				<div
-					onClick={() => setIsPagesOpen(!isPagesOpen)}
-					className="flex items-center lg:justify-center ">
-					<li>Pages</li>
-					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
+			<div className="flex items-center gap-5">
+				<div onClick={() => setOpenDropdown(!openDropdown)} className="">
+					<div
+						ref={menuRef}
+						className="relative  text-white w-[300px]  flex items-center justify-between   duration-500 cursor-pointer">
+						<div className="flex items-center gap-2">
+							<button className="font-bold">Categories</button>
+							<ul
+								className={`menu absolute  space-y-2 w-full bg-white  top-[70px] right-[-1px] duration-500 flex flex-col group text-gray-500 text-box ${
+									openDropdown ? 'dropdown-active' : 'dropdown-inactive'
+								} `}>
+								{menuItemsDropDown}
+							</ul>
+						</div>
+					</div>
 				</div>
+			</div>
 
-				<div className="flex items-center gap-2">
-					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-gray-500 text-box bg-[#FFD333]  md:text-md ${
-							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
-						}  `}>
-						<NavLink
-							to={'/'}
-							className={({ isActive }) =>
-								`${isActive ? 'text-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}>
-							<li className="">Checkout</li>
-						</NavLink>
-						<NavLink
-							to={'/'}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className={({ isActive }) =>
-								`${isActive ? 'bg-white font-bold' : undefined} hover:bg-white py-2 px-4 block `
-							}>
-							<li className="">Shopping Cart</li>
-						</NavLink>
-					</ul>
-				</div>
-			</NavLink> */}
 			<NavLink to={'/contact'}>
 				<li>Contact</li>
 			</NavLink>
-			{user?.uid ? (
-				<div className='mx-auto lg:hidden pr-10'>
+
+			{!user?.uid && (
+				<NavLink to={'/login'}>
+					<li>Login</li>
+				</NavLink>
+			)}
+
+			{/* {user?.uid ? (
+				<div className="mx-auto lg:hidden pr-10">
 					<Tooltip
 						componentsProps={{
 							tooltip: {
@@ -208,7 +202,7 @@ const Navbar = () => {
 							onClick={handleClick2}
 							size="small"
 							src={user?.photoURL}
-							sx={{cursor: 'pointer',width: 52, height: 52 }}
+							sx={{ cursor: 'pointer', width: 52, height: 52 }}
 							aria-controls={open ? 'account-menu' : undefined}
 							aria-haspopup="true"
 							aria-expanded={open ? 'true' : undefined}>
@@ -220,7 +214,7 @@ const Navbar = () => {
 				<NavLink to={'/login'}>
 					<li>Login</li>
 				</NavLink>
-			)}
+			)} */}
 		</>
 	);
 
@@ -325,9 +319,7 @@ const Navbar = () => {
 					<ul className="items-center hidden space-x-8 lg:flex justify-between">
 						<div className="flex items-center gap-5">
 							<div onClick={() => setOpenDropdown(!openDropdown)} className="">
-								<div
-									ref={menuRef}
-									className="relative bg-[#FFD333] w-[300px] h-[70px] flex items-center justify-between p-5 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer">
+								<div className="relative bg-[#FFD333] w-[300px] h-[70px] flex items-center justify-between p-5 text-[#3D464D] hover:bg-[#FFC800] duration-500 cursor-pointer">
 									<div className="flex items-center gap-2">
 										<FaBars />
 										<button className="font-bold">Categories</button>
@@ -366,7 +358,7 @@ const Navbar = () => {
 				</div>
 			</nav>
 
-			<div className="">
+			<div className="block lg:hidden">
 				<div
 					className={`${
 						isMenuOpen ? 'menu-active h-full ' : 'menu-inactive'
