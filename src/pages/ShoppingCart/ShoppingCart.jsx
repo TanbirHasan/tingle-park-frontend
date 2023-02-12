@@ -162,7 +162,7 @@ const ShoppingCart = () => {
 						/>
 						<button
 							type="button"
-							className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-2 px-4 h-[48px]">
+							className="bg-[#FFD333] text-sm hover:bg-[#FFCB0D] duration-500 lg:py-2 px-4 h-[48px]">
 							Apply Coupon
 						</button>
 					</div>
