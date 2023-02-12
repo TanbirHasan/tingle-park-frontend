@@ -86,7 +86,7 @@ const ShoppingCart = () => {
 						<tbody className="bg-white divide-gray-200 ">
 							{cartItems.map((item) => (
 								<tr key={item.id} className="text-center text-[#6c757d] text-lg">
-									<td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center gap-2 justify-center">
+									<td className="whitespace-nowrap px-10 lg:px-4 py-2 font-medium text-gray-900 flex items-center gap-2 justify-center">
 										<img src={item.picture} alt="" className="w-[50px] h-[50px]" />
 										<span className="text-[#6c757d] text-lg">{item.title}</span>
 									</td>
