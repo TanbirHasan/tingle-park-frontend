@@ -86,3 +86,8 @@ button[disabled]:hover {
 .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
     background-color: white !important;
 } */
+
+/* .css-16jkw2k :hover,
+.css-12w9als:hover {
+    pointer-events: none;
+} */

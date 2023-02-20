@@ -19,6 +19,7 @@ const Navbar = () => {
 	const [openDropdown, setOpenDropdown] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	// const [isPagesOpen, setIsPagesOpen] = useState(false);
+	const [categories, setCategories] = useState([]);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick2 = (event) => {
@@ -31,6 +32,12 @@ const Navbar = () => {
 		logOut();
 		setAnchorEl(null);
 	};
+
+	useEffect(() => {
+		fetch(`categories.json`)
+			.then((res) => res.json())
+			.then((data) => setCategories(data));
+	});
 
 	const menuRef = useRef();
 

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
+import { PropagateLoader } from 'react-spinners';
 
 const PrivateRoute = ({ children }) => {
 	const { user, loading } = useContext(AuthContext);
@@ -9,7 +10,9 @@ const PrivateRoute = ({ children }) => {
 
 	if (loading) {
 		return (
-			<div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+			<div className="flex h-screen justify-center items-center">
+				<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
+			</div>
 		);
 	}
 

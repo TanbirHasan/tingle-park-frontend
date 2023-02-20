@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaAngleDoubleUp } from 'react-icons/fa';
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import { router } from './routes/route/route';
+import { router } from './routes/route/Routes';
 
 function App() {
 	const [visible, setVisible] = useState(false);

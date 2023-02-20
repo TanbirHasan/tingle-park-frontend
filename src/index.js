@@ -7,23 +7,26 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import UserAuthProvider from './Contexts/UserAuthProvider';
 import { Toaster } from 'react-hot-toast';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
 		<UserAuthProvider>
 			<Provider store={store}>
-				<App />
-				<Toaster
-					toastOptions={{
-						className: '',
-						duration: 2500,
-						style: {
-							background: '#000000',
-							color: '#fff',
-						},
-					}}
-				/>
+				<ProSidebarProvider>
+					<App />
+					<Toaster
+						toastOptions={{
+							className: '',
+							duration: 2500,
+							style: {
+								background: '#000000',
+								color: '#fff',
+							},
+						}}
+					/>
+				</ProSidebarProvider>
 			</Provider>
 		</UserAuthProvider>
 	</React.StrictMode>
