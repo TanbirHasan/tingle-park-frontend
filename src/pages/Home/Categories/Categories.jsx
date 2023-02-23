@@ -1,29 +1,34 @@
-import React from 'react';
-import cat1 from '../../../assets/cat-1.jpg';
-import cat2 from '../../../assets/cat-2.jpg';
-import cat3 from '../../../assets/cat-3.jpg';
-import cat4 from '../../../assets/cat-4.jpg';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../../features/CategorySlice';
+
 import CategoriesCard from './CategoriesCard';
 
 const Categories = () => {
-	const categories = [
-		{
-			name: 'Fashion',
-			picture: cat1,
-		},
-		{
-			name: 'Electronics',
-			picture: cat2,
-		},
-		{
-			name: 'Home Decor',
-			picture: cat3,
-		},
-		{
-			name: 'Cosmetics',
-			picture: cat4,
-		},
-	];
+	// const [categories, setCategories] = useState([]);
+
+	// useEffect(() => {
+	// 	const url = `${baseUrl}/categories`;
+	// 	const fetchCategories = async () => {
+	// 		try {
+	// 			const response = await fetch(url);
+	// 			const jsonData = await response.json();
+	// 			setCategories(jsonData);
+	// 		} catch (error) {
+	// 			console.log('error', error);
+	// 		}
+	// 	};
+
+	// 	fetchCategories();
+	// }, []);
+
+	const { categories, isLoading } = useSelector((state) => state.categoriesReducer);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchCategories());
+	}, [dispatch]);
 
 	return (
 		<div className="my-20">

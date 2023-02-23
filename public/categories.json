@@ -2,21 +2,21 @@
 	{
 		"id": 1,
 		"categoryName": "Fashion",
-		"categoryPicture": ""
+		"categoryPicture": "https://i.ibb.co/PNyyrwy/cat-1.jpg"
 	},
 	{
 		"id": 2,
 		"categoryName": "Electronics",
-		"categoryPicture": ""
+		"categoryPicture": "https://i.ibb.co/ScK6nqd/cat-2.jpg"
 	},
 	{
 		"id": 3,
 		"categoryName": "Home Decor",
-		"categoryPicture": ""
+		"categoryPicture": "https://i.ibb.co/88xhtwP/cat-3.jpg"
 	},
 	{
 		"id": 4,
 		"categoryName": "Cosmetics",
-		"categoryPicture": ""
+		"categoryPicture": "https://i.ibb.co/9yjJLsz/cat-4.jpg"
 	}
 ]

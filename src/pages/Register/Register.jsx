@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
+import setAuthToken from './../../api/authApi';
 
 const Register = () => {
 	const { createUser, updateUserProfile, googleSignUp, verifyUserEmail } = useContext(AuthContext);
@@ -57,6 +58,12 @@ const Register = () => {
 					.then((result) => {
 						console.log(result.user);
 						toast.success('Registered Successfully');
+
+						const userInfo = {
+							name: name,
+							email: email,
+						};
+						setAuthToken(userInfo);
 						handleUpdateUserProfile(name, imgData.data.display_url);
 						verificationEmail();
 						navigate('/');
@@ -117,8 +124,14 @@ const Register = () => {
 	const handleGoogleSignUp = () => {
 		googleSignUp()
 			.then((result) => {
-				console.log(result.user);
+				const user = result.user;
+				console.log(user);
 				toast.success('Successfully Signed up');
+				const userInfo = {
+					name: user?.displayName,
+					email: user?.email,
+				};
+				setAuthToken(userInfo);
 				navigate(from, { replace: true });
 			})
 			.catch((e) => {
