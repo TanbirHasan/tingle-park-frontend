@@ -5,7 +5,8 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import './categoriesCard.css';
 
 const CategoriesCard = ({ category }) => {
-	const { name, picture } = category;
+	console.log(category);
+	const { categoryName, categoryPicture } = category;
 
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const CategoriesCard = ({ category }) => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
-	const categorizedProducts = products.filter((product) => product.category === name);
+	const categorizedProducts = products.filter((product) => product.category === categoryName);
 
 	return (
 		<Link to="/categorizedProduct" state={category}>
@@ -23,12 +24,12 @@ const CategoriesCard = ({ category }) => {
 					<div className="box">
 						<img
 							className=" w-[100px] h-[100px] pb-2 md:pb-0  bg-transparent flex-none bg-cover"
-							src={picture}
+							src={categoryPicture}
 							alt=""
 						/>
 					</div>
 					<div className=" rounded-b lg:rounded-b-none lg:rounded-r text-center md:text-left   lg:ml-10 space-y-2 pb-5 md:pb-0 ">
-						<h2 className="text-[#3d464d] text-xl font-medium">{name}</h2>
+						<h2 className="text-[#3d464d] text-xl font-medium">{categoryName}</h2>
 						<p className="text-[#6c757d] text-md ">{categorizedProducts.length} products </p>
 					</div>
 				</div>

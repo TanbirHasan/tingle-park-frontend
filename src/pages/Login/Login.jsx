@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import setAuthToken from '../../api/authApi';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
 
 const Login = () => {
@@ -47,8 +48,14 @@ const Login = () => {
 	const handleGoogleSignUp = () => {
 		googleSignUp()
 			.then((result) => {
-				console.log(result.user);
+				const user = result.user;
+				console.log(user);
 				toast.success('successfully signed in');
+				const userInfo = {
+					name: user?.displayName,
+					email: user?.email,
+				};
+				setAuthToken(userInfo);
 				navigate(from, { replace: true });
 			})
 			.catch((e) => {

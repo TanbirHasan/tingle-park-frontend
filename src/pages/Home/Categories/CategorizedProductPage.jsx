@@ -16,7 +16,7 @@ const CategorizedProductPage = () => {
 	}, [dispatch]);
 
 	const categorizedProducts = products.filter(
-		(product) => product.category === location.state.name
+		(product) => product.category === location.state.categoryName
 	);
 
 	return (
@@ -41,7 +41,7 @@ const CategorizedProductPage = () => {
 						<li className="flex items-center space-x-1">
 							<span className="dark:text-gray-400">/</span>
 							<div className="flex items-center px-1 capitalize text-[#6c757d] cursor-default">
-								<span>{location?.state?.name}</span>
+								<span>{location?.state?.categoryName}</span>
 							</div>
 						</li>
 					</ol>

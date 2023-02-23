@@ -1,22 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
 import ProductCard from '../../../components/ProductCard/ProductCard';
-import { fetchProducts } from '../../../features/ProductSlice';
+import { baseUrl } from './../../../baseURL';
 
 const Shop = () => {
-	const { products, isLoading } = useSelector((state) => state.productsReducer);
-	const dispatch = useDispatch();
+	// const { products, isLoading } = useSelector((state) => state.productsReducer);
+	// const dispatch = useDispatch();
+	const [products, setProducts] = useState([]);
 	const [sortingDropdown, setSortingDropdown] = useState(false);
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [count, setCount] = useState(0);
+	const [page, setPage] = useState(0);
+	const [size, setSize] = useState(6);
+	const pages = Math.ceil(count / size);
 
 	const menuRef = useRef();
 	const menuRef2 = useRef();
 
 	useEffect(() => {
-		dispatch(fetchProducts());
+		setIsLoading(true);
+		fetch(`${baseUrl}/products/paginated-products?page=${page}&size=${size}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setProducts(data.products);
+				setCount(data.count);
+				setIsLoading(false);
+			})
+			.catch(() => {
+				setIsLoading(false);
+			});
 
 		let handler = (e) => {
 			if (!menuRef.current.contains(e.target)) {
@@ -37,7 +52,21 @@ const Shop = () => {
 			document.removeEventListener('mousedown', handler);
 			document.removeEventListener('mousedown', handler2);
 		};
-	}, [dispatch]);
+	}, [page, size]);
+
+	const showBestRatedProducts = async () => {
+		setIsLoading(true);
+		try {
+			const products = await fetch(`${baseUrl}/products/best-rated`);
+			const data = await products.json();
+			setIsLoading(false);
+
+			return setProducts(data);
+		} catch (error) {
+			setIsLoading(false);
+			console.log(error.message);
+		}
+	};
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -112,7 +141,9 @@ const Shop = () => {
 													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">Popularity</p>
 													</button>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={showBestRatedProducts}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">Best Rating</p>
 													</button>
 												</>
@@ -133,14 +164,18 @@ const Shop = () => {
 												} `}>
 												<>
 													<button
-														onClick={() => console.log('10')}
+														onClick={() => setSize(10)}
 														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">10</p>
 													</button>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={() => setSize(20)}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">20</p>
 													</button>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={() => setSize(30)}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">30</p>
 													</button>
 												</>
@@ -165,7 +200,22 @@ const Shop = () => {
 						))}
 					</div>
 
-					<div className="flex justify-center   my-10">
+					<div className="flex  w-2/4 items-center  justify-center mx-auto  space-y-0 flex-row my-10 ">
+						{[...Array(pages).keys()].map((number) => (
+							<button
+								key={number}
+								className={`inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border    ${
+									page === number
+										? 'bg-[#FFD333] text-white font-extrabold text-xl'
+										: 'text-[#FFD333]'
+								}`}
+								onClick={() => setPage(number)}>
+								{number + 1}
+							</button>
+						))}
+					</div>
+
+					{/* <div className="flex justify-center   my-10">
 						<button
 							title="previous"
 							type="button"
@@ -194,7 +244,7 @@ const Shop = () => {
 							className="inline-flex items-center justify-center w-[59px] h-[38px] py-0 border text-[#e6b400]  ">
 							Next
 						</button>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
