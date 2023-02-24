@@ -1,10 +1,16 @@
 import { Rating } from '@mui/material';
-import React, { useState } from 'react';
+import { format } from 'date-fns';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import user from '../../../assets/user.jpg';
+import { baseUrl } from '../../../baseURL';
+import { AuthContext } from './../../../Contexts/UserAuthProvider';
 
-const Reviews = () => {
+const Reviews = ({ product }) => {
+
+	const { user } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
@@ -14,15 +20,36 @@ const Reviews = () => {
 
 	const [ratings, setRatings] = useState(0);
 
+	const date = format(new Date(), 'PPpp');
+
 	const handleReview = (data) => {
 		const { name, email, review } = data;
 		const userReview = {
 			name,
 			email,
 			review,
-			ratings,
+			userRating: ratings,
+			userImage: user?.photoURL,
+			productId: product._id,
+			date,
 		};
-		alert(`${name} ${email} ${review} ${ratings}`);
+
+		fetch(`${baseUrl}/reviews`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify(userReview),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				if (data) {
+					toast.success('Review added successfully');
+					reset();
+				}
+			});
+
 		reset();
 	};
 
@@ -109,6 +136,7 @@ const Reviews = () => {
 						</label>
 						<input
 							type="text"
+							value={user?.displayName}
 							{...register('name', { required: 'Name is required' })}
 							className={`w-full mt-3 focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#495057]  border-[#D4D9DF] ${
 								errors.name && 'focus:border-red-600'
@@ -122,6 +150,7 @@ const Reviews = () => {
 						</label>
 						<input
 							type="text"
+							value={user?.email}
 							{...register('email', {
 								required: 'Email Address is required',
 								pattern: {

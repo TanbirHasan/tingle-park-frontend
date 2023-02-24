@@ -40,7 +40,6 @@ const ShopDetails = () => {
 		description,
 	};
 	const remainingProducts = products.filter((p) => p._id !== _id);
-	console.log(description.length);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
@@ -218,7 +217,7 @@ const ShopDetails = () => {
 						<ProductInformation product={product} />
 					</TabPanel>
 					<TabPanel>
-						<Reviews />
+						<Reviews product={product} />
 					</TabPanel>
 				</Tabs>
 			</div>
