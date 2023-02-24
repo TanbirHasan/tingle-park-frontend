@@ -2,12 +2,12 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import React, { useContext } from 'react';
 import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import TopNavbar from '../components/TopNavbar/TopNavbar';
 import { AuthContext } from '../Contexts/UserAuthProvider';
 
@@ -23,7 +23,7 @@ const DashboardLayout = () => {
 			<div className="flex">
 				<div className="">
 					<Sidebar
-						backgroundColor='#ffff'
+						backgroundColor="#ffff"
 						// style={{ height: '100vh' }}
 						transitionDuration={800}
 						width="300px"
@@ -42,7 +42,9 @@ const DashboardLayout = () => {
 							<div className="flex flex-col justify-between flex-1 mt-6 mb-20">
 								<Menu>
 									<MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
-									<MenuItem icon={<PeopleOutlinedIcon />}>Team</MenuItem>
+									<MenuItem component={<Link to="/dashboard/addProducts" />} icon={<ProductionQuantityLimitsRoundedIcon />}>
+										Add Products
+									</MenuItem>
 									<MenuItem icon={<ContactsOutlinedIcon />}>Contacts</MenuItem>
 									<MenuItem icon={<ReceiptOutlinedIcon />}>Profile</MenuItem>
 									<MenuItem icon={<HelpOutlineOutlinedIcon />}>FAQ</MenuItem>

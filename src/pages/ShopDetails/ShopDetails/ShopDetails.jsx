@@ -25,11 +25,22 @@ const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const { id, title, picture, sizes_color, quantity, price, ratings } = location?.state;
+	const { _id, productsName, picture, sizes_color, quantity, newPrice, ratings, description } =
+		location?.state;
 	const [addToCart, setAddedToCart] = useState(false);
 
-	let product = { id, title, picture, sizes_color, quantity, price, ratings };
-	const remainingProducts = products.filter((p) => p.id !== id);
+	let product = {
+		_id,
+		productsName,
+		picture,
+		sizes_color,
+		quantity,
+		newPrice,
+		ratings,
+		description,
+	};
+	const remainingProducts = products.filter((p) => p._id !== _id);
+	console.log(description.length);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
@@ -81,7 +92,6 @@ const ShopDetails = () => {
 							delay: 3000,
 							disableOnInteraction: false,
 						}}
-						navigation={true}
 						modules={[Autoplay, Navigation]}
 						className="mySwiper1">
 						<SwiperSlide>
@@ -92,7 +102,7 @@ const ShopDetails = () => {
 
 				<div className="flex bg-white lg:h-[547px] items-center">
 					<div className=" w-full p-10">
-						<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
+						<h1 className="text-[#3d464d] text-3xl font-bold">{productsName}</h1>
 
 						<div className="flex items-center  gap-1">
 							<div className="flex justify-center mt-2 items-center">
@@ -107,12 +117,9 @@ const ShopDetails = () => {
 							</div>
 						</div>
 
-						<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
+						<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {newPrice}</h1>
 
-						<p className="my-4 text-[#6c757d]">
-							Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
-							ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
-						</p>
+						<p className="my-4 text-[#6c757d]">{description}</p>
 
 						{/* {sizes_color ? (
 						<>
@@ -256,7 +263,7 @@ const ShopDetails = () => {
 						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
 					)}
 					{remainingProducts.map((product) => (
-						<SwiperSlide key={product.id}>
+						<SwiperSlide key={product._id}>
 							{' '}
 							<ProductCard product={product} />{' '}
 						</SwiperSlide>

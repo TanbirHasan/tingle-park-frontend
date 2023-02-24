@@ -9,7 +9,7 @@ import { addItemsToWishList, incrementWishList } from '../../features/WishListSl
 import './productCard.css';
 
 const ProductCard = ({ product }) => {
-	const { id, title, picture, ratings, price } = product;
+	const { id, productsName, picture, ratings, oldPrice, newPrice, stockAmount } = product;
 
 	const [cartClicked, setCartClicked] = useState(false);
 	const [wishListClicked, setWishListClicked] = useState(false);
@@ -82,21 +82,14 @@ const ProductCard = ({ product }) => {
 				<div className="text-center px-4 py-5">
 					<Link to={'/shop-details'} state={product}>
 						<h3 className=" text-2xl md:text-xl font-bold cursor-pointer hover:text-[#FFD333] duration-300">
-							{title}
+							{productsName}
 						</h3>
 					</Link>
 					<div className="flex justify-center items-center gap-5 mt-2">
-						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">${price}</p>
-						<p className="line-through text-[#6c757d] font-medium">$123</p>
+						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">${newPrice}</p>
+						<p className="line-through text-[#6c757d] font-medium">${oldPrice}</p>
 					</div>
-					{/* <div className="flex justify-center mt-2 items-center">
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiOutlineStar className="text-[#FFD333] text-lg" />
-						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>
-					</div> */}
+
 					<div className="flex justify-center mt-2 items-center">
 						<Rating name="half-rating-read" value={ratings} precision={0.5} readOnly />
 						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>

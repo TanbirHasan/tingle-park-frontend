@@ -12,7 +12,7 @@ const CartSlice = createSlice({
 			state.cartProducts.push(product);
 		},
 		increaseQuantity: (state, action) => {
-			const itemInCart = state.cartProducts.find((p) => p.id === action.payload.id);
+			const itemInCart = state.cartProducts.find((p) => p._id === action.payload._id);
 
 			itemInCart.quantity++;
 			itemInCart.stockAmount--;
@@ -21,14 +21,14 @@ const CartSlice = createSlice({
 			}
 		},
 		decreaseQuantity: (state, action) => {
-			const itemInCart = state.cartProducts.find((p) => p.id === action.payload.id);
+			const itemInCart = state.cartProducts.find((p) => p._id === action.payload._id);
 			itemInCart.quantity--;
 			itemInCart.stockAmount++;
 		},
 
 		removeItemsFromCart: (state, action) => {
 			const id = action.payload;
-			state.cartProducts = state.cartProducts.filter((product) => product.id !== id);
+			state.cartProducts = state.cartProducts.filter((product) => product._id !== id);
 		},
 	},
 });

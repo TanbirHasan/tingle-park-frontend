@@ -28,7 +28,7 @@ const ShoppingCart = () => {
 
 	let total = 0;
 
-	cartItems.map((item) => (total += item.quantity * item.price));
+	cartItems.map((item) => (total += item.quantity * item.newPrice));
 
 	return (
 		<div className="w-[90%] mx-auto">
@@ -85,13 +85,13 @@ const ShoppingCart = () => {
 
 						<tbody className="bg-white divide-gray-200 ">
 							{cartItems.map((item) => (
-								<tr key={item.id} className="text-center text-[#6c757d] text-lg">
+								<tr key={item._id} className="text-center text-[#6c757d] text-lg">
 									<td className="whitespace-nowrap px-10 lg:px-4 py-2 font-medium text-gray-900 flex items-center gap-2 justify-center">
 										<img src={item.picture} alt="" className="w-[50px] h-[50px]" />
-										<span className="text-[#6c757d] text-lg">{item.title}</span>
+										<span className="text-[#6c757d] text-lg">{item.productsName}</span>
 									</td>
 									<td className="whitespace-nowrap px-4 py-2">
-										$ <span>{item.price}</span>
+										$ <span>{item.newPrice}</span>
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
@@ -127,7 +127,7 @@ const ShoppingCart = () => {
 										</button>
 
 										<button
-											disabled={(item.stockAmount - 1)  === 0 ? true : false}
+											disabled={item.stockAmount - 1 === 0 ? true : false}
 											type="button"
 											onClick={() => handleIncrease(item)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#FFD333] text-[#3D464D] hover:bg-[#FFCB0D] duration-500 ">
@@ -136,12 +136,12 @@ const ShoppingCart = () => {
 									</td>
 
 									<td className="whitespace-nowrap px-4 py-2">
-										$<span>{parseInt(item.quantity * item.price)}</span>
+										$<span>{parseInt(item.quantity * item.newPrice)}</span>
 									</td>
 									<td className="whitespace-nowrap px-4 py-2">
 										<button
 											type="button"
-											onClick={() => handleDelete(item.id)}
+											onClick={() => handleDelete(item._id)}
 											className="inline-flex items-center justify-center w-[30px] h-[31px] text-sm font-semibold border  bg-[#ff0000] text-white hover:bg-[#C82333] duration-500 ">
 											<RxCross1 className="text-lg font-extrabold" />
 										</button>
@@ -197,7 +197,7 @@ const ShoppingCart = () => {
 								</div>
 							</div>
 							<div>
-								<Link to="/checkout" state={purchaseQuantity}>
+								<Link to="/checkout" state={cartItems}>
 									<button
 										type="submit"
 										className="bg-[#FFD333] hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
