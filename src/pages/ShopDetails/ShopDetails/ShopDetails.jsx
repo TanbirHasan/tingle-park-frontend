@@ -12,7 +12,9 @@ import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
 import { Rating } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
+import { PropagateLoader } from 'react-spinners';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
@@ -20,14 +22,29 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import Reviews from '../Reviews/Reviews';
+import { baseUrl } from './../../../baseURL';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
+	// const { reviews } = useSelector((state) => state.reviewsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
+
+	// useEffect(() => {
+	// 	dispatch(fetchReviews());
+	// }, []);
+
 	const { _id, productsName, picture, sizes_color, quantity, newPrice, ratings, description } =
 		location?.state;
+
 	const [addToCart, setAddedToCart] = useState(false);
+
+	const { data: reviews = [], refetch } = useQuery({
+		queryKey: ['reviews'],
+		queryFn: () => fetch(`${baseUrl}/reviews`, {}).then((res) => res.json()),
+	});
+
+	const specificProductReview = reviews.filter((r) => r.productId === _id);
 
 	let product = {
 		_id,
@@ -112,7 +129,9 @@ const ShopDetails = () => {
 									precision={0.5}
 									readOnly
 								/>
-								<span className="ml-1 mb-1 text-[#6c757d]">(99) reviews</span>
+								<span className="ml-1 mb-1 text-[#6c757d]">
+									({specificProductReview.length}) reviews
+								</span>
 							</div>
 						</div>
 
@@ -207,7 +226,7 @@ const ShopDetails = () => {
 					<TabList>
 						<Tab>Description</Tab>
 						<Tab>Information</Tab>
-						<Tab>Reviews (0)</Tab>
+						<Tab>Reviews ({specificProductReview.length})</Tab>
 					</TabList>
 
 					<TabPanel>
@@ -217,7 +236,7 @@ const ShopDetails = () => {
 						<ProductInformation product={product} />
 					</TabPanel>
 					<TabPanel>
-						<Reviews product={product} />
+						<Reviews product={product} refetch={refetch} review={specificProductReview} />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -259,7 +278,9 @@ const ShopDetails = () => {
 					modules={[Autoplay, Pagination, Navigation]}
 					className="mySwiper_Details">
 					{isLoading && (
-						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+						<div className="flex h-screen justify-center items-center">
+							<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
+						</div>
 					)}
 					{remainingProducts.map((product) => (
 						<SwiperSlide key={product._id}>

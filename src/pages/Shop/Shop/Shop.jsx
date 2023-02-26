@@ -16,7 +16,7 @@ const Shop = () => {
 	const [page, setPage] = useState(0);
 	const [size, setSize] = useState(6);
 	const pages = Math.ceil(count / size);
-
+	const [sort, setSort] = useState(1);
 	const menuRef = useRef();
 	const menuRef2 = useRef();
 
@@ -71,11 +71,13 @@ const Shop = () => {
 	const showLatestProducts = async () => {
 		setIsLoading(true);
 		try {
-			const products = await fetch(`${baseUrl}/products/recent-products`);
+			const products = await fetch(
+				`${baseUrl}/products/paginated-products?page=${page}&size=${size}&sort=${-1}`
+			);
 			const data = await products.json();
 			setIsLoading(false);
-
-			return setProducts(data);
+			setCount(data.count);
+			return setProducts(data.products);
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error.message);
