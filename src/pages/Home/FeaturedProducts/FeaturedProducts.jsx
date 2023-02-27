@@ -12,8 +12,7 @@ const FeaturedProducts = () => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
-	const productSlices = [...products];
-	productSlices.pop();
+	const productSlices = products.slice(0, 8);
 
 	return (
 		<div className="my-20">

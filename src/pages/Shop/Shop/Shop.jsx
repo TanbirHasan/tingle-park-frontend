@@ -16,7 +16,7 @@ const Shop = () => {
 	const [page, setPage] = useState(0);
 	const [size, setSize] = useState(6);
 	const pages = Math.ceil(count / size);
-
+	const [sort, setSort] = useState(1);
 	const menuRef = useRef();
 	const menuRef2 = useRef();
 
@@ -62,6 +62,22 @@ const Shop = () => {
 			setIsLoading(false);
 
 			return setProducts(data);
+		} catch (error) {
+			setIsLoading(false);
+			console.log(error.message);
+		}
+	};
+
+	const showLatestProducts = async () => {
+		setIsLoading(true);
+		try {
+			const products = await fetch(
+				`${baseUrl}/products/paginated-products?page=${page}&size=${size}&sort=${-1}`
+			);
+			const data = await products.json();
+			setIsLoading(false);
+			setCount(data.count);
+			return setProducts(data.products);
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error.message);
@@ -135,12 +151,14 @@ const Shop = () => {
 													sortingDropdown ? 'dropdown-active' : 'dropdown-inactive'
 												} `}>
 												<>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													<button
+														onClick={showLatestProducts}
+														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">Latest</p>
 													</button>
-													<button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
+													{/* <button className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
 														<p className="font-semibold">Popularity</p>
-													</button>
+													</button> */}
 													<button
 														onClick={showBestRatedProducts}
 														className={`px-5 py-2 text-left hover:bg-[#F5F5F5]`}>
@@ -201,18 +219,26 @@ const Shop = () => {
 					</div>
 
 					<div className="flex  w-2/4 items-center  justify-center mx-auto  space-y-0 flex-row my-10 ">
-						{[...Array(pages).keys()].map((number) => (
-							<button
-								key={number}
-								className={`inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border    ${
-									page === number
-										? 'bg-[#FFD333] text-white font-extrabold text-xl'
-										: 'text-[#FFD333]'
-								}`}
-								onClick={() => setPage(number)}>
-								{number + 1}
-							</button>
-						))}
+						{isLoading ? (
+							<div className="flex h-screen justify-center items-center">
+								<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
+							</div>
+						) : (
+							<>
+								{[...Array(pages).keys()].map((number) => (
+									<button
+										key={number}
+										className={`inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border ${
+											page === number
+												? 'bg-[#FFD333] text-white font-extrabold text-xl'
+												: 'text-[#FFD333]'
+										}`}
+										onClick={() => setPage(number)}>
+										{number + 1}
+									</button>
+								))}
+							</>
+						)}
 					</div>
 
 					{/* <div className="flex justify-center   my-10">

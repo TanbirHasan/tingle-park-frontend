@@ -1,22 +1,44 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
+import { baseUrl } from '../../../baseURL';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { fetchProducts } from '../../../features/ProductSlice';
 
 const RecentProducts = () => {
-	const { products, isLoading } = useSelector((state) => state.productsReducer);
+	// const { products, isLoading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(fetchProducts());
 	}, [dispatch]);
 
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		const showLatestProducts = async () => {
+			setIsLoading(true);
+			try {
+				const products = await fetch(`${baseUrl}/products/recent-products`);
+				const data = await products.json();
+				setProducts(data);
+				setIsLoading(false);
+			} catch (error) {
+				setIsLoading(false);
+				console.log(error.message);
+			}
+		};
+		showLatestProducts();
+	}, []);
+
+	const productSlices = products.slice(0, 8);
+
 	// const cartItems = useSelector((state) => state.cartReducer.cartProducts);
 	// console.log(cartItems);
 
-	const productSlices = [...products];
-	productSlices.pop();
+	// const productSlices = [...products];
+	// productSlices.pop();
 
 	// console.log(productSlices);
 

@@ -13,12 +13,13 @@ const CheckOut = () => {
 
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
+	console.log(cartItems);
 	const location = useLocation();
 
 	const purchasedQuantity = location.state;
 
 	let total = 0;
-	cartItems.map((item) => (total += (item.quantity) * item.price));
+	cartItems.map((item) => (total += item.quantity * item.newPrice));
 
 	const handlePayment = (data) => {
 		console.log(data);
@@ -414,9 +415,12 @@ const CheckOut = () => {
 								<h1 className="text-lg font-medium">Products</h1>
 							</div>
 							{cartItems.map((item) => (
-								<div key={item.id} className="flex justify-between text-[#6c757d] text-lg">
-									<h1>{item.title}</h1>
-									<p>${item.price * item.quantity}</p>
+								<div key={item._id} className="flex justify-between text-[#6c757d] text-lg">
+									<div className="flex gap-2 items-center">
+										<h1>{item.productsName}</h1>
+										<h1>* {item.quantity}</h1>
+									</div>
+									<p>${item.newPrice * item.quantity}</p>
 								</div>
 							))}
 

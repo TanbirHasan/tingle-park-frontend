@@ -2,6 +2,7 @@ import DashboardLayout from '../../layout/DashboardLayout';
 import Main from '../../layout/Main';
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
+import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/dashboard',
 				element: <Dashboard />,
+			},
+			{
+				path: '/dashboard/addProducts',
+				element: <AddProducts />,
 			},
 		],
 	},

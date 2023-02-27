@@ -12,7 +12,9 @@ import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { ImPinterest } from 'react-icons/im';
 
 import { Rating } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
+import { PropagateLoader } from 'react-spinners';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { addItemsToCart, incrementCart } from '../../../features/CartSlice';
@@ -20,16 +22,41 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import Reviews from '../Reviews/Reviews';
+import { baseUrl } from './../../../baseURL';
 
 const ShopDetails = () => {
 	const { products, isLoading } = useSelector((state) => state.productsReducer);
+	// const { reviews } = useSelector((state) => state.reviewsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const { id, title, picture, sizes_color, quantity, price, ratings } = location?.state;
+
+	// useEffect(() => {
+	// 	dispatch(fetchReviews());
+	// }, []);
+
+	const { _id, productsName, picture, sizes_color, quantity, newPrice, ratings, description } =
+		location?.state;
+
 	const [addToCart, setAddedToCart] = useState(false);
 
-	let product = { id, title, picture, sizes_color, quantity, price, ratings };
-	const remainingProducts = products.filter((p) => p.id !== id);
+	const { data: reviews = [], refetch } = useQuery({
+		queryKey: ['reviews'],
+		queryFn: () => fetch(`${baseUrl}/reviews`, {}).then((res) => res.json()),
+	});
+
+	const specificProductReview = reviews.filter((r) => r.productId === _id);
+
+	let product = {
+		_id,
+		productsName,
+		picture,
+		sizes_color,
+		quantity,
+		newPrice,
+		ratings,
+		description,
+	};
+	const remainingProducts = products.filter((p) => p._id !== _id);
 
 	useEffect(() => {
 		dispatch(fetchProducts());
@@ -81,7 +108,6 @@ const ShopDetails = () => {
 							delay: 3000,
 							disableOnInteraction: false,
 						}}
-						navigation={true}
 						modules={[Autoplay, Navigation]}
 						className="mySwiper1">
 						<SwiperSlide>
@@ -92,7 +118,7 @@ const ShopDetails = () => {
 
 				<div className="flex bg-white lg:h-[547px] items-center">
 					<div className=" w-full p-10">
-						<h1 className="text-[#3d464d] text-3xl font-bold">{title}</h1>
+						<h1 className="text-[#3d464d] text-3xl font-bold">{productsName}</h1>
 
 						<div className="flex items-center  gap-1">
 							<div className="flex justify-center mt-2 items-center">
@@ -103,16 +129,15 @@ const ShopDetails = () => {
 									precision={0.5}
 									readOnly
 								/>
-								<span className="ml-1 mb-1 text-[#6c757d]">(99) reviews</span>
+								<span className="ml-1 mb-1 text-[#6c757d]">
+									({specificProductReview.length}) reviews
+								</span>
 							</div>
 						</div>
 
-						<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {price}</h1>
+						<h1 className="text-[#3d464d] text-3xl font-bold my-4">$ {newPrice}</h1>
 
-						<p className="my-4 text-[#6c757d]">
-							Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita
-							ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea Nonumy
-						</p>
+						<p className="my-4 text-[#6c757d]">{description}</p>
 
 						{/* {sizes_color ? (
 						<>
@@ -201,7 +226,7 @@ const ShopDetails = () => {
 					<TabList>
 						<Tab>Description</Tab>
 						<Tab>Information</Tab>
-						<Tab>Reviews (0)</Tab>
+						<Tab>Reviews ({specificProductReview.length})</Tab>
 					</TabList>
 
 					<TabPanel>
@@ -211,7 +236,7 @@ const ShopDetails = () => {
 						<ProductInformation product={product} />
 					</TabPanel>
 					<TabPanel>
-						<Reviews />
+						<Reviews product={product} refetch={refetch} review={specificProductReview} />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -253,10 +278,12 @@ const ShopDetails = () => {
 					modules={[Autoplay, Pagination, Navigation]}
 					className="mySwiper_Details">
 					{isLoading && (
-						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+						<div className="flex h-screen justify-center items-center">
+							<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
+						</div>
 					)}
 					{remainingProducts.map((product) => (
-						<SwiperSlide key={product.id}>
+						<SwiperSlide key={product._id}>
 							{' '}
 							<ProductCard product={product} />{' '}
 						</SwiperSlide>

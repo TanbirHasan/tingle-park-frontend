@@ -1,20 +1,31 @@
 import { Rating } from '@mui/material';
+import { format } from 'date-fns';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { AiOutlineHeart, AiOutlineSearch } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemsToCart, incrementCart } from '../../features/CartSlice';
 import { addItemsToWishList, incrementWishList } from '../../features/WishListSlice';
 import './productCard.css';
+import { fetchReviews } from './../../features/ReviewsSlice';
 
 const ProductCard = ({ product }) => {
-	const { id, title, picture, ratings, price } = product;
+	const { _id, productsName, picture, ratings, oldPrice, newPrice, stockAmount, createdAt } =
+		product;
 
+	const dispatch = useDispatch();
 	const [cartClicked, setCartClicked] = useState(false);
 	const [wishListClicked, setWishListClicked] = useState(false);
 
-	const dispatch = useDispatch();
+	const { reviews } = useSelector((state) => state.reviewsReducer);
+
+	useEffect(() => {
+		dispatch(fetchReviews());
+	}, []);
+
+	const specificProductReview = reviews.filter((r) => r.productId === _id);
 
 	const handleCart = (product) => {
 		dispatch(incrementCart());
@@ -82,24 +93,17 @@ const ProductCard = ({ product }) => {
 				<div className="text-center px-4 py-5">
 					<Link to={'/shop-details'} state={product}>
 						<h3 className=" text-2xl md:text-xl font-bold cursor-pointer hover:text-[#FFD333] duration-300">
-							{title}
+							{productsName}
 						</h3>
 					</Link>
 					<div className="flex justify-center items-center gap-5 mt-2">
-						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">${price}</p>
-						<p className="line-through text-[#6c757d] font-medium">$123</p>
+						<p className="text-[#3d464d] font-medium text-2xl md:text-xl">${newPrice}</p>
+						<p className="line-through text-[#6c757d] font-medium">${oldPrice}</p>
 					</div>
-					{/* <div className="flex justify-center mt-2 items-center">
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiFillStar className="text-[#FFD333] text-lg" />
-						<AiOutlineStar className="text-[#FFD333] text-lg" />
-						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>
-					</div> */}
+
 					<div className="flex justify-center mt-2 items-center">
 						<Rating name="half-rating-read" value={ratings} precision={0.5} readOnly />
-						<span className="ml-1 mb-1 text-[#6c757d]">(99)</span>
+						<span className="ml-1 mb-1 text-[#6c757d]">({specificProductReview.length})</span>
 					</div>
 					<p className="mt-2 max-w-sm text-gray-700"></p>
 				</div>
