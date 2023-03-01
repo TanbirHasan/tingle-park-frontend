@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from '../baseURL';
 
 export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => {
-	const reviews = fetch(`${baseUrl}/reviews`).then((res) => res.json());
+	const reviews = fetch(`${baseUrl}/reviews`)
+		.then((res) => res.json())
+		.then((data) => data.review);
 	return reviews;
 });
 

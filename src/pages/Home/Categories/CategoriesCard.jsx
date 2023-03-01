@@ -5,7 +5,6 @@ import { fetchProducts } from '../../../features/ProductSlice';
 import './categoriesCard.css';
 
 const CategoriesCard = ({ category }) => {
-	console.log(category);
 	const { categoryName, categoryPicture } = category;
 
 	const { products, isLoading } = useSelector((state) => state.productsReducer);

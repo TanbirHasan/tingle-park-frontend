@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -12,13 +13,36 @@ const Contact = () => {
 		reset,
 	} = useForm();
 
+	const [loading, setLoading] = useState(false);
+
 	const handleContact = (data) => {
 		const { name, email, subject, message } = data;
 
-		alert(`Name - ${name}
-		Email -  ${email}
-		Subject -  ${subject}
-		Message -  ${message}`);
+		const contactMessage = {
+			name,
+			email,
+			subject,
+			message,
+		};
+
+		setLoading(true);
+		fetch('http://localhost:5000/contact-messages', {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify(contactMessage),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data) {
+					toast.success('Message sent successfully');
+					setLoading(false);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+				toast.error('Something went wrong');
+			});
 
 		reset();
 	};
@@ -116,7 +140,17 @@ const Contact = () => {
 						</div>
 
 						<button type="submit" className="bg-[#ffd333] w-[154px] h-[42px] text-[#3d464d]">
-							Send Message
+							{loading ? (
+								<>
+									<div className="flex items-center justify-center space-x-2">
+										<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+										<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+										<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+									</div>
+								</>
+							) : (
+								<span>Send Message</span>
+							)}
 						</button>
 					</form>
 				</div>

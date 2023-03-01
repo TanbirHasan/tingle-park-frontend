@@ -1,12 +1,11 @@
 import Logout from '@mui/icons-material/Logout';
-import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineDown, AiOutlineRight } from 'react-icons/ai';
+import React, { useContext, useRef, useState } from 'react';
+import { AiFillHeart, AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -33,11 +32,7 @@ const Navbar = () => {
 		setAnchorEl(null);
 	};
 
-	useEffect(() => {
-		fetch(`categories.json`)
-			.then((res) => res.json())
-			.then((data) => setCategories(data));
-	});
+	
 
 	const menuRef = useRef();
 

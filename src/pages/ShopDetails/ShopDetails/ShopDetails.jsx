@@ -25,26 +25,36 @@ import Reviews from '../Reviews/Reviews';
 import { baseUrl } from './../../../baseURL';
 
 const ShopDetails = () => {
-	const { products, isLoading } = useSelector((state) => state.productsReducer);
-	// const { reviews } = useSelector((state) => state.reviewsReducer);
+	const { products, isLoading: loading } = useSelector((state) => state.productsReducer);
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	// useEffect(() => {
-	// 	dispatch(fetchReviews());
-	// }, []);
+	// const [count, setCount] = useState(0);
+	const [page, setPage] = useState(0);
+	const [size, setSize] = useState();
+	// const [reviews, setReviews] = useState([]);
 
 	const { _id, productsName, picture, sizes_color, quantity, newPrice, ratings, description } =
 		location?.state;
 
 	const [addToCart, setAddedToCart] = useState(false);
 
-	const { data: reviews = [], refetch } = useQuery({
-		queryKey: ['reviews'],
-		queryFn: () => fetch(`${baseUrl}/reviews`, {}).then((res) => res.json()),
+	const {
+		data: reviews = [],
+		refetch,
+		isLoading,
+	} = useQuery({
+		queryKey: ['reviews', size, page],
+		queryFn: async () => {
+			const res = await fetch(`${baseUrl}/reviews/${_id}`);
+			const data = await res.json();
+			return data.review;
+		},
 	});
 
-	const specificProductReview = reviews.filter((r) => r.productId === _id);
+	// const specificProductReview = reviews.filter((r) => r.productId === _id);
+
+	const pages = Math.ceil(reviews.length / size);
 
 	let product = {
 		_id,
@@ -130,7 +140,7 @@ const ShopDetails = () => {
 									readOnly
 								/>
 								<span className="ml-1 mb-1 text-[#6c757d]">
-									({specificProductReview.length}) reviews
+									({reviews.length}) reviews
 								</span>
 							</div>
 						</div>
@@ -226,7 +236,7 @@ const ShopDetails = () => {
 					<TabList>
 						<Tab>Description</Tab>
 						<Tab>Information</Tab>
-						<Tab>Reviews ({specificProductReview.length})</Tab>
+						<Tab>Reviews ({reviews.length})</Tab>
 					</TabList>
 
 					<TabPanel>
@@ -236,7 +246,16 @@ const ShopDetails = () => {
 						<ProductInformation product={product} />
 					</TabPanel>
 					<TabPanel>
-						<Reviews product={product} refetch={refetch} review={specificProductReview} />
+						<Reviews
+							product={product}
+							refetch={refetch}
+							review={reviews}
+							isLoading={isLoading}
+							page={page}
+							setPage={setPage}
+							pages={pages}
+							size={size}
+						/>
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -277,7 +296,7 @@ const ShopDetails = () => {
 					}}
 					modules={[Autoplay, Pagination, Navigation]}
 					className="mySwiper_Details">
-					{isLoading && (
+					{loading && (
 						<div className="flex h-screen justify-center items-center">
 							<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
 						</div>

@@ -1,13 +1,12 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchCategories } from '../../../features/CategorySlice';
-import { AuthContext } from './../../../Contexts/UserAuthProvider';
 import { baseUrl } from './../../../baseURL';
-import { toast } from 'react-hot-toast';
+import { AuthContext } from './../../../Contexts/UserAuthProvider';
 
 const AddProducts = () => {
 	const {
@@ -24,6 +23,7 @@ const AddProducts = () => {
 
 	const dispatch = useDispatch();
 	const [sizes_color, setSizes_color] = useState(true);
+	const [loader, setLoader] = useState(false);
 
 	// const handleChange = (event, newAlignment) => {
 	// 	setSizes_color(newAlignment);
@@ -50,6 +50,7 @@ const AddProducts = () => {
 			categoryId: categoryId,
 		};
 
+		setLoader(true);
 		fetch(`${baseUrl}/products`, {
 			method: 'POST',
 			headers: {
@@ -63,7 +64,13 @@ const AddProducts = () => {
 				if (data) {
 					toast.success('Product added successfully');
 					reset();
+					setLoader(false);
 				}
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoader(false);
+				toast.error(err.message);
 			});
 	};
 
@@ -196,7 +203,17 @@ const AddProducts = () => {
 								<button
 									type="submit"
 									className="w-2/4 block mx-auto px-8 py-3 font-semibold rounded-md bg-yellow-500 text-white duration-500 ">
-									Add Product
+									{loader ? (
+										<>
+											<div className="flex items-center justify-center space-x-2">
+												<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+												<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+												<div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-400"></div>
+											</div>
+										</>
+									) : (
+										<span>Add Product</span>
+									)}
 								</button>
 							</div>
 						</div>
