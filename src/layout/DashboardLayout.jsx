@@ -1,10 +1,12 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import React, { useContext } from 'react';
 import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
@@ -42,13 +44,16 @@ const DashboardLayout = () => {
 							<div className="flex flex-col justify-between flex-1 mt-6 mb-20">
 								<Menu>
 									<MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
-									<MenuItem component={<Link to="/dashboard/addProducts" />} icon={<ProductionQuantityLimitsRoundedIcon />}>
+									<MenuItem icon={<Inventory2OutlinedIcon />}>All Products</MenuItem>
+									<MenuItem
+										component={<Link to="/dashboard/addProducts" />}
+										icon={<ProductionQuantityLimitsRoundedIcon />}>
 										Add Products
 									</MenuItem>
-									<MenuItem icon={<ContactsOutlinedIcon />}>Contacts</MenuItem>
-									<MenuItem icon={<ReceiptOutlinedIcon />}>Profile</MenuItem>
-									<MenuItem icon={<HelpOutlineOutlinedIcon />}>FAQ</MenuItem>
-									<MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem>
+									<MenuItem component={<Link to="/dashboard" />} icon={<ForumOutlinedIcon />}>
+										Contact Messages
+									</MenuItem>
+									<MenuItem icon={<PeopleAltOutlinedIcon />}>All Users</MenuItem>
 								</Menu>
 							</div>
 

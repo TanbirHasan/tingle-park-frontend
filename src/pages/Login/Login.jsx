@@ -32,7 +32,13 @@ const Login = () => {
 		setLoad(true);
 		signIn(email, password)
 			.then((result) => {
-				console.log(result.user);
+				const user = result.user;
+				console.log(user);
+				const userInfo = {
+					name: user?.displayName,
+					email: user?.email,
+				};
+				setAuthToken(userInfo);
 				toast.success('Successfully signed in');
 				navigate(from, { replace: true });
 				setLoad(false);

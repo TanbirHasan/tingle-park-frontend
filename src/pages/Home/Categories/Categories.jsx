@@ -42,7 +42,7 @@ const Categories = () => {
 
 			<div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
 				{categories.map((category, index) => (
-					<CategoriesCard key={index} category={category} />
+					<CategoriesCard key={category._id} category={category} />
 				))}
 			</div>
 		</div>

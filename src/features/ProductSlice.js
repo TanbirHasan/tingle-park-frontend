@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { baseUrl } from './../baseURL';
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-	const products = fetch(`${baseUrl}/products`).then((res) => res.json());
+	const products = fetch(`${baseUrl}/products`, {
+		headers: {
+			authorization: `Bearer ${localStorage.getItem('minion-commerce-token')}`,
+		},
+	}).then((res) => res.json());
 	return products;
 });
 
