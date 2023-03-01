@@ -1,13 +1,14 @@
-import { Rating } from '@mui/material';
+import { Avatar, Rating } from '@mui/material';
 import { format } from 'date-fns';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { PropagateLoader } from 'react-spinners';
 import { baseUrl } from '../../../baseURL';
 import { AuthContext } from './../../../Contexts/UserAuthProvider';
 
-const Reviews = ({ product, review, refetch }) => {
+const Reviews = ({ product, review, refetch, isLoading, page, pages, size, setPage }) => {
 	const { user } = useContext(AuthContext);
 
 	const {
@@ -53,14 +54,26 @@ const Reviews = ({ product, review, refetch }) => {
 		reset();
 	};
 
+	// const pagination = () => {
+	// 	[...Array(pages).keys()].map((number) => {
+	// 		return setPage(number);
+	// 	});
+	// };
+
 	return (
 		<div className="mt-10 flex  flex-col lg:flex-row text-center lg:text-left gap-10">
 			<div className="review-card lg:w-[50%]">
+				{/* Loader */}
+				{isLoading && (
+					<div className="flex h-screen justify-center items-center">
+						<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
+					</div>
+				)}
 				{review.map((r) => (
-					<div key={r._id} className="flex  flex-col lg:flex-row gap-5 mb-10 ">
+					<div key={r._id} className="flex  flex-col lg:flex-row gap-5 mb-10  ">
 						<div>
-							<img src={r.userImage} alt="" className="w-[80px] lg:h-[45px] mt-2 mx-auto" />
-							{/* <Avatar alt="Remy Sharp" src={r.userImage} /> */}
+							{/* <img src={r.userImage} alt="" className="w-[80px] lg:h-[45px] mt-2 mx-auto" /> */}
+							<Avatar alt="Remy Sharp" src={r.userImage} />
 						</div>
 						<div className="">
 							<div>
@@ -77,6 +90,32 @@ const Reviews = ({ product, review, refetch }) => {
 						</div>
 					</div>
 				))}
+
+				{/* <button
+					type="button"
+					onClick={}
+					className="px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800">
+					Basic
+				</button> */}
+				<div className="block mx-auto">
+					{/* {[...Array(pages).keys()].map((number) => (
+						<button
+							key={number}
+							className={`inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border ${
+								page === number
+									? 'bg-[#FFD333] text-white font-extrabold text-xl'
+									: 'text-[#FFD333]'
+							}`}
+							onClick={() => setPage(number)}>
+							{number + 1}
+						</button>
+					))} */}
+					{/* <button
+						className={`inline-flex items-center justify-center w-[35px] h-[38px] text-sm font-semibold border`}
+						onClick={pagination}>
+						View More
+					</button> */}
+				</div>
 			</div>
 
 			{!user?.uid ? (

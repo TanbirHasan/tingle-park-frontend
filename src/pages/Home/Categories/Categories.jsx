@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../../features/CategorySlice';
+import React, { useEffect, useState } from 'react';
 
+import { baseUrl } from './../../../baseURL';
 import CategoriesCard from './CategoriesCard';
 
 const Categories = () => {
-	// const [categories, setCategories] = useState([]);
-
-	// useEffect(() => {
-	// 	const url = `${baseUrl}/categories`;
-	// 	const fetchCategories = async () => {
-	// 		try {
-	// 			const response = await fetch(url);
-	// 			const jsonData = await response.json();
-	// 			setCategories(jsonData);
-	// 		} catch (error) {
-	// 			console.log('error', error);
-	// 		}
-	// 	};
-
-	// 	fetchCategories();
-	// }, []);
-
-	const { categories, isLoading } = useSelector((state) => state.categoriesReducer);
-
-	const dispatch = useDispatch();
+	const [categories, setCategories] = useState([]);
 
 	useEffect(() => {
-		dispatch(fetchCategories());
-	}, [dispatch]);
+		const url = `${baseUrl}/categories`;
+		const fetchCategories = async () => {
+			try {
+				const response = await fetch(url);
+				const jsonData = await response.json();
+				setCategories(jsonData);
+			} catch (error) {
+				console.log('error', error);
+			}
+		};
+
+		fetchCategories();
+	}, []);
+
+	// const { categories, isLoading } = useSelector((state) => state.categoriesReducer);
+
+	// const dispatch = useDispatch();
+
+	// useEffect(() => {
+	// 	dispatch(fetchCategories());
+	// }, [dispatch]);
 
 	return (
 		<div className="my-20">
