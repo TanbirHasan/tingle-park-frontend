@@ -56,7 +56,6 @@ const Register = () => {
 				console.log(imgData);
 				createUser(email, password)
 					.then((result) => {
-						console.log(result.user);
 						toast.success('Registered Successfully');
 
 						const userInfo = {
@@ -125,7 +124,6 @@ const Register = () => {
 		googleSignUp()
 			.then((result) => {
 				const user = result.user;
-				console.log(user);
 				toast.success('Successfully Signed up');
 				const userInfo = {
 					name: user?.displayName,

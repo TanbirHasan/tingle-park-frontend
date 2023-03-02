@@ -11,6 +11,10 @@ const AdminRoute = ({ children }) => {
 
 	const location = useLocation();
 
+	// if (user === null) {
+	// 	return <Navigate to="/login" state={{ from: location }} replace />;
+	// }
+
 	if (loading || isAdminLoading) {
 		return (
 			<div className="flex h-screen justify-center items-center">

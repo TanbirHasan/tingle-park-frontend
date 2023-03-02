@@ -17,6 +17,10 @@ const useAdmin = (email) => {
 					console.log(data);
 					setIsAdmin(data.isAdmin);
 					setIsAdminLoading(false);
+				})
+				.catch((err) => {
+					console.log(err);
+					setIsAdminLoading(false);
 				});
 		}
 	}, [email]);

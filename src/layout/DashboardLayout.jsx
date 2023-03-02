@@ -65,7 +65,10 @@ const DashboardLayout = () => {
 							<div className="">
 								<Menu>
 									<button
-										onClick={() => logOut()}
+										onClick={() => {
+											logOut();
+											localStorage.removeItem('minion-commerce-token');
+										}}
 										className="inline-block rounded bg-indigo-600 px-8 py-3 w-full text-sm font-medium text-white transition hover:scale-105 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500">
 										<span className="flex items-center justify-center gap-1">
 											<LogoutIcon fontSize="medium" />

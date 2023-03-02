@@ -33,7 +33,6 @@ const Login = () => {
 		signIn(email, password)
 			.then((result) => {
 				const user = result.user;
-				console.log(user);
 				const userInfo = {
 					name: user?.displayName,
 					email: user?.email,
@@ -55,7 +54,6 @@ const Login = () => {
 		googleSignUp()
 			.then((result) => {
 				const user = result.user;
-				console.log(user);
 				toast.success('successfully signed in');
 				const userInfo = {
 					name: user?.displayName,
