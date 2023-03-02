@@ -11,6 +11,7 @@ import Register from '../../pages/Register/Register';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
+import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 const { createBrowserRouter } = require('react-router-dom');
 
@@ -65,9 +66,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/dashboard',
 		element: (
-			<PrivateRoute>
+			<AdminRoute>
 				<DashboardLayout />
-			</PrivateRoute>
+			</AdminRoute>
 		),
 		children: [
 			{

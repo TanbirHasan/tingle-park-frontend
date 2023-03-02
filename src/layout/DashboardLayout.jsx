@@ -1,21 +1,21 @@
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
 import React, { useContext } from 'react';
 import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import TopNavbar from '../components/TopNavbar/TopNavbar';
 import { AuthContext } from '../Contexts/UserAuthProvider';
+import useAdmin from '../Hooks/useAdmin';
 
 const DashboardLayout = () => {
 	const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
 	const { user, logOut } = useContext(AuthContext);
+
+	const [isAdmin, isAdminLoading] = useAdmin(user?.email);
 
 	return (
 		<div>
@@ -39,6 +39,11 @@ const DashboardLayout = () => {
 								/>
 								<h4 className="mx-2 mt-2 font-medium text-gray-800 ">{user?.displayName}</h4>
 								<p className="mx-2 mt-1 text-sm font-medium text-gray-600 ">{user?.email}</p>
+								{isAdmin && (
+									<span class="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
+										Admin
+									</span>
+								)}
 							</div>
 
 							<div className="flex flex-col justify-between flex-1 mt-6 mb-20">

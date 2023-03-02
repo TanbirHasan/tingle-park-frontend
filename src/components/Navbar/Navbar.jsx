@@ -30,6 +30,7 @@ const Navbar = () => {
 	const handleLogOut = () => {
 		logOut();
 		setAnchorEl(null);
+		localStorage.removeItem('minion-commerce-token')
 	};
 
 	
