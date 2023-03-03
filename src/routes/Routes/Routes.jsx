@@ -3,6 +3,7 @@ import Main from '../../layout/Main';
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
+import AllUsers from '../../pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/dashboard/addProducts',
 				element: <AddProducts />,
+			},
+			{
+				path: '/dashboard/allUsers',
+				element: <AllUsers />,
 			},
 		],
 	},

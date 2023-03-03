@@ -39,11 +39,11 @@ const DashboardLayout = () => {
 								/>
 								<h4 className="mx-2 mt-2 font-medium text-gray-800 ">{user?.displayName}</h4>
 								<p className="mx-2 mt-1 text-sm font-medium text-gray-600 ">{user?.email}</p>
-								{isAdmin && (
+								{/* {isAdmin && (
 									<span class="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
 										Admin
 									</span>
-								)}
+								)} */}
 							</div>
 
 							<div className="flex flex-col justify-between flex-1 mt-6 mb-20">
@@ -58,7 +58,7 @@ const DashboardLayout = () => {
 									<MenuItem component={<Link to="/dashboard" />} icon={<ForumOutlinedIcon />}>
 										Contact Messages
 									</MenuItem>
-									<MenuItem icon={<PeopleAltOutlinedIcon />}>All Users</MenuItem>
+									<MenuItem component={<Link to="/dashboard/allUsers" />} icon={<PeopleAltOutlinedIcon />}>All Users</MenuItem>
 								</Menu>
 							</div>
 

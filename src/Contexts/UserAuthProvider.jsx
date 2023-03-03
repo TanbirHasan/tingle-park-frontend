@@ -1,5 +1,6 @@
 import {
 	createUserWithEmailAndPassword,
+	deleteUser,
 	getAuth,
 	GoogleAuthProvider,
 	onAuthStateChanged,
@@ -41,6 +42,13 @@ const UserAuthProvider = ({ children }) => {
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
+	// delete user from firebase
+
+	const deleteFirebaseUser = () => {
+		setLoading(true);
+		return deleteUser(auth.currentUser);
+	};
+
 	// google
 
 	const googleSignUp = () => {
@@ -52,9 +60,9 @@ const UserAuthProvider = ({ children }) => {
 		return signOut(auth);
 	};
 
-    const verifyUserEmail = () => { 
-        return sendEmailVerification(auth.currentUser)
-    }
+	const verifyUserEmail = () => {
+		return sendEmailVerification(auth.currentUser);
+	};
 
 	const forgotPassword = (email) => {
 		setLoading(true);
@@ -80,9 +88,10 @@ const UserAuthProvider = ({ children }) => {
 		googleSignUp,
 		signIn,
 		forgotPassword,
-        logOut,
+		logOut,
 		verifyUserEmail,
-		loading
+		loading,
+		deleteFirebaseUser
 	};
 
 	return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
