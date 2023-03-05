@@ -3,6 +3,7 @@ import Main from '../../layout/Main';
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
+import AllProducts from '../../pages/Dashboard/AllProducts/AllProducts';
 import AllUsers from '../../pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/dashboard',
 				element: <Dashboard />,
+			},
+			{
+				path: '/dashboard/allProducts',
+				element: <AllProducts />,
 			},
 			{
 				path: '/dashboard/addProducts',

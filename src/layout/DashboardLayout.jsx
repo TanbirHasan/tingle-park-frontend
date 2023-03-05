@@ -49,7 +49,11 @@ const DashboardLayout = () => {
 							<div className="flex flex-col justify-between flex-1 mt-6 mb-20">
 								<Menu>
 									<MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
-									<MenuItem icon={<Inventory2OutlinedIcon />}>All Products</MenuItem>
+									<MenuItem
+										component={<Link to="/dashboard/allProducts" />}
+										icon={<Inventory2OutlinedIcon />}>
+										All Products
+									</MenuItem>
 									<MenuItem
 										component={<Link to="/dashboard/addProducts" />}
 										icon={<ProductionQuantityLimitsRoundedIcon />}>
@@ -58,7 +62,11 @@ const DashboardLayout = () => {
 									<MenuItem component={<Link to="/dashboard" />} icon={<ForumOutlinedIcon />}>
 										Contact Messages
 									</MenuItem>
-									<MenuItem component={<Link to="/dashboard/allUsers" />} icon={<PeopleAltOutlinedIcon />}>All Users</MenuItem>
+									<MenuItem
+										component={<Link to="/dashboard/allUsers" />}
+										icon={<PeopleAltOutlinedIcon />}>
+										All Users
+									</MenuItem>
 								</Menu>
 							</div>
 

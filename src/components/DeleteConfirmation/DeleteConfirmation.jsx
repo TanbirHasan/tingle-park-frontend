@@ -6,16 +6,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as React from 'react';
 
-export default function AlertDialog({ openDialog, setOpenDialog }) {
+export default function AlertDialog({ openDialog, setOpenDialog,handleClose,data }) {
 	// const [openDialog, setOpenDialog] = useState(false);
 
-	const handleClickOpen = () => {
-		setOpenDialog(true);
-	};
-
-	const handleClose = () => {
-		setOpenDialog(false);
-	};
+	
 
 	return (
 		<div>

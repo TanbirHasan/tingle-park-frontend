@@ -25,9 +25,9 @@ const AllUsers = () => {
 		refetch,
 		isLoading,
 	} = useQuery({
-		queryKey: ['allUsers'],
+		queryKey: ['allUsers', page, size],
 		queryFn: async () => {
-			const res = await fetch(`${baseUrl}/users`);
+			const res = await fetch(`${baseUrl}/users?page=${page}&size=${size}`);
 			const result = await res.json();
 			const data = result.users;
 			setCount(result.count);
@@ -44,10 +44,10 @@ const AllUsers = () => {
 		setOpenDialog(false);
 	};
 
-	//! all users excluding admins
+	//* all users excluding admins
 	const noAdminUsers = users.filter((user) => user.role !== 'admin');
 
-	// handle delete user from firebase and database
+	//* handle delete user from firebase and database
 	const handleDeleteUser = (user) => {
 		// deleteFirebaseUser().then(() => {
 		// });
@@ -150,26 +150,7 @@ const AllUsers = () => {
 											</button>
 										))}
 									</>
-									{/* <button
-										type="button"
-										className="w-full px-4 py-2 text-base text-indigo-500 bg-white border-t border-b hover:bg-gray-100 ">
-										1
-									</button>
-									<button
-										type="button"
-										className="w-full px-4 py-2 text-base text-gray-600 bg-white border hover:bg-gray-100">
-										2
-									</button>
-									<button
-										type="button"
-										className="w-full px-4 py-2 text-base text-gray-600 bg-white border-t border-b hover:bg-gray-100">
-										3
-									</button>
-									<button
-										type="button"
-										className="w-full px-4 py-2 text-base text-gray-600 bg-white border hover:bg-gray-100">
-										4
-									</button> */}
+
 									<button
 										type="button"
 										className="w-full p-4 text-base text-gray-600 bg-white border-t border-b border-r rounded-r-xl hover:bg-gray-100">
@@ -189,6 +170,8 @@ const AllUsers = () => {
 					</div>
 				</div>
 			</div>
+
+			{/* Delete Confirmation */}
 			<>
 				{openDialog ? (
 					<Dialog
@@ -197,13 +180,18 @@ const AllUsers = () => {
 						onClose={handleClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description">
-						<DialogTitle id="alert-dialog-title">{`Are you sure you want to delete`}
-							<span className='font-extrabold'> {singleUser.name } ?</span>
+						<DialogTitle id="alert-dialog-title">
+							{`Are you sure you want to delete`}
+							<span className="font-extrabold"> {singleUser.name} ?</span>
 						</DialogTitle>
 
 						<DialogActions>
 							<Button onClick={handleClose}>Disagree</Button>
-							<Button startIcon={<DeleteIcon />} color="error" onClick={() => handleDeleteUser(singleUser)} autoFocus>
+							<Button
+								startIcon={<DeleteIcon />}
+								color="error"
+								onClick={() => handleDeleteUser(singleUser)}
+								autoFocus>
 								Delete
 							</Button>
 						</DialogActions>
