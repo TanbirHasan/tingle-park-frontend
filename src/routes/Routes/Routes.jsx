@@ -3,6 +3,8 @@ import Main from '../../layout/Main';
 import CheckOut from '../../pages/CheckOut/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
+import AllProducts from '../../pages/Dashboard/AllProducts/AllProducts';
+import AllUsers from '../../pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
@@ -11,6 +13,7 @@ import Register from '../../pages/Register/Register';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
+import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 const { createBrowserRouter } = require('react-router-dom');
 
@@ -65,9 +68,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/dashboard',
 		element: (
-			<PrivateRoute>
+			<AdminRoute>
 				<DashboardLayout />
-			</PrivateRoute>
+			</AdminRoute>
 		),
 		children: [
 			{
@@ -75,8 +78,16 @@ export const router = createBrowserRouter([
 				element: <Dashboard />,
 			},
 			{
+				path: '/dashboard/allProducts',
+				element: <AllProducts />,
+			},
+			{
 				path: '/dashboard/addProducts',
 				element: <AddProducts />,
+			},
+			{
+				path: '/dashboard/allUsers',
+				element: <AllUsers />,
 			},
 		],
 	},

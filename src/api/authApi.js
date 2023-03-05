@@ -16,7 +16,7 @@ const setAuthToken = (user) => {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data.token);
+			// console.log(data.token);
 			localStorage.setItem('minion-commerce-token', data.token);
 		});
 };
