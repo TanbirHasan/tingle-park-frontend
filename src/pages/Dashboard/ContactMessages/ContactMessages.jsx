@@ -1,73 +1,52 @@
-import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
-import { AuthContext } from '../../../Contexts/UserAuthProvider';
-import { baseUrl } from './../../../baseURL';
+import { baseUrl } from '../../../baseURL';
 
-const AllUsers = () => {
-	const { deleteFirebaseUser } = useContext(AuthContext);
-
-	const [openDialog, setOpenDialog] = useState(false);
+const ContactMessages = () => {
+	const [open, setOpen] = useState(false);
 	const [count, setCount] = useState(0);
 	const [page, setPage] = useState(0);
 	const [size, setSize] = useState(4);
 	const pages = Math.ceil(count / size);
-	const [singleUser, setSingleUser] = useState({});
+	const [dialogData, setDialogData] = useState({});
 
 	const {
-		data: users = [],
+		data: messages = [],
 		refetch,
 		isLoading,
 		isPreviousData,
 	} = useQuery({
-		queryKey: ['allUsers', page, size],
+		queryKey: ['messages', page, size],
 		queryFn: async () => {
-			const res = await fetch(`${baseUrl}/users?page=${page}&size=${size}`);
+			const res = await fetch(`${baseUrl}/contact-messages?page=${page}&size=${size}`);
 			const result = await res.json();
-			const data = result.users;
+			const data = result.messages;
 			setCount(result.count);
 			return data;
 		},
 	});
 
-	const handleClickOpen = (user) => {
-		setOpenDialog(true);
-		setSingleUser(user);
+	const handleClickOpen = (message) => {
+		setOpen(true);
+		setDialogData(message);
 	};
 
 	const handleClose = () => {
-		setOpenDialog(false);
-	};
-
-	//* all users excluding admins
-	const noAdminUsers = users.filter((user) => user.role !== 'admin');
-
-	//* handle delete user from firebase and database
-	const handleDeleteUser = (user) => {
-		// deleteFirebaseUser().then(() => {
-		// });
-		fetch(`${baseUrl}/users/${user._id}`, {
-			method: 'DELETE',
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				toast.success(`${user.name} deleted successfully`);
-				refetch();
-				setOpenDialog(false);
-			});
+		setOpen(false);
 	};
 
 	return (
-		<div className="">
+		<div>
 			<div className="max-w-6xl text-center px-4 mx-auto sm:px-8">
 				<div className="">
-					<h1 className="text-5xl font-extrabold my-5">All Users</h1>
+					<h1 className="text-5xl font-extrabold my-5">All Messages</h1>
 					<div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
 						<div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
 							{isLoading && (
@@ -92,29 +71,36 @@ const AllUsers = () => {
 										<th
 											scope="col"
 											className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white border-b border-gray-200">
-											Action
+											Subject
+										</th>
+										<th
+											scope="col"
+											className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white border-b border-gray-200">
+											Message
 										</th>
 									</tr>
 								</thead>
 								<tbody>
-									{noAdminUsers.map((user) => (
-										<tr key={user._id}>
+									{messages.map((message) => (
+										<tr key={message._id}>
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
 												<div className="">
-													<p className="text-gray-900 whitespace-no-wrap">{user.name}</p>
+													<p className="text-gray-900 whitespace-no-wrap">{message.name}</p>
 												</div>
 											</td>
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-												<p className="text-gray-900 whitespace-no-wrap">{user.email}</p>
+												<p className="text-gray-900 whitespace-no-wrap">{message.email}</p>
+											</td>
+											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+												<p className="text-gray-900 whitespace-no-wrap">{message.subject}</p>
 											</td>
 
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
 												<button
 													type="button"
-													// onClick={() => handleDeleteUser(user)}
-													onClick={() => handleClickOpen(user)}
-													className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">
-													Delete
+													onClick={() => handleClickOpen(message)}
+													className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+													Message
 												</button>
 											</td>
 										</tr>
@@ -181,37 +167,33 @@ const AllUsers = () => {
 				</div>
 			</div>
 
-			{/* Delete Confirmation */}
 			<>
-				{openDialog ? (
+				{open ? (
 					<Dialog
-						open={openDialog}
-						user={singleUser}
+						open={open}
+						data={dialogData}
 						onClose={handleClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description">
-						<DialogTitle id="alert-dialog-title">
-							{`Are you sure you want to delete`}
-							<span className="font-extrabold"> {singleUser.name} ?</span>
-						</DialogTitle>
-
+						<div className="flex justify-between">
+							<DialogTitle id="alert-dialog-title">{`${dialogData.name}`}</DialogTitle>
+							<DialogTitle
+								id="alert-dialog-title"
+								className="italic">{`${dialogData.email}`}</DialogTitle>
+						</div>
+						<DialogContent>
+							<DialogContentText id="alert-dialog-description">
+								{dialogData.message}
+							</DialogContentText>
+						</DialogContent>
 						<DialogActions>
-							<Button onClick={handleClose}>Disagree</Button>
-							<Button
-								startIcon={<DeleteIcon />}
-								color="error"
-								onClick={() => handleDeleteUser(singleUser)}
-								autoFocus>
-								Delete
-							</Button>
+							<Button onClick={handleClose}>Done</Button>
 						</DialogActions>
 					</Dialog>
-				) : (
-					''
-				)}
+				) : null}
 			</>
 		</div>
 	);
 };
 
-export default AllUsers;
+export default ContactMessages;

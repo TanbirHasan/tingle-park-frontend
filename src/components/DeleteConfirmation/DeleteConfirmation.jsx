@@ -1,15 +1,12 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as React from 'react';
 
-export default function AlertDialog({ openDialog, setOpenDialog,handleClose,data }) {
+export default function DeleteConfirmation({ openDialog, handleClose, data, handleDelete }) {
 	// const [openDialog, setOpenDialog] = useState(false);
-
-	
 
 	return (
 		<div>
@@ -18,20 +15,23 @@ export default function AlertDialog({ openDialog, setOpenDialog,handleClose,data
 			</Button> */}
 			<Dialog
 				open={openDialog}
+				product={data}
 				onClose={handleClose}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description">
-				<DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
-				<DialogContent>
-					<DialogContentText id="alert-dialog-description">
-						Let Google help apps determine location. This means sending anonymous location data to
-						Google, even when no apps are running.
-					</DialogContentText>
-				</DialogContent>
+				<DialogTitle id="alert-dialog-title">
+					{`Are you sure you want to delete`}
+					<span className="font-extrabold"> {data.productsName} ?</span>
+				</DialogTitle>
+
 				<DialogActions>
 					<Button onClick={handleClose}>Disagree</Button>
-					<Button onClick={handleClose} autoFocus>
-						Agree
+					<Button
+						startIcon={<DeleteIcon />}
+						color="error"
+						onClick={() => handleDelete(data)}
+						autoFocus>
+						Delete
 					</Button>
 				</DialogActions>
 			</Dialog>
