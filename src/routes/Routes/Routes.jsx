@@ -13,6 +13,7 @@ import Register from '../../pages/Register/Register';
 import Shop from '../../pages/Shop/Shop/Shop';
 import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
+import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ContactMessages from './../../pages/Dashboard/ContactMessages/ContactMessages';
 const { createBrowserRouter } = require('react-router-dom');
@@ -79,19 +80,35 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/dashboard/allProducts',
-				element: <AllProducts />,
+				element: (
+					<AdminRoute>
+						<AllProducts />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/addProducts',
-				element: <AddProducts />,
+				element: (
+					<AdminRoute>
+						<AddProducts />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/contact-messages',
-				element: <ContactMessages />,
+				element: (
+					<AdminRoute>
+						<ContactMessages />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/allUsers',
-				element: <AllUsers />,
+				element: (
+					<AdminRoute>
+						<AllUsers />
+					</AdminRoute>
+				),
 			},
 		],
 	},
