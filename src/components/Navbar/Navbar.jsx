@@ -1,4 +1,5 @@
 import Logout from '@mui/icons-material/Logout';
+import { Divider } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
@@ -11,6 +12,7 @@ import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import './navbar.css';
 
 const Navbar = () => {
@@ -30,10 +32,8 @@ const Navbar = () => {
 	const handleLogOut = () => {
 		logOut();
 		setAnchorEl(null);
-		localStorage.removeItem('minion-commerce-token')
+		localStorage.removeItem('minion-commerce-token');
 	};
-
-	
 
 	const menuRef = useRef();
 
@@ -299,10 +299,15 @@ const Navbar = () => {
 						}}
 						transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 						anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-						{/* <MenuItem onClick={handleClose}>
-							<Avatar /> Profile
-						</MenuItem>
-						<Divider /> */}
+						<Link to={'/dashboard'}>
+							<MenuItem>
+								<ListItemIcon>
+									<DashboardIcon fontSize="medium" />
+									Dashboard
+								</ListItemIcon>
+							</MenuItem>
+						</Link>
+						<Divider />
 						<MenuItem onClick={handleLogOut}>
 							<ListItemIcon>
 								<Logout fontSize="small" />

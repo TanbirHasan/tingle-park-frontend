@@ -26,7 +26,7 @@ const AllUsers = () => {
 		isLoading,
 		isPreviousData,
 	} = useQuery({
-		queryKey: ['allUsers', page, size],
+		queryKey: ['users', page, size],
 		queryFn: async () => {
 			const res = await fetch(`${baseUrl}/users?page=${page}&size=${size}`);
 			const result = await res.json();
@@ -36,6 +36,9 @@ const AllUsers = () => {
 		},
 	});
 
+	//* all users excluding admins
+	// const noAdminUsers = users.filter((user) => user.role !== 'admin');
+
 	const handleClickOpen = (user) => {
 		setOpenDialog(true);
 		setSingleUser(user);
@@ -44,9 +47,6 @@ const AllUsers = () => {
 	const handleClose = () => {
 		setOpenDialog(false);
 	};
-
-	//* all users excluding admins
-	const noAdminUsers = users.filter((user) => user.role !== 'admin');
 
 	//* handle delete user from firebase and database
 	const handleDeleteUser = (user) => {
@@ -97,7 +97,7 @@ const AllUsers = () => {
 									</tr>
 								</thead>
 								<tbody>
-									{noAdminUsers.map((user) => (
+									{users.map((user) => (
 										<tr key={user._id}>
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
 												<div className="">
@@ -109,13 +109,21 @@ const AllUsers = () => {
 											</td>
 
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-												<button
-													type="button"
-													// onClick={() => handleDeleteUser(user)}
-													onClick={() => handleClickOpen(user)}
-													className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">
-													Delete
-												</button>
+												{user?.role === 'admin' ? (
+													<>
+														<span class="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
+															Admin
+														</span>
+													</>
+												) : (
+													<button
+														type="button"
+														// onClick={() => handleDeleteUser(user)}
+														onClick={() => handleClickOpen(user)}
+														className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">
+														Delete
+													</button>
+												)}
 											</td>
 										</tr>
 									))}
