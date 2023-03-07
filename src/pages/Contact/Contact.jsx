@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { baseUrl } from './../../baseURL';
 
 const Contact = () => {
 	const {
@@ -26,7 +27,7 @@ const Contact = () => {
 		};
 
 		setLoading(true);
-		fetch('http://localhost:5000/contact-messages', {
+		fetch(`${baseUrl}/contact-messages`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify(contactMessage),
@@ -39,7 +40,7 @@ const Contact = () => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log(err.message);
 				setLoading(false);
 				toast.error('Something went wrong');
 			});

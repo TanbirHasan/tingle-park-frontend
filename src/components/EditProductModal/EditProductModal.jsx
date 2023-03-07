@@ -2,11 +2,12 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { baseUrl } from '../../baseURL';
+import { fetchCategories } from './../../features/CategorySlice';
 
 const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 	const {
@@ -19,16 +20,16 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 	const [loader, setLoader] = useState(false);
 
 	const { categories } = useSelector((state) => state.categoriesReducer);
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	// const [sizes_color, setSizes_color] = useState(true);
 
 	// const handleChange = (event, newAlignment) => {
 	// 	setSizes_color(newAlignment);
 	// };
 
-	// useEffect(() => {
-	// 	dispatch(fetchCategories());
-	// }, [dispatch]);
+	useEffect(() => {
+		dispatch(fetchCategories());
+	}, [dispatch]);
 
 	const handleEditProduct = (d) => {
 		const product = {
@@ -38,6 +39,7 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 			newPrice: d.resellPrice,
 			stockAmount: d.stockAmount,
 			description: d.description,
+			category: d.category,
 		};
 
 		setLoader(true);
@@ -75,9 +77,15 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 				product={data}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description">
-				<DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+				<div className="flex justify-end pt-10 w-[70%] mx-auto">
+					<DialogTitle id="alert-dialog-title">
+						<Button onClick={handleClose} variant="outlined">
+							Close
+						</Button>
+					</DialogTitle>
+				</div>
 				<DialogContent>
-					<div className="mt-10">
+					<div className="">
 						<div className="flex flex-col max-w-screen-lg mx-auto   p-6 rounded-md sm:p-10 bg-gray-900 text-gray-100">
 							<form onSubmit={handleSubmit(handleEditProduct)} className="space-y-12 ">
 								<div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -149,7 +157,7 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 										)}
 									</div>
 
-									<div className="col-span-full ">
+									<div className="col-span-full sm:col-span-4 ">
 										<label className="block mb-2 text-sm">Description</label>
 
 										<textarea
@@ -161,7 +169,7 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 											<p className="text-red-600">{errors.description?.message}</p>
 										)}
 									</div>
-									{/* <div className="col-span-full sm:col-span-3">
+									<div className="col-span-full sm:col-span-2">
 										<label className="block mb-2 text-sm">Categories</label>
 
 										<select
@@ -170,21 +178,16 @@ const EditProductModal = ({ open, handleOpen, handleClose, data, refetch }) => {
 											{categories.map((category) => {
 												return (
 													<>
-														<option value="" selected disabled hidden>
-															Choose category...
+														<option selected disabled hidden>
+															{data.category}
 														</option>
-														<option
-															
-															key={category._id}
-															value={category.categoryName}>
-															{category.categoryName}
-														</option>
+														<option key={category._id}>{category.categoryName}</option>
 													</>
 												);
 											})}
 										</select>
 										{errors.category && <p className="text-red-600">{errors.category?.message}</p>}
-									</div> */}
+									</div>
 									{/* <div className="col-span-full sm:col-span-3">
 										<label className="block mb-2 text-sm">Sizes_Color</label>
 

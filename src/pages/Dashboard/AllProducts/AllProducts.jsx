@@ -1,5 +1,11 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { PropagateLoader } from 'react-spinners';
 import { baseUrl } from '../../../baseURL';
 import EditProductModal from '../../../components/EditProductModal/EditProductModal';
@@ -12,11 +18,13 @@ const AllProducts = () => {
 	const pages = Math.ceil(count / size);
 	const [openModal, setOpenModal] = React.useState(false);
 	const [modalData, setModalData] = useState({});
+	const [dialogData, setDialogData] = useState({});
 
 	const {
 		data: products = [],
 		refetch,
 		isLoading,
+		isPreviousData,
 	} = useQuery({
 		queryKey: ['allProducts', page, size],
 		queryFn: async () => {
@@ -26,6 +34,7 @@ const AllProducts = () => {
 			setCount(result.count);
 			return data;
 		},
+		keepPreviousData: true,
 	});
 
 	const handleOpenModal = (product) => {
@@ -34,6 +43,28 @@ const AllProducts = () => {
 	};
 	const handleCloseModal = () => {
 		setOpenModal(false);
+	};
+
+	const handleOpenDialog = (product) => {
+		setOpenDialog(true);
+		setDialogData(product);
+	};
+	const handleCloseDialog = () => {
+		setOpenDialog(false);
+	};
+
+	const handleDeleteProduct = (product) => {
+		fetch(`${baseUrl}/products/${product._id}`, {
+			method: 'DELETE',
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data) {
+					toast.success(`${product.productsName} deleted successfully`);
+					refetch();
+					setOpenDialog(false);
+				}
+			});
 	};
 
 	return (
@@ -104,12 +135,13 @@ const AllProducts = () => {
 												<button
 													onClick={() => handleOpenModal(product)}
 													type="button"
-													class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+													className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
 													Edit
 												</button>
 												<button
+													onClick={() => handleOpenDialog(product)}
 													type="button"
-													class="py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+													className="py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
 													Delete
 												</button>
 											</td>
@@ -121,9 +153,9 @@ const AllProducts = () => {
 								<div className="flex items-center">
 									<button
 										onClick={() => {
-											setPage(page - 1);
-											refetch();
+											setPage((old) => Math.max(old - 1, 0));
 										}}
+										disabled={page === 0}
 										className="w-full p-4 text-base text-gray-600 bg-white border
 										rounded-l-xl hover:bg-gray-100">
 										<svg
@@ -154,9 +186,10 @@ const AllProducts = () => {
 
 									<button
 										onClick={() => {
-											setPage(page + 1);
-											refetch();
+											setPage((old) => old + 1);
 										}}
+										// Disable the Next Page button until we know a next page is available
+										disabled={isPreviousData}
 										className="w-full p-4 text-base text-gray-600 bg-white border-t border-b border-r rounded-r-xl hover:bg-gray-100">
 										<svg
 											width="9"
@@ -183,6 +216,33 @@ const AllProducts = () => {
 						handleClose={handleCloseModal}
 						refetch={refetch}
 					/>
+				) : null}
+			</>
+
+			<>
+				{openDialog ? (
+					<Dialog
+						open={openDialog}
+						product={dialogData}
+						onClose={handleCloseDialog}
+						aria-labelledby="alert-dialog-title"
+						aria-describedby="alert-dialog-description">
+						<DialogTitle id="alert-dialog-title">
+							{`Are you sure you want to delete`}
+							<span className="font-extrabold"> {dialogData.productsName} ?</span>
+						</DialogTitle>
+
+						<DialogActions>
+							<Button onClick={handleCloseDialog}>Disagree</Button>
+							<Button
+								startIcon={<DeleteIcon />}
+								color="error"
+								onClick={() => handleDeleteProduct(dialogData)}
+								autoFocus>
+								Delete
+							</Button>
+						</DialogActions>
+					</Dialog>
 				) : null}
 			</>
 		</div>

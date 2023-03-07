@@ -59,7 +59,9 @@ const DashboardLayout = () => {
 										icon={<ProductionQuantityLimitsRoundedIcon />}>
 										Add Products
 									</MenuItem>
-									<MenuItem component={<Link to="/dashboard" />} icon={<ForumOutlinedIcon />}>
+									<MenuItem
+										component={<Link to="/dashboard/contact-messages" />}
+										icon={<ForumOutlinedIcon />}>
 										Contact Messages
 									</MenuItem>
 									<MenuItem
