@@ -1,5 +1,6 @@
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -9,7 +10,6 @@ import React, { useContext } from 'react';
 import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import TopNavbar from '../components/TopNavbar/TopNavbar';
 import { AuthContext } from '../Contexts/UserAuthProvider';
 import useAdmin from '../Hooks/useAdmin';
@@ -51,11 +51,11 @@ const DashboardLayout = () => {
 								<h4 className="mx-2 mt-2 font-medium text-gray-800 ">{user?.displayName}</h4>
 								<p className="mx-2 mt-1 text-sm font-medium text-gray-600 ">{user?.email}</p>
 								{isAdmin ? (
-									<span class="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
+									<span className="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
 										Admin
 									</span>
 								) : (
-									<span class="px-4 py-2 mt-5 text-base rounded-full text-blue-600  bg-blue-200 ">
+									<span className="px-4 py-2 mt-5 text-base rounded-full text-blue-600  bg-blue-200 ">
 										User
 									</span>
 								)}
@@ -90,7 +90,7 @@ const DashboardLayout = () => {
 									) : (
 										<>
 											<MenuItem
-												component={<Link to="/dashboard" />}
+												component={<Link to="/dashboard/userProfile" />}
 												icon={<AccountBoxOutlinedIcon />}>
 												Profile
 											</MenuItem>

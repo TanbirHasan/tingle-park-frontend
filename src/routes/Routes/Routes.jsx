@@ -6,6 +6,7 @@ import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
 import AllProducts from '../../pages/Dashboard/AllProducts/AllProducts';
 import AllUsers from '../../pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
+import UserProfile from '../../pages/Dashboard/UserProfile/UserProfile';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Login from '../../pages/Login/Login';
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
 						<AllUsers />
 					</AdminRoute>
 				),
+			},
+			{
+				path: '/dashboard/userProfile',
+				element: <UserProfile />,
 			},
 		],
 	},
