@@ -5,7 +5,9 @@ import DialogContent from '@mui/material/DialogContent';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import setAuthToken from '../../../api/authApi';
+import { baseUrl } from '../../../baseURL';
 import { AuthContext } from '../../../Contexts/UserAuthProvider';
 
 const UserProfile = () => {
@@ -24,6 +26,8 @@ const UserProfile = () => {
 	const [file, setFile] = useState();
 	const imageHostKey = process.env.REACT_APP_imgbb_key;
 	const [loading, setLoading] = useState(false);
+
+	const navigate = useNavigate();
 
 	function handleChange(e) {
 		// console.log(e.target.files);
@@ -52,6 +56,7 @@ const UserProfile = () => {
 				toast.error(err.message);
 			});
 	};
+
 	function refreshPage() {
 		window.location.reload(false);
 	}
@@ -75,11 +80,21 @@ const UserProfile = () => {
 						name: name,
 						email: user?.email,
 					};
-					setAuthToken(userInfo);
-					handleUpdateUserProfile(name, imgData.data.display_url);
-					toast.success('Updated Profile Successfully');
-					refreshPage();
-					setLoading(false);
+					fetch(`${baseUrl}/users/${user?.email}`, {
+						method: 'PUT',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify(userInfo),
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							handleUpdateUserProfile(name, imgData.data.display_url);
+							toast.success('Updated Profile Successfully');
+							setLoading(false);
+							refreshPage();
+						});
+					// setAuthToken(userInfo);
 				})
 				.catch((err) => {
 					setLoading(false);
@@ -97,9 +112,19 @@ const UserProfile = () => {
 						name: name,
 						email: user?.email,
 					};
-					setAuthToken(userInfo);
-					toast.success('Profile updated successfully');
-					refreshPage();
+					fetch(`${baseUrl}/users/${user?.email}`, {
+						method: 'PUT',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify(userInfo),
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							refreshPage();
+							toast.success('Profile updated successfully');
+							refreshPage();
+						});
 				})
 				.catch((err) => {
 					toast.error(err.message);
