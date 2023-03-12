@@ -8,7 +8,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQuantityLimitsRounded';
 import React, { useContext } from 'react';
 import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, ScrollRestoration } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
 import TopNavbar from '../components/TopNavbar/TopNavbar';
 import { AuthContext } from '../Contexts/UserAuthProvider';
@@ -124,6 +124,7 @@ const DashboardLayout = () => {
 					<Outlet />
 				</div>
 			</div>
+			<ScrollRestoration />
 		</div>
 	);
 };

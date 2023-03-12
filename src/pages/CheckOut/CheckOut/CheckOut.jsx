@@ -42,6 +42,8 @@ const CheckOut = () => {
 			totalPrice: total,
 		};
 
+		console.log(order);
+
 		localStorage.removeItem('minion-commerce-cart')
 
 		reset();
@@ -87,7 +89,7 @@ const CheckOut = () => {
 					</div>
 
 					<div className="bg-white py-10 px-10">
-						<form className=" grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+						<div className=" grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
 							<div>
 								<label htmlFor="firstName" className="text-[#6c757d]">
 									First Name
@@ -182,8 +184,8 @@ const CheckOut = () => {
 										required: 'Country is required',
 									})}
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 ">
-									<option selected value="United States">
-										United States
+									<option defaultValue value="Bangladesh">
+										Bangladesh
 									</option>
 									<option value="Albania">Albania</option>
 									<option value="Oman">Oman</option>
@@ -233,7 +235,7 @@ const CheckOut = () => {
 								/>
 								{errors.zip && <p className="text-red-600">{errors.zip?.message}</p>}
 							</div>
-						</form>
+						</div>
 						<div className="mt-5 space-y-3">
 							<div className="flex items-center">
 								<input

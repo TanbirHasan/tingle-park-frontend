@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
 
 	useEffect(() => {
 		dispatch(fetchReviews());
-	}, []);
+	}, [dispatch]);
 
 	const specificProductReview = reviews.filter((r) => r.productId === _id);
 
@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
 	};
 	return (
 		<div>
-			<div className=" shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
+			<div className="w-[305px] shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
 				<div>
 					<div className="box">
 						<img
