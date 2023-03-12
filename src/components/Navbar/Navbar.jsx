@@ -6,12 +6,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useRef, useState } from 'react';
 import { AiFillHeart, AiOutlineClose, AiOutlineDown } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { baseUrl } from '../../baseURL';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
 import './navbar.css';
 
@@ -20,7 +22,6 @@ const Navbar = () => {
 	const [openDropdown, setOpenDropdown] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	// const [isPagesOpen, setIsPagesOpen] = useState(false);
-	const [categories, setCategories] = useState([]);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick2 = (event) => {
@@ -34,6 +35,21 @@ const Navbar = () => {
 		setAnchorEl(null);
 		localStorage.removeItem('minion-commerce-token');
 	};
+
+	const {
+		data: categories = [],
+		refetch,
+		isLoading,
+		isPreviousData,
+	} = useQuery({
+		queryKey: ['categories'],
+		queryFn: async () => {
+			const res = await fetch(`${baseUrl}/categories`);
+			const result = await res.json();
+
+			return result;
+		},
+	});
 
 	const menuRef = useRef();
 
@@ -59,36 +75,15 @@ const Navbar = () => {
 
 	const menuItemsDropDown = (
 		<>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Dresses</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Shirts</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Jeans</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Swimwear</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Sleepwear</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Sportswear</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Jumpsuits</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Blazers</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Jackets</button>
-			</Link>
-			<Link className="menu-item border-b p-2 px-8 hover:text-black duration-500">
-				<button>Shoes</button>
-			</Link>
+			{categories.map((category) => (
+				<Link
+					key={category._id}
+					to="/categorizedProduct"
+					state={category}
+					className="menu-item border-b p-2 px-8 hover:text-black duration-500">
+					<button>{category.categoryName}</button>
+				</Link>
+			))}
 		</>
 	);
 
@@ -101,42 +96,6 @@ const Navbar = () => {
 				<li>Shop</li>
 			</NavLink>
 
-			{/* <Link className={'group inline-block relative'}>
-				<div
-					onClick={() => setIsPagesOpen(!isPagesOpen)}
-					className="flex items-center lg:justify-center hover:text-[#FFD333] ">
-					<li>Pages</li>
-					<AiOutlineRight className="font-bold ml-1 group-hover:rotate-90 duration-500" />
-				</div>
-
-				<div ref={menuRef} className="flex items-center gap-2">
-					<ul
-						className={`menu absolute  space-y-2 w-[250px] mt-6 md:mt-0  md:w-[204px] py-2 z-10 top-[46px] flex flex-col group text-black text-box bg-[#FFD333]  md:text-md ${
-							isPagesOpen ? 'dropdown-active' : 'dropdown-inactive'
-						}  `}>
-						<NavLink
-							to={'/shopping-cart'}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className={({ isActive }) =>
-								`${
-									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
-								} hover:bg-white py-2 px-4 block font-bold`
-							}>
-							<li>Shopping Cart</li>
-						</NavLink>
-						<NavLink
-							to={'/checkout'}
-							onClick={() => setIsPagesOpen(!isPagesOpen)}
-							className={({ isActive }) =>
-								`${
-									isActive ? 'text-white  hover:bg-[#FFD333]' : ''
-								} hover:bg-white py-2 px-4 block font-bold `
-							}>
-							<li>Checkout</li>
-						</NavLink>
-					</ul>
-				</div>
-			</Link> */}
 			<NavLink to={'/contact'} className="hover:text-[#FFD333]">
 				<li>Contact</li>
 			</NavLink>
@@ -186,38 +145,7 @@ const Navbar = () => {
 				</NavLink>
 			)}
 
-			{/* {user?.uid ? (
-				<div className="mx-auto lg:hidden pr-10">
-					<Tooltip
-						componentsProps={{
-							tooltip: {
-								sx: {
-									bgcolor: 'common.black',
-									'& .MuiTooltip-arrow': {
-										color: 'common.black',
-									},
-								},
-							},
-						}}
-						arrow
-						title={user?.displayName}>
-						<Avatar
-							onClick={handleClick2}
-							size="small"
-							src={user?.photoURL}
-							sx={{ cursor: 'pointer', width: 52, height: 52 }}
-							aria-controls={open ? 'account-menu' : undefined}
-							aria-haspopup="true"
-							aria-expanded={open ? 'true' : undefined}>
-							<Avatar sx={{ width: 32, height: 32 }}></Avatar>
-						</Avatar>
-					</Tooltip>
-				</div>
-			) : (
-				<NavLink to={'/login'}>
-					<li>Login</li>
-				</NavLink>
-			)} */}
+		
 		</>
 	);
 
@@ -301,9 +229,9 @@ const Navbar = () => {
 						anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 						<Link to={'/dashboard'}>
 							<MenuItem>
-								<ListItemIcon className='flex gap-3 '>
+								<ListItemIcon className="flex gap-3 ">
 									<DashboardIcon fontSize="medium" />
-									<span className='text-black'>Dashboard</span>
+									<span className="text-black">Dashboard</span>
 								</ListItemIcon>
 							</MenuItem>
 						</Link>

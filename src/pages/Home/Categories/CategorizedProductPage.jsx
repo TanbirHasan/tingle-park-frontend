@@ -35,7 +35,7 @@ const CategorizedProductPage = () => {
 		queryKey: ['categorizedProducts', location.state._id, page, size],
 		queryFn: async () => {
 			const res = await fetch(
-				`${baseUrl}/products/${location.state._id}?page=${page}&size=${size}`
+				`${baseUrl}/products/category/${location.state._id}?page=${page}&size=${size}`
 			);
 			const result = await res.json();
 			const data = result.products;

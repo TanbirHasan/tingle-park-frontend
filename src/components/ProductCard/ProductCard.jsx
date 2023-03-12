@@ -1,15 +1,13 @@
 import { Rating } from '@mui/material';
-import { format } from 'date-fns';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiOutlineSearch } from 'react-icons/ai';
 import { BsFillCartFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemsToCart, incrementCart } from '../../features/CartSlice';
 import { addItemsToWishList, incrementWishList } from '../../features/WishListSlice';
-import './productCard.css';
 import { fetchReviews } from './../../features/ReviewsSlice';
+import './productCard.css';
 
 const ProductCard = ({ product }) => {
 	const { _id, productsName, picture, ratings, oldPrice, newPrice, stockAmount, createdAt } =
@@ -40,7 +38,7 @@ const ProductCard = ({ product }) => {
 	};
 	return (
 		<div>
-			<div className="w-[305px] shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
+			<div className="w-[305px] h-[500px] shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
 				<div>
 					<div className="box">
 						<img

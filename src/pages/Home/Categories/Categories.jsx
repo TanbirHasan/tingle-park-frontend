@@ -47,30 +47,27 @@ const Categories = () => {
 	// }, [dispatch]);
 
 	return (
-		<>
+		<div className="my-20">
+			<div className="flex items-center  gap-5">
+				<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold lg:text-left">
+					Categories
+				</h1>
+				<div className="flex flex-grow flex-wrap">
+					<span className="w-full  border_style "></span>
+				</div>
+			</div>
+
 			{isLoading ? (
-				<div className="flex h-screen justify-center items-center">
+				<div className="flex  justify-center items-center">
 					<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />
 				</div>
-			) : (
-				<div className="my-20">
-					<div className="flex items-center  gap-5">
-						<h1 className="uppercase text-2xl lg:text-4xl text-[#3D464D] font-bold lg:text-left">
-							Categories
-						</h1>
-						<div className="flex flex-grow flex-wrap">
-							<span className="w-full  border_style "></span>
-						</div>
-					</div>
-
-					<div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
-						{categories.map((category, index) => (
-							<CategoriesCard key={category._id} category={category} />
-						))}
-					</div>
-				</div>
-			)}
-		</>
+			) : null}
+			<div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
+				{categories.map((category) => (
+					<CategoriesCard key={category._id} category={category} />
+				))}
+			</div>
+		</div>
 	);
 };
 
