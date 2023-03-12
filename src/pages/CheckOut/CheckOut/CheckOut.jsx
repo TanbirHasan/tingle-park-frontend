@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -13,8 +14,8 @@ const CheckOut = () => {
 
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
-	console.log(cartItems);
 	const location = useLocation();
+	const date = format(new Date(), 'Pp');
 
 	const purchasedQuantity = location.state;
 
@@ -22,16 +23,32 @@ const CheckOut = () => {
 	cartItems.map((item) => (total += item.quantity * item.newPrice));
 
 	const handlePayment = (data) => {
-		console.log(data);
-
 		const { firstName, lastName, email, mobile, address1, address2, country, city, state, zip } =
 			data;
+
+		const order = {
+			firstName,
+			lastName,
+			email,
+			mobile,
+			address1,
+			address2,
+			country,
+			city,
+			state,
+			zip,
+			cart: cartItems,
+			orderPlaced: date,
+			totalPrice: total,
+		};
+
+		localStorage.removeItem('minion-commerce-cart')
 
 		reset();
 	};
 
 	return (
-		<div className="w-[90%] mx-auto">
+		<form onSubmit={handleSubmit(handlePayment)} className="w-[90%] mx-auto">
 			<div className="my-10">
 				<nav className="w-full h-[48px] flex px-4 bg-white ">
 					<ol className="flex  space-x-2 ">
@@ -236,7 +253,7 @@ const CheckOut = () => {
 						</div>
 					</div>
 
-					<div className={`${showShipping ? 'text-box' : 'form-inactive'}`}>
+					{/* <div className={`${showShipping ? 'text-box' : 'form-inactive'}`}>
 						<div className={`flex items-center gap-2 mt-10 `}>
 							<h1 className="uppercase text-xl font-semibold my-4">Shipping Address</h1>
 							<div className="flex flex-grow flex-wrap">
@@ -398,7 +415,7 @@ const CheckOut = () => {
 								</div>
 							</form>
 						</div>
-					</div>
+					</div> */}
 				</div>
 
 				<div className="lg:w-[35%]">
@@ -502,7 +519,7 @@ const CheckOut = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 };
 

@@ -97,7 +97,7 @@ const Footer = () => {
 					<p className="mt-4 text-md ">
 						Bacon ipsum dolor amet short ribs pig sausage prosciuto chicken spare ribs salami.
 					</p>
-					<form className="flex md:flex-row flex-row mt-4  py-2 justify-center lg:justify-start">
+					<form className="flex md:flex-row flex-row mt-4  py-2 justify-center lg:justify-start text-black">
 						<input
 							placeholder="Your Email Address"
 							required

@@ -1,3 +1,4 @@
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Logout from '@mui/icons-material/Logout';
 import { Divider } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -12,7 +13,6 @@ import { FaBars } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserAuthProvider';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import './navbar.css';
 
 const Navbar = () => {
@@ -301,9 +301,9 @@ const Navbar = () => {
 						anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 						<Link to={'/dashboard'}>
 							<MenuItem>
-								<ListItemIcon>
+								<ListItemIcon className='flex gap-3 '>
 									<DashboardIcon fontSize="medium" />
-									Dashboard
+									<span className='text-black'>Dashboard</span>
 								</ListItemIcon>
 							</MenuItem>
 						</Link>
