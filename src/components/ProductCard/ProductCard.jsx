@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
 	};
 	return (
 		<div>
-			<div className="w-[305px] h-[500px] shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
+			<div className="w-[305px]  shadow-xl hover:shadow-2xl duration-500 box mx-auto bg-white">
 				<div>
 					<div className="box">
 						<img
@@ -75,10 +75,6 @@ const ProductCard = ({ product }) => {
 								size={20}
 							/>
 						</button>
-
-						{/* <button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">
-							<FiRefreshCcw size={20} className="mx-auto" />
-						</button> */}
 
 						<Link to={'/shop-details'} state={product}>
 							<button className="border border-[#3D464D] w-[40px] h-[40] cursor-pointer hover:text-[#FFD333] hover:bg-[#3D464D] text-[#3D464D] p-2 hover:duration-500 ">

@@ -122,7 +122,7 @@ const Navbar = () => {
 					<div
 						ref={menuRef}
 						className="relative  text-white w-[300px]  flex items-center justify-between   duration-500 cursor-pointer">
-						<div className="flex items-center gap-2">
+						<div className={`${openDropdown ? 'h-[300px] duration-700' : 'duration-300'} `}>
 							<button className="font-bold">Categories</button>
 							<ul
 								className={`menu absolute  space-y-2 w-full bg-white  top-[70px] right-[-1px] duration-500 flex flex-col group text-gray-500 text-box ${
@@ -144,8 +144,6 @@ const Navbar = () => {
 					<li>Login</li>
 				</NavLink>
 			)}
-
-		
 		</>
 	);
 
