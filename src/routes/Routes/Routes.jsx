@@ -6,6 +6,7 @@ import AddProducts from '../../pages/Dashboard/AddProducts/AddProducts';
 import AllProducts from '../../pages/Dashboard/AllProducts/AllProducts';
 import AllUsers from '../../pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../../pages/Dashboard/Dashboard/Dashboard';
+import UserProfile from '../../pages/Dashboard/UserProfile/UserProfile';
 import CategorizedProductPage from '../../pages/Home/Categories/CategorizedProductPage';
 import HomePage from '../../pages/Home/HomePage/HomePage';
 import Login from '../../pages/Login/Login';
@@ -69,9 +70,9 @@ export const router = createBrowserRouter([
 	{
 		path: '/dashboard',
 		element: (
-			<AdminRoute>
+			<PrivateRoute>
 				<DashboardLayout />
-			</AdminRoute>
+			</PrivateRoute>
 		),
 		children: [
 			{
@@ -80,19 +81,39 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/dashboard/allProducts',
-				element: <AllProducts />,
+				element: (
+					<AdminRoute>
+						<AllProducts />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/addProducts',
-				element: <AddProducts />,
+				element: (
+					<AdminRoute>
+						<AddProducts />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/contact-messages',
-				element: <ContactMessages />,
+				element: (
+					<AdminRoute>
+						<ContactMessages />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/dashboard/allUsers',
-				element: <AllUsers />,
+				element: (
+					<AdminRoute>
+						<AllUsers />
+					</AdminRoute>
+				),
+			},
+			{
+				path: '/dashboard/userProfile',
+				element: <UserProfile />,
 			},
 		],
 	},
