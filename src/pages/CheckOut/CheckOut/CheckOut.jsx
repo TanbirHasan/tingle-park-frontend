@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -13,8 +14,8 @@ const CheckOut = () => {
 
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
-	console.log(cartItems);
 	const location = useLocation();
+	const date = format(new Date(), 'Pp');
 
 	const purchasedQuantity = location.state;
 
@@ -22,16 +23,34 @@ const CheckOut = () => {
 	cartItems.map((item) => (total += item.quantity * item.newPrice));
 
 	const handlePayment = (data) => {
-		console.log(data);
-
 		const { firstName, lastName, email, mobile, address1, address2, country, city, state, zip } =
 			data;
+
+		const order = {
+			firstName,
+			lastName,
+			email,
+			mobile,
+			address1,
+			address2,
+			country,
+			city,
+			state,
+			zip,
+			cart: cartItems,
+			orderPlaced: date,
+			totalPrice: total,
+		};
+
+		console.log(order);
+
+		localStorage.removeItem('minion-commerce-cart')
 
 		reset();
 	};
 
 	return (
-		<div className="w-[90%] mx-auto">
+		<form onSubmit={handleSubmit(handlePayment)} className="w-[90%] mx-auto">
 			<div className="my-10">
 				<nav className="w-full h-[48px] flex px-4 bg-white ">
 					<ol className="flex  space-x-2 ">
@@ -70,7 +89,7 @@ const CheckOut = () => {
 					</div>
 
 					<div className="bg-white py-10 px-10">
-						<form className=" grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+						<div className=" grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
 							<div>
 								<label htmlFor="firstName" className="text-[#6c757d]">
 									First Name
@@ -165,8 +184,8 @@ const CheckOut = () => {
 										required: 'Country is required',
 									})}
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 ">
-									<option selected value="United States">
-										United States
+									<option defaultValue value="Bangladesh">
+										Bangladesh
 									</option>
 									<option value="Albania">Albania</option>
 									<option value="Oman">Oman</option>
@@ -216,7 +235,7 @@ const CheckOut = () => {
 								/>
 								{errors.zip && <p className="text-red-600">{errors.zip?.message}</p>}
 							</div>
-						</form>
+						</div>
 						<div className="mt-5 space-y-3">
 							<div className="flex items-center">
 								<input
@@ -236,7 +255,7 @@ const CheckOut = () => {
 						</div>
 					</div>
 
-					<div className={`${showShipping ? 'text-box' : 'form-inactive'}`}>
+					{/* <div className={`${showShipping ? 'text-box' : 'form-inactive'}`}>
 						<div className={`flex items-center gap-2 mt-10 `}>
 							<h1 className="uppercase text-xl font-semibold my-4">Shipping Address</h1>
 							<div className="flex flex-grow flex-wrap">
@@ -398,7 +417,7 @@ const CheckOut = () => {
 								</div>
 							</form>
 						</div>
-					</div>
+					</div> */}
 				</div>
 
 				<div className="lg:w-[35%]">
@@ -502,7 +521,7 @@ const CheckOut = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 };
 

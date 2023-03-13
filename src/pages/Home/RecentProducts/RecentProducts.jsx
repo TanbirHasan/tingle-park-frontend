@@ -1,36 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import { PropagateLoader } from 'react-spinners';
 import { baseUrl } from '../../../baseURL';
 import ProductCard from '../../../components/ProductCard/ProductCard';
-import { fetchProducts } from '../../../features/ProductSlice';
 
 const RecentProducts = () => {
-	// const { products, isLoading } = useSelector((state) => state.productsReducer);
-	const dispatch = useDispatch();
+	
 
-	useEffect(() => {
-		dispatch(fetchProducts());
-	}, [dispatch]);
+	const {
+		data: products = [],
+		refetch,
+		isLoading,
+		isPreviousData,
+	} = useQuery({
+		queryKey: ['products'],
+		queryFn: async () => {
+			const res = await fetch(`${baseUrl}/products/recent-products`);
+			const result = await res.json();
 
-	const [products, setProducts] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-
-	useEffect(() => {
-		const showLatestProducts = async () => {
-			setIsLoading(true);
-			try {
-				const products = await fetch(`${baseUrl}/products/recent-products`);
-				const data = await products.json();
-				setProducts(data);
-				setIsLoading(false);
-			} catch (error) {
-				setIsLoading(false);
-				console.log(error.message);
-			}
-		};
-		showLatestProducts();
-	}, []);
+			return result;
+		},
+	});
 
 	const productSlices = products.slice(0, 8);
 

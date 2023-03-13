@@ -10,6 +10,7 @@ const CartSlice = createSlice({
 		addItemsToCart: (state, action) => {
 			const product = action.payload;
 			state.cartProducts.push(product);
+			localStorage.setItem('minion-commerce-cart', JSON.stringify(state.cartProducts))
 		},
 		increaseQuantity: (state, action) => {
 			const itemInCart = state.cartProducts.find((p) => p._id === action.payload._id);

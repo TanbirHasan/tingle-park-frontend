@@ -29,8 +29,8 @@ const UserAuthProvider = ({ children }) => {
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
+	
 	// update user profile
-
 	const updateUserProfile = (profile) => {
 		setLoading(true);
 		return updateProfile(auth.currentUser, profile);
@@ -42,36 +42,39 @@ const UserAuthProvider = ({ children }) => {
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
+	
 	// delete user from firebase
-
 	const deleteFirebaseUser = () => {
 		setLoading(true);
 		return deleteUser(auth.currentUser);
 	};
 
+	
 	// google
-
 	const googleSignUp = () => {
 		return signInWithPopup(auth, provider);
 	};
 
+	// logOut
 	const logOut = () => {
 		setLoading(true);
 		return signOut(auth);
 	};
 
+	// for email verification
 	const verifyUserEmail = () => {
 		return sendEmailVerification(auth.currentUser);
 	};
 
+	// forgot password
 	const forgotPassword = (email) => {
 		setLoading(true);
 		return sendPasswordResetEmail(auth, email);
 	};
 
+	// save user info in state
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-			console.log('currentUser', currentUser);
 			setUser(currentUser);
 			setLoading(false);
 		});
