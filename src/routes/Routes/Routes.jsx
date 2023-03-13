@@ -16,6 +16,7 @@ import ShopDetails from '../../pages/ShopDetails/ShopDetails/ShopDetails';
 import ShoppingCart from '../../pages/ShoppingCart/ShoppingCart';
 import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import AllOrders from './../../pages/Dashboard/AllOrders/AllOrders';
 import ContactMessages from './../../pages/Dashboard/ContactMessages/ContactMessages';
 const { createBrowserRouter } = require('react-router-dom');
 
@@ -108,6 +109,14 @@ export const router = createBrowserRouter([
 				element: (
 					<AdminRoute>
 						<AllUsers />
+					</AdminRoute>
+				),
+			},
+			{
+				path: '/dashboard/allOrders',
+				element: (
+					<AdminRoute>
+						<AllOrders />
 					</AdminRoute>
 				),
 			},

@@ -1,91 +1,53 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
-import { AuthContext } from '../../../Contexts/UserAuthProvider';
 import { baseUrl } from './../../../baseURL';
 
-const AllUsers = () => {
-	const { deleteFirebaseUser } = useContext(AuthContext);
-
-	const [openDialog, setOpenDialog] = useState(false);
+const AllOrders = () => {
 	const [count, setCount] = useState(0);
 	const [page, setPage] = useState(0);
 	const [size, setSize] = useState(4);
 	const pages = Math.ceil(count / size);
-	const [singleUser, setSingleUser] = useState({});
 
 	const {
-		data: users = [],
+		data: orders = [],
 		refetch,
 		isLoading,
 		isPreviousData,
 	} = useQuery({
-		queryKey: ['users', page, size],
+		queryKey: ['orders', page, size],
 		queryFn: async () => {
-			const res = await fetch(`${baseUrl}/users?page=${page}&size=${size}`, {
+			const res = await fetch(`${baseUrl}/orders?page=${page}&size=${size}`, {
 				headers: {
 					authorization: `Bearer ${localStorage.getItem('minion-commerce-token')}`,
 				},
 			});
 			const result = await res.json();
-			const data = result.users;
+			const data = result.orders;
 			setCount(result.count);
 			return data;
 		},
 	});
 
-	//* all users excluding admins
-	// const noAdminUsers = users.filter((user) => user.role !== 'admin');
-
-	const handleClickOpen = (user) => {
-		setOpenDialog(true);
-		setSingleUser(user);
-	};
-
-	const handleClose = () => {
-		setOpenDialog(false);
-	};
-
-	//* handle delete user from firebase and database
-	const handleDeleteUser = (user) => {
-		// deleteFirebaseUser().then(() => {
-		// });
-		fetch(`${baseUrl}/users/${user._id}`, {
-			method: 'DELETE',
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				toast.success(`${user.name} deleted successfully`);
-				refetch();
-				setOpenDialog(false);
-			});
-	};
-
 	return (
-		<div className="">
+		<div>
 			<div className="max-w-6xl text-center px-4 mx-auto sm:px-8">
 				<div className="">
-					<h1 className="text-5xl font-extrabold my-5">All Users</h1>
+					<h1 className="text-5xl font-extrabold my-5">All Orders</h1>
 					<div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
 						<div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
-							{isLoading && (
-								<div className="flex h-screen justify-center items-center">
-									<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />{' '}
-								</div>
-							)}
 							<table className="min-w-full leading-normal">
+								{isLoading && (
+									<div className="flex h-screen justify-center items-center">
+										<PropagateLoader color="#FFD333" size={30} speedMultiplier={2} />{' '}
+									</div>
+								)}
 								<thead>
 									<tr>
 										<th
 											scope="col"
 											className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white border-b border-gray-200">
-											User
+											Name
 										</th>
 
 										<th
@@ -96,38 +58,23 @@ const AllUsers = () => {
 										<th
 											scope="col"
 											className="px-5 py-3 text-sm font-normal  text-gray-800 uppercase bg-white border-b border-gray-200">
-											Action
+											Order Date
 										</th>
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user) => (
-										<tr key={user._id}>
+									{orders.map((order) => (
+										<tr key={order._id}>
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
 												<div className="">
-													<p className="text-gray-900 whitespace-no-wrap">{user.name}</p>
+													<p className="text-gray-900 whitespace-no-wrap">{order.firstName}</p>
 												</div>
 											</td>
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-												<p className="text-gray-900 whitespace-no-wrap">{user.email}</p>
+												<p className="text-gray-900 whitespace-no-wrap">{order.email}</p>
 											</td>
-
 											<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-												{user?.role === 'admin' ? (
-													<>
-														<span class="px-4 py-2 mt-5 text-base rounded-full text-green-600  bg-green-200 ">
-															Admin
-														</span>
-													</>
-												) : (
-													<button
-														type="button"
-														// onClick={() => handleDeleteUser(user)}
-														onClick={() => handleClickOpen(user)}
-														className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">
-														Delete
-													</button>
-												)}
+												<p className="text-gray-900 whitespace-no-wrap">{order.orderPlaced}</p>
 											</td>
 										</tr>
 									))}
@@ -192,38 +139,8 @@ const AllUsers = () => {
 					</div>
 				</div>
 			</div>
-
-			{/* Delete Confirmation */}
-			<>
-				{openDialog ? (
-					<Dialog
-						open={openDialog}
-						user={singleUser}
-						onClose={handleClose}
-						aria-labelledby="alert-dialog-title"
-						aria-describedby="alert-dialog-description">
-						<DialogTitle id="alert-dialog-title">
-							{`Are you sure you want to delete`}
-							<span className="font-extrabold"> {singleUser.name} ?</span>
-						</DialogTitle>
-
-						<DialogActions>
-							<Button onClick={handleClose}>Disagree</Button>
-							<Button
-								startIcon={<DeleteIcon />}
-								color="error"
-								onClick={() => handleDeleteUser(singleUser)}
-								autoFocus>
-								Delete
-							</Button>
-						</DialogActions>
-					</Dialog>
-				) : (
-					''
-				)}
-			</>
 		</div>
 	);
 };
 
-export default AllUsers;
+export default AllOrders;

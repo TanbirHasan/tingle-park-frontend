@@ -55,6 +55,7 @@ const AddProducts = () => {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
+				authorization: `Bearer ${localStorage.getItem('minion-commerce-token')}`,
 			},
 			body: JSON.stringify(product),
 		})

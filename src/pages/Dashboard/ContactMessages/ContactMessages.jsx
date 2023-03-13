@@ -25,7 +25,11 @@ const ContactMessages = () => {
 	} = useQuery({
 		queryKey: ['messages', page, size],
 		queryFn: async () => {
-			const res = await fetch(`${baseUrl}/contact-messages?page=${page}&size=${size}`);
+			const res = await fetch(`${baseUrl}/contact-messages?page=${page}&size=${size}`, {
+				headers: {
+					authorization: `Bearer ${localStorage.getItem('minion-commerce-token')}`,
+				},
+			});
 			const result = await res.json();
 			const data = result.messages;
 			setCount(result.count);

@@ -86,6 +86,11 @@ const DashboardLayout = () => {
 												icon={<PeopleAltOutlinedIcon />}>
 												All Users
 											</MenuItem>
+											<MenuItem
+												component={<Link to="/dashboard/allOrders" />}
+												icon={<PeopleAltOutlinedIcon />}>
+												All Orders
+											</MenuItem>
 										</>
 									) : (
 										<>
