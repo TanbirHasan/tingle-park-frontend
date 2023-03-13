@@ -1,13 +1,16 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { emptyCart } from '../../../features/CartSlice';
 import { baseUrl } from './../../../baseURL';
+import { AuthContext } from './../../../Contexts/UserAuthProvider';
 
 const CheckOut = () => {
+	const { user } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
@@ -15,10 +18,15 @@ const CheckOut = () => {
 		reset,
 	} = useForm();
 
+	const dispatch = useDispatch();
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
-	const [country, setCountry] = useState('');
-	const [region, setRegion] = useState('');
+	const [country, setCountry] = useState('Bangladesh');
+	const [countryError, setCountryError] = useState('');
+
+	const [region, setRegion] = useState('Dhaka');
+	const [regionError, setRegionError] = useState('');
+
 	const [loading, setLoading] = useState(false);
 	const location = useLocation();
 	const date = format(new Date(), 'Pp');
@@ -27,6 +35,10 @@ const CheckOut = () => {
 
 	let total = 0;
 	cartItems.map((item) => (total += item.quantity * item.newPrice));
+
+	const emptyCartArray = () => {
+		dispatch(emptyCart());
+	};
 
 	const handlePayment = (data) => {
 		const { firstName, lastName, email, mobile, address1, address2, city, state, zip } = data;
@@ -58,6 +70,7 @@ const CheckOut = () => {
 				if (data) {
 					toast.success('Order successful');
 					setLoading(false);
+					emptyCartArray();
 				}
 			})
 			.catch((err) => {
@@ -148,6 +161,7 @@ const CheckOut = () => {
 											message: 'Please enter a valid email address',
 										},
 									})}
+									defaultValue={user?.email}
 									placeholder="example@example.com"
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 								/>
@@ -200,27 +214,14 @@ const CheckOut = () => {
 								<label htmlFor="country" className="text-[#6c757d]">
 									Country
 								</label>
-								{/* <select
-									{...register('country', {
-										required: 'Country is required',
-									})}
-									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 ">
-									<option defaultValue value="Bangladesh">
-										Bangladesh
-									</option>
-									<option value="Albania">Albania</option>
-									<option value="Oman">Oman</option>
-									<option value="UAE">UAE</option>
-								</select> */}
+
 								<CountryDropdown
-									// {...register('country', {
-									// 	required: 'Country is required',
-									// })}
 									classes="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 									value={country}
 									onChange={(val) => setCountry(val)}
+									showDefaultOption={true}
 								/>
-								{errors.country && <p className="text-red-600">{errors.country?.message}</p>}
+								{/* {countryError && <p className="text-red-600">{countryError}</p>} */}
 							</div>
 							<div>
 								<label htmlFor="city" className="text-[#6c757d]">
@@ -240,22 +241,16 @@ const CheckOut = () => {
 								<label htmlFor="state" className="text-[#6c757d]">
 									State
 								</label>
-								{/* <input
-									type="text"
-									{...register('state', {
-										required: 'State is required',
-									})}
-									placeholder="New York"
-									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
-								/> */}
+
 								<RegionDropdown
 									classes="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
 									country={country}
 									blankOptionLabel={'Select a country first'}
 									value={region}
 									onChange={(val) => setRegion(val)}
+									showDefaultOption={true}
 								/>
-								{errors.state && <p className="text-red-600">{errors.state?.message}</p>}
+								{/* {regionError && <p className="text-red-600">{regionError}</p>} */}
 							</div>
 							<div>
 								<label htmlFor="zip" className="text-[#6c757d]">
