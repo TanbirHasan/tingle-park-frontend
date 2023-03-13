@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { baseUrl } from './../../../baseURL';
 
 const CheckOut = () => {
 	const {
@@ -14,6 +17,9 @@ const CheckOut = () => {
 
 	const [showShipping, setShowShipping] = useState(false);
 	const cartItems = useSelector((state) => state.cartReducer.cartProducts);
+	const [country, setCountry] = useState('');
+	const [region, setRegion] = useState('');
+	const [loading, setLoading] = useState(false);
 	const location = useLocation();
 	const date = format(new Date(), 'Pp');
 
@@ -23,8 +29,7 @@ const CheckOut = () => {
 	cartItems.map((item) => (total += item.quantity * item.newPrice));
 
 	const handlePayment = (data) => {
-		const { firstName, lastName, email, mobile, address1, address2, country, city, state, zip } =
-			data;
+		const { firstName, lastName, email, mobile, address1, address2, city, state, zip } = data;
 
 		const order = {
 			firstName,
@@ -33,18 +38,34 @@ const CheckOut = () => {
 			mobile,
 			address1,
 			address2,
-			country,
+			country: country,
 			city,
-			state,
+			state: region,
 			zip,
 			cart: cartItems,
 			orderPlaced: date,
 			totalPrice: total,
 		};
 
-		console.log(order);
+		setLoading(true);
+		fetch(`${baseUrl}/orders`, {
+			method: 'POST',
+			headers: { 'Content-type': 'application/json' },
+			body: JSON.stringify(order),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data) {
+					toast.success('Order successful');
+					setLoading(false);
+				}
+			})
+			.catch((err) => {
+				toast.error(err.message);
+				setLoading(false);
+			});
 
-		localStorage.removeItem('minion-commerce-cart')
+		localStorage.removeItem('minion-commerce-cart');
 
 		reset();
 	};
@@ -179,7 +200,7 @@ const CheckOut = () => {
 								<label htmlFor="country" className="text-[#6c757d]">
 									Country
 								</label>
-								<select
+								{/* <select
 									{...register('country', {
 										required: 'Country is required',
 									})}
@@ -190,7 +211,15 @@ const CheckOut = () => {
 									<option value="Albania">Albania</option>
 									<option value="Oman">Oman</option>
 									<option value="UAE">UAE</option>
-								</select>
+								</select> */}
+								<CountryDropdown
+									// {...register('country', {
+									// 	required: 'Country is required',
+									// })}
+									classes="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
+									value={country}
+									onChange={(val) => setCountry(val)}
+								/>
 								{errors.country && <p className="text-red-600">{errors.country?.message}</p>}
 							</div>
 							<div>
@@ -211,13 +240,20 @@ const CheckOut = () => {
 								<label htmlFor="state" className="text-[#6c757d]">
 									State
 								</label>
-								<input
+								{/* <input
 									type="text"
 									{...register('state', {
 										required: 'State is required',
 									})}
 									placeholder="New York"
 									className="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
+								/> */}
+								<RegionDropdown
+									classes="w-full focus:outline-0 focus:ring-0 focus:ring-transparent focus:border-[#FFD333] placeholder:text-[#6a7075]  border-[#D4D9DF] mt-2 "
+									country={country}
+									blankOptionLabel={'Select a country first'}
+									value={region}
+									onChange={(val) => setRegion(val)}
 								/>
 								{errors.state && <p className="text-red-600">{errors.state?.message}</p>}
 							</div>
@@ -514,7 +550,11 @@ const CheckOut = () => {
 									type="submit"
 									onClick={handleSubmit(handlePayment)}
 									className="bg-[#FFD333] text-black hover:bg-[#FFCB0D] duration-500 py-3 px-7 w-full mt-4">
-									Proceed To Checkout
+									{loading ? (
+										<div className="w-6 h-6 mx-auto border-4 border-dashed rounded-full animate-spin border-purple-800"></div>
+									) : (
+										<span>Proceed To Checkout</span>
+									)}
 								</button>
 							</div>
 						</div>

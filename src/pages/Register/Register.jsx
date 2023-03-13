@@ -283,15 +283,15 @@ const Register = () => {
 						/>
 						{errors.password && <p className="text-red-600">{errors.password?.message}</p>}
 					</div>
-					{load ? (
-						<div className="w-16 h-16 mx-auto border-4 border-dashed rounded-full animate-spin border-violet-700"></div>
-					) : (
-						<button
-							type="submit"
-							className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
-							Sign up
-						</button>
-					)}
+					<button
+						type="submit"
+						className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400 hover:bg-violet-600 duration-500">
+						{load ? (
+							<div className="w-6 h-6 mx-auto border-4 border-dashed rounded-full animate-spin border-yellow-300"></div>
+						) : (
+							<span>Sign up</span>
+						)}
+					</button>
 				</form>
 				<div className="flex items-center pt-4 space-x-1">
 					<div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
